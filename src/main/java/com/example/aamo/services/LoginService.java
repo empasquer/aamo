@@ -1,7 +1,8 @@
 package com.example.aamo.services;
 
-import com.example.evaaamo.entities.User;
-import com.example.evaaamo.repositories.LoginRepository;
+
+import com.example.aamo.models.User;
+import com.example.aamo.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

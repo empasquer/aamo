@@ -1,8 +1,8 @@
 package com.example.aamo.controllers;
 
-import com.example.evaaamo.entities.Event;
-import com.example.evaaamo.repositories.EventRepository;
-import com.example.evaaamo.services.JsonService;
+import com.example.aamo.models.Event;
+import com.example.aamo.repositories.EventRepository;
+import com.example.aamo.services.JsonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

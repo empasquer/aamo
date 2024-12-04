@@ -1,9 +1,9 @@
 package com.example.aamo.repositories;
 
-import com.example.evaaamo.entities.Media;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.print.attribute.standard.MediaSize;
 
 
-public interface MediaRepository extends JpaRepository<Media, Integer> {
+public interface MediaRepository extends JpaRepository<MediaSize, Integer> {
 }

@@ -1,8 +1,8 @@
 package com.example.aamo.configs;
 
-import com.example.evaaamo.entities.User;
-import com.example.evaaamo.repositories.LoginRepository;
-import com.example.evaaamo.services.LoginService;
+import com.example.aamo.models.User;
+import com.example.aamo.repositories.LoginRepository;
+import com.example.aamo.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

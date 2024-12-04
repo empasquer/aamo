@@ -1,9 +1,9 @@
 package com.example.aamo.configs;
 
-import com.example.evaaamo.entities.Event;
-import com.example.evaaamo.entities.Media;
-import com.example.evaaamo.repositories.EventRepository;
-import com.example.evaaamo.repositories.MediaRepository;
+import com.example.aamo.models.Event;
+import com.example.aamo.models.Media;
+import com.example.aamo.repositories.EventRepository;
+import com.example.aamo.repositories.MediaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

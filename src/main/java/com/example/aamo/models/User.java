@@ -7,11 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+
 @Entity
 //Named the table something else cause h2 already has user as default
 @Table(name = "user_account")
 
-//UserDetail interface used to load details for athentication
+//UserDetail interface used to load details for authentication
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,7 @@
 package com.example.aamo.controllers;
 
-import com.example.evaaamo.entities.ArtWork;
-import com.example.evaaamo.repositories.ArtWorkRepository;
+import com.example.aamo.models.ArtWork;
+import com.example.aamo.repositories.ArtWorkRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
