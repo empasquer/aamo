@@ -15,7 +15,7 @@ Everything you need to kickstart your Spring Boot + Vue.js project for [the DAT 
    ```bash
    git clone https://github.com/empasquer/springboot-vue-template.git
    ```
-2. You're ready to go!
+3. You're ready to go!
 
 ---
 
@@ -24,23 +24,25 @@ Everything you need to kickstart your Spring Boot + Vue.js project for [the DAT 
 1. Ensure Docker/OrbStack is installed and running.
 2. Ensure no other applications are running on the ports used (8080, 5173, 3307)
 3. Start your application:
+   Run the app once inside your IDE to create a taget folder.
+   Then:
    ```bash
    docker-compose build --no-cache
    ```
       ```bash
    docker compose up -d
    ```
-4. To stop the containers:
+5. To stop the containers:
    ```bash
    docker compose down
    ```
-5. Verify running containers:
+6. Verify running containers:
    ```bash
    docker ps
    ```
    *For more Docker Compose commands, refer to the [official documentation](https://docs.docker.com/reference/cli/docker/compose/).*
 
-6. Access your application:
+7. Access your application:
     - **Frontend**: [http://localhost:5173](http://localhost:5173)  
       *(If you encounter CORS issues, use [http://127.0.0.1:5173](http://127.0.0.1:5173) instead.)*
     - **Backend**: [http://localhost:8080](http://localhost:8080)
