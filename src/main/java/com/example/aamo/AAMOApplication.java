@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootVueTemplate {
+public class AAMOApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootVueTemplate.class, args);
+        SpringApplication.run(AAMOApplication.class, args);
     }
 
 }

@@ -3,7 +3,7 @@ package com.example.aamo.models;
 import jakarta.persistence.*;
 
 @Entity
-public class Kommune {
+public class DELKommune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,16 +15,16 @@ public class Kommune {
 
     @ManyToOne
     @JoinColumn(name = "region_id", referencedColumnName = "id")
-    private Region region;
+    private DELRegion DELRegion;
 
-    public Kommune(String kode, String navn, String href, Region region) {
+    public DELKommune(String kode, String navn, String href, DELRegion DELRegion) {
         this.kode = kode;
         this.navn = navn;
         this.href = href;
-        this.region = region;
+        this.DELRegion = DELRegion;
     }
 
-    public Kommune() {
+    public DELKommune() {
 
     }
 
@@ -56,12 +56,12 @@ public class Kommune {
         this.href = href;
     }
 
-    public Region getRegion() {
-        return region;
+    public DELRegion getRegion() {
+        return DELRegion;
     }
 
     public void setRegion() {
-        this.region = region;
+        this.DELRegion = DELRegion;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Kommune {
                 ", kode='" + kode + '\'' +
                 ", navn='" + navn + '\'' +
                 ", href='" + href + '\'' +
-                ", region=" + region +
+                ", region=" + DELRegion +
                 '}';
     }
 }

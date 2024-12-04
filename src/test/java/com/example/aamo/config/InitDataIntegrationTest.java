@@ -1,10 +1,10 @@
 package com.example.aamo.config;
 
-import com.example.aamo.configs.InitDataExample;
-import com.example.aamo.models.Kommune;
-import com.example.aamo.models.Region;
-import com.example.aamo.repositories.KommuneRepository;
-import com.example.aamo.repositories.RegionRepository;
+import com.example.aamo.configs.DELInitDataExample;
+import com.example.aamo.models.DELKommune;
+import com.example.aamo.models.DELRegion;
+import com.example.aamo.repositories.DELKommuneRepository;
+import com.example.aamo.repositories.DELRegionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,17 @@ import java.util.List;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class InitDataIntegrationTest {
 
-    @Autowired private RegionRepository regionRepository;
-    @Autowired private KommuneRepository kommuneRepository;
+    @Autowired private DELRegionRepository DELRegionRepository;
+    @Autowired private DELKommuneRepository DELKommuneRepository;
     @Autowired private HttpClient httpClient;
-    @Autowired private InitDataExample initData;
+    @Autowired private DELInitDataExample initData;
 
     @Test
     void testRunSavesRegionsAndKommuner() throws Exception{
-        List<Region> regions = regionRepository.findAll();
-        Assertions.assertEquals(5, regions.size());
+        List<DELRegion> DELRegions = DELRegionRepository.findAll();
+        Assertions.assertEquals(5, DELRegions.size());
 
-        List<Kommune> kommuner = kommuneRepository.findAll();
+        List<DELKommune> kommuner = DELKommuneRepository.findAll();
         Assertions.assertEquals(99, kommuner.size());
     }
 }

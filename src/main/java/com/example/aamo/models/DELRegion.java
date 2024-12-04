@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Region {
+public class DELRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,16 +18,16 @@ public class Region {
 
     @OneToMany(mappedBy = "region")
     @JsonBackReference
-    private Set<Kommune> kommuner = new HashSet<>();
+    private Set<DELKommune> kommuner = new HashSet<>();
 
-    public Region(String kode, String navn, String href) {
+    public DELRegion(String kode, String navn, String href) {
         this.kode = kode;
         this.navn = navn;
         this.href = href;
         this.kommuner = kommuner;
     }
 
-    public Region() {
+    public DELRegion() {
     }
 
     public int getId() {
@@ -58,11 +58,11 @@ public class Region {
         this.href = href;
     }
 
-    public Set<Kommune> getKommuner() {
+    public Set<DELKommune> getKommuner() {
         return kommuner;
     }
 
-    public void setKommuner(Set<Kommune> kommuner) {
+    public void setKommuner(Set<DELKommune> kommuner) {
         this.kommuner = kommuner;
     }
 
