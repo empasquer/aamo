@@ -1,4 +1,4 @@
-package com.example.springbootvuetemplate.configs;
+package com.example.aamo.configs;
 
 
 import org.springframework.context.annotation.Configuration;

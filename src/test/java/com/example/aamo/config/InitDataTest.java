@@ -1,10 +1,10 @@
-package com.example.springbootvuetemplate.config;
+package com.example.aamo.config;
 
-import com.example.springbootvuetemplate.configs.InitDataExample;
-import com.example.springbootvuetemplate.models.Kommune;
-import com.example.springbootvuetemplate.models.Region;
-import com.example.springbootvuetemplate.repositories.KommuneRepository;
-import com.example.springbootvuetemplate.repositories.RegionRepository;
+import com.example.aamo.configs.InitDataExample;
+import com.example.aamo.models.Kommune;
+import com.example.aamo.models.Region;
+import com.example.aamo.repositories.KommuneRepository;
+import com.example.aamo.repositories.RegionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

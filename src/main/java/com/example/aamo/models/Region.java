@@ -1,31 +1,33 @@
-package com.example.springbootvuetemplate.models;
+package com.example.aamo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-public class Kommune {
+public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 8)
     private String kode;
     private String navn;
     private String href;
 
-    @ManyToOne
-    @JoinColumn(name = "region_id", referencedColumnName = "id")
-    private Region region;
+    @OneToMany(mappedBy = "region")
+    @JsonBackReference
+    private Set<Kommune> kommuner = new HashSet<>();
 
-    public Kommune(String kode, String navn, String href, Region region) {
+    public Region(String kode, String navn, String href) {
         this.kode = kode;
         this.navn = navn;
         this.href = href;
-        this.region = region;
+        this.kommuner = kommuner;
     }
 
-    public Kommune() {
-
+    public Region() {
     }
 
     public int getId() {
@@ -56,22 +58,21 @@ public class Kommune {
         this.href = href;
     }
 
-    public Region getRegion() {
-        return region;
+    public Set<Kommune> getKommuner() {
+        return kommuner;
     }
 
-    public void setRegion() {
-        this.region = region;
+    public void setKommuner(Set<Kommune> kommuner) {
+        this.kommuner = kommuner;
     }
 
     @Override
     public String toString() {
-        return "Kommune{" +
+        return "Region{" +
                 "id=" + id +
                 ", kode='" + kode + '\'' +
                 ", navn='" + navn + '\'' +
                 ", href='" + href + '\'' +
-                ", region=" + region +
                 '}';
     }
 }

@@ -1,11 +1,14 @@
 # Use an OpenJDK 21 image
 FROM openjdk:21-jdk-slim
 
+# Create /app directory and ensure correct permissions
+RUN mkdir -p /app && chmod 777 /app
+
 # Set the working directory in the container
 WORKDIR /app
 
 # Install Netcat (for waiting for database connection)
-RUN apt-get update && apt-get install netcat-traditional
+RUN apt-get update && apt-get install -y netcat-traditional
 
 # Copy the Maven wrapper and build files
 COPY mvnw ./

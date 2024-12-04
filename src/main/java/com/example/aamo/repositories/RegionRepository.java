@@ -1,6 +1,6 @@
-package com.example.springbootvuetemplate.repositories;
+package com.example.aamo.repositories;
 
-import com.example.springbootvuetemplate.models.Region;
+import com.example.aamo.models.Region;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

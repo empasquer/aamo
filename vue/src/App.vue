@@ -7,11 +7,6 @@ async function fetchKommuner() {
 }
 </script>
 
-<template>
-  <div>
-    <button @click="fetchKommuner">Fetch Kommuner</button>
-  </div>
-</template>
+<template>INDEX</template>
 
-<style scoped>
-</style>
+<style scoped></style>

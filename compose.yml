@@ -6,7 +6,7 @@ services:
       - "8080:8080"
     environment:
       # Change to your project name
-      - PROJECT_NAME=springboot-vue-template
+      - PROJECT_NAME=aamo
 
       # Choose between dev or prod profile by uncommenting the relevant lines
 

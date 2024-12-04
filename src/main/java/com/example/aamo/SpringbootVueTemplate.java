@@ -1,4 +1,4 @@
-package com.example.springbootvuetemplate;
+package com.example.aamo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

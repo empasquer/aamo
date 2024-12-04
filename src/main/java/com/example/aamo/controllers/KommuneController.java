@@ -1,7 +1,7 @@
-package com.example.springbootvuetemplate.controllers;
+package com.example.aamo.controllers;
 
-import com.example.springbootvuetemplate.models.Kommune;
-import com.example.springbootvuetemplate.repositories.KommuneRepository;
+import com.example.aamo.models.Kommune;
+import com.example.aamo.repositories.KommuneRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

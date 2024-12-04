@@ -1,9 +1,9 @@
-package com.example.springbootvuetemplate.configs;
+package com.example.aamo.configs;
 
-import com.example.springbootvuetemplate.models.Kommune;
-import com.example.springbootvuetemplate.models.Region;
-import com.example.springbootvuetemplate.repositories.KommuneRepository;
-import com.example.springbootvuetemplate.repositories.RegionRepository;
+import com.example.aamo.models.Kommune;
+import com.example.aamo.models.Region;
+import com.example.aamo.repositories.KommuneRepository;
+import com.example.aamo.repositories.RegionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
