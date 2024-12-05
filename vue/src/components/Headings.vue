@@ -21,13 +21,16 @@ export default defineComponent ({
         3: 'text-3xl sm:text-5xl',
       }[props.level]
     });
+    return {
+      sizeClass,
+    };
   }
 })
 </script>
 
 <template>
-  <component :is="'h' + level" :class="` text-[#4A4A4A] ${sizeClass}`">
-    <slot />
+  <component :is="'h' + level" :class="` text-[#4A4A4A] ${sizeClass} font-inter p-4`">
+    {{ text }}
   </component>
 </template>
 

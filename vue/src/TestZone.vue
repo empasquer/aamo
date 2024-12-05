@@ -24,11 +24,12 @@ async function fecthArtworks() {
     <div class="bg-red-300">blablaaaa</div>
 
     <p class="p-4 m-10 border-2 text-red-900">hellloooo im styled with tailwindcss</p>
+    <Headings :level=1 text="H1"></Headings>
+    <Headings :level=2 text="H2"></Headings>
+    <Headings :level=3 text="H3"></Headings>
     <div id="scroll-test" style="margin-top: 2000px">Scroll test</div>
 
-    <Headings level="1" text="H1"></Headings>
-    <Headings level="2" text="H2"></Headings>
-    <Headings level="3" text="H3"></Headings>
+
   </div>
 </template>
 
