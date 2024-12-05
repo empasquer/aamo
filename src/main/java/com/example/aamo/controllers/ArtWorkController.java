@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class ArtWorkController {
     private ArtWorkRepository artWorkRepository;
@@ -17,7 +17,7 @@ public class ArtWorkController {
         this.artWorkRepository = artWorkRepository;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+
     @GetMapping("/artworks")
     public List<ArtWork> getArtWorks() {
         System.out.println("HELLO /artworks has been through ghere");
