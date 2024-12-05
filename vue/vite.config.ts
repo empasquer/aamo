@@ -4,4 +4,8 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  proxy: {
+    '/api': 'http://localhost:8080', // Adjust the backend URL accordingly
+  }
+
 })
