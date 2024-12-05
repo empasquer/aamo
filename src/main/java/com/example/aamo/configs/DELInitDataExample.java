@@ -1,9 +1,9 @@
 package com.example.aamo.configs;
 
-import com.example.aamo.models.Kommune;
-import com.example.aamo.models.Region;
-import com.example.aamo.repositories.KommuneRepository;
-import com.example.aamo.repositories.RegionRepository;
+import com.example.aamo.models.DELKommune;
+import com.example.aamo.models.DELRegion;
+import com.example.aamo.repositories.DELKommuneRepository;
+import com.example.aamo.repositories.DELRegionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -19,79 +19,79 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class InitDataExample implements CommandLineRunner {
+public class DELInitDataExample implements CommandLineRunner {
 
-    private RegionRepository regionRepository;
-    private KommuneRepository kommuneRepository;
+    private DELRegionRepository DELRegionRepository;
+    private DELKommuneRepository DELKommuneRepository;
     private HttpClient httpClient;
 
-    public InitDataExample(RegionRepository regionRepository, KommuneRepository kommuneRepository, HttpClient httpClient) {
-        this.regionRepository = regionRepository;
-        this.kommuneRepository = kommuneRepository;
+    public DELInitDataExample(DELRegionRepository DELRegionRepository, DELKommuneRepository DELKommuneRepository, HttpClient httpClient) {
+        this.DELRegionRepository = DELRegionRepository;
+        this.DELKommuneRepository = DELKommuneRepository;
         this.httpClient = httpClient;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        List<Region> regions = fetchRegions();
-        for (Region region : regions) {
-            regionRepository.save(region);
-            System.out.println(region);
+        List<DELRegion> DELRegions = fetchRegions();
+        for (DELRegion DELRegion : DELRegions) {
+            DELRegionRepository.save(DELRegion);
+            System.out.println(DELRegion);
         }
 
-        List<Kommune> kommuner = fetchKommuner(regions);
-        for (Kommune kommune : kommuner) {
-            kommuneRepository.save(kommune);
-            System.out.println(kommune);
+        List<DELKommune> kommuner = fetchKommuner(DELRegions);
+        for (DELKommune DELKommune : kommuner) {
+            DELKommuneRepository.save(DELKommune);
+            System.out.println(DELKommune);
         }
 
-        System.out.println("Hentet " + regions.size() + " regioner og " + kommuner.size() +" kommuner.");
+        System.out.println("Hentet " + DELRegions.size() + " regioner og " + kommuner.size() +" kommuner.");
     }
 
-    public List<Region> fetchRegions() throws Exception {
+    public List<DELRegion> fetchRegions() throws Exception {
         // 1. TODO: fetch https://api.dataforsyningen.dk/regioner
         // 2. TODO: parse JSON to List<Region>
         JsonNode root = getJsonFrom(URI.create("https://api.dataforsyningen.dk/regioner"));
 
-        List<Region> regions = new ArrayList<>();
+        List<DELRegion> DELRegions = new ArrayList<>();
 
         for (JsonNode node : root) {
             String kode = node.get("kode").asText();
             String navn = node.get("navn").asText();
             String href = node.get("href").asText();
 
-            regions.add(new Region(kode, navn, href));
+            DELRegions.add(new DELRegion(kode, navn, href));
         }
 
-        return regions;
+        return DELRegions;
 
     }
 
 
-    public List<Kommune> fetchKommuner(List<Region> regions) throws Exception {
+    public List<DELKommune> fetchKommuner(List<DELRegion> DELRegions) throws Exception {
         // 1. TODO: fetch https://api.dataforsyningen.dk/kommuner
         // 2. TODO: parse JSON to List<Kommune>
         JsonNode root = getJsonFrom(URI.create("https://api.dataforsyningen.dk/kommuner"));
 
-        List<Kommune> kommuner = new ArrayList<>();
+        List<DELKommune> kommuner = new ArrayList<>();
         for (JsonNode node : root) {
             String kode = node.get("kode").asText();
             String navn = node.get("navn").asText();
             String href = node.get("href").asText();
             String regionKode = node.get("regionskode").asText();
 
-            Optional<Region> region = regions
+            Optional<DELRegion> region = DELRegions
                     .stream()
                     .filter(
-                    (Region thisRegion) -> thisRegion.getKode().equals(regionKode))
+                    (DELRegion thisRegion) -> thisRegion.getKode().equals(regionKode))
                     .findFirst();
 
-            Kommune kommune = new Kommune(kode, navn, href, region.get());
+            DELKommune DELKommune = new DELKommune(kode, navn, href, region.get());
 
-            kommuner.add(kommune);
+            kommuner.add(DELKommune);
         }
 
-        for(Kommune kom : kommuner) {
+        for(DELKommune kom : kommuner) {
             System.out.println(kom.getNavn());
 
         }

@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class KommuneControllerIntegrationTest {
+public class DELDELKommuneControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 

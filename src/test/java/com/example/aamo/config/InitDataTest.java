@@ -1,10 +1,10 @@
 package com.example.aamo.config;
 
-import com.example.aamo.configs.InitDataExample;
-import com.example.aamo.models.Kommune;
-import com.example.aamo.models.Region;
-import com.example.aamo.repositories.KommuneRepository;
-import com.example.aamo.repositories.RegionRepository;
+import com.example.aamo.configs.DELInitDataExample;
+import com.example.aamo.models.DELKommune;
+import com.example.aamo.models.DELRegion;
+import com.example.aamo.repositories.DELKommuneRepository;
+import com.example.aamo.repositories.DELRegionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,8 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 public class InitDataTest {
-    @Mock private RegionRepository regionRepository;
-    @Mock private KommuneRepository kommuneRepository;
+    @Mock private DELRegionRepository DELRegionRepository;
+    @Mock private DELKommuneRepository DELKommuneRepository;
     @Mock private HttpClient httpClient;
 
     public InitDataTest() {
@@ -34,7 +34,7 @@ public class InitDataTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    private List<Region> fetchRegionsMockSetup() throws Exception {
+    private List<DELRegion> fetchRegionsMockSetup() throws Exception {
         Path regionsPath = Path.of("data/regioner.json");
         String regionsData = Files.readString(regionsPath);
 
@@ -45,19 +45,19 @@ public class InitDataTest {
         when(httpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponse);
 
-        InitDataExample initData = new InitDataExample(regionRepository, kommuneRepository, httpClient);
+        DELInitDataExample initData = new DELInitDataExample(DELRegionRepository, DELKommuneRepository, httpClient);
         return initData.fetchRegions();
     }
 
     @Test
     public void testFetchRegions() throws Exception {
-        List<Region> regions = fetchRegionsMockSetup();
-        Assertions.assertEquals(5, regions.size());
+        List<DELRegion> DELRegions = fetchRegionsMockSetup();
+        Assertions.assertEquals(5, DELRegions.size());
     }
 
     @Test
     public void testFetchKommuner() throws Exception {
-        List<Region> regions = fetchRegionsMockSetup();
+        List<DELRegion> DELRegions = fetchRegionsMockSetup();
 
         Path kommunesPath = Path.of("data/kommuner.json");
         String kommunesData = Files.readString(kommunesPath);
@@ -69,8 +69,8 @@ public class InitDataTest {
         when(httpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponseKommune);
 
-        InitDataExample initData = new InitDataExample(regionRepository, kommuneRepository, httpClient);
-        List<Kommune> kommuner = initData.fetchKommuner(regions);
+        DELInitDataExample initData = new DELInitDataExample(DELRegionRepository, DELKommuneRepository, httpClient);
+        List<DELKommune> kommuner = initData.fetchKommuner(DELRegions);
 
         Assertions.assertEquals(99, kommuner.size());
     }
