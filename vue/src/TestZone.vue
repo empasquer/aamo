@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import axios from "axios";
 import IconButtonComponent from "./components/IconButtonComponent.vue";
-import AboutMe from "./components/AboutMe.vue";
-import EventDetails from "./components/EventDetails.vue";
+/*import AboutMe from "./components/AboutMe.vue";
+import EventDetails from "./components/EventDetails.vue";*/
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
@@ -13,9 +13,9 @@ async function fetchKommuner() {
 <template>
   <div>
     <button @click="fetchKommuner">Fetch Kommuner</button>
-
+<!--
     <AboutMe></AboutMe>
-    <EventDetails event-id="1" />
+    <EventDetails event-id="1" />-->
 
     <IconButtonComponent variant="instagram" height="h-[40px]" width="h-[40px]"></IconButtonComponent>
     <IconButtonComponent variant="mail" height="h-[40px]" width="h-[40px]"></IconButtonComponent>

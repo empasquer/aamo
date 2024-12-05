@@ -11,18 +11,18 @@ services:
       # Choose between dev or prod profile by uncommenting the relevant lines
 
       # For development profile:
-      - SPRING_PROFILES_ACTIVE=dev
+      #- SPRING_PROFILES_ACTIVE=dev
 
       # For production profile:
-      #- SPRING_PROFILES_ACTIVE=prod
-      #- SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/regionkommune
-      #- SPRING_DATASOURCE_USERNAME=admin
-      #- SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/aamo
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin123
 
     depends_on:
       - database
-    # entrypoint: ["sh", "-c", "until nc -z database 3306; do echo 'Waiting for database...'; sleep 5; done; java -jar /app/target/*.jar"]
-    # restart: on-failure
+    entrypoint: ["sh", "-c", "until nc -z database 3306; do echo 'Waiting for database...'; sleep 5; done; java -jar /app/target/*.jar"]
+    restart: on-failure
     networks:
       - app-network
 
@@ -41,7 +41,7 @@ services:
       - "3307:3306"  # Maps the container's port 3306 to host port 3307
     environment:
       MARIADB_ROOT_PASSWORD: rootpassword  # Root password for MariaDB
-      MARIADB_DATABASE: regionkommune      # Default database to be created
+      MARIADB_DATABASE: aamo               # Default database to be created
       MARIADB_USER: admin                  # Application user
       MARIADB_PASSWORD: admin123           # Application user password
     networks:
