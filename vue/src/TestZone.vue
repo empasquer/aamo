@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import axios from "axios";
 import IconButtonComponent from "./components/IconButtonComponent.vue";
-/*import AboutMe from "./components/AboutMe.vue";
-import EventDetails from "./components/EventDetails.vue";*/
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
   console.log(response);
 }
+
+async function fecthArtworks() {
+  const response = await axios.get("http://127.0.0.1:8080/artworks");
+  console.log(response)
+}
 </script>
 
 <template>
   <div>
-    <button @click="fetchKommuner">Fetch Kommuner</button>
-<!--
-    <AboutMe></AboutMe>
-    <EventDetails event-id="1" />-->
+    <button @click="fecthArtworks">Fetch Artworks</button>
 
     <IconButtonComponent variant="instagram" height="h-[40px]" width="h-[40px]"></IconButtonComponent>
     <IconButtonComponent variant="mail" height="h-[40px]" width="h-[40px]"></IconButtonComponent>

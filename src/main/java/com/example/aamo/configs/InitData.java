@@ -29,9 +29,14 @@ public class InitData implements CommandLineRunner {
         Media media2 = new Media("https://example.com/media2.jpg");
         Media media3 = new Media("https://example.com/media3.jpg");
 
+        Media pic1 = new Media("https://miro.medium.com/v2/resize:fit:1400/1*Yb2W5n4-ZyQZ8ggggHGCZA.png");
+        Media vid1 = new Media("https://www.youtube.com/embed/EShUeudtaFg?si=5Cg_1H8yUQcEfDlI");
+
         mediaRepository.save(media1);
         mediaRepository.save(media2);
         mediaRepository.save(media3);
+        mediaRepository.save(pic1);
+        mediaRepository.save(vid1);
 
         System.out.println("Saved media to the database!");
 

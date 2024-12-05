@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
-import InstagramIconComponent from "./icons/InstagramIconComponent.vue";
-import MailIconComponent from "./icons/MailIconComponent.vue";
-import ArrowCircleIconComponent from "./icons/ArrowCircleIconComponent.vue";
 
 // Define props for the component
 const props = defineProps<{
