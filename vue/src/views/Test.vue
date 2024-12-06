@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import IconButtonComponent from "../components/IconButtonComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
-import Headings from "../components/Headings.vue";
+import Headings from "../components/HeadingsComponent.vue";
+import axios from "axios";
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
