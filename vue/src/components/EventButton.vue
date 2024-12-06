@@ -21,7 +21,7 @@ export default {
       @click="handleClick"
       class="flex items-center bg-transparent br-0 p-0  h-auto w-auto whitespace-nowrap space-x-4"
   >
-    <span>{{ event.startDate }}</span>
+    <span>{{ event.formattedStartDate }}</span>
     <i class="fa-solid fa-diamond text-gray-600 text-5xl"></i>
     <span>{{ event.title }}</span>
   </button>

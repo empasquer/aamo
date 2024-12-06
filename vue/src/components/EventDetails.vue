@@ -6,7 +6,7 @@ export default {
   name: 'EventDetails',
   props: {
     eventId: {
-      type: [String, Number], // Assuming eventId can be a string or number
+      type: [String, Number],
       required: true,
     },
   },
@@ -18,6 +18,8 @@ export default {
         title: '',
         startDate: '',
         endDate: '',
+        formatedStartDate: '',
+        formatedEndDate: '',
         description: '',
       },
     };
@@ -60,7 +62,7 @@ export default {
 
     <!-- Event Details -->
     <p>{{ event.title }}</p>
-    <p>{{ event.startDate }} - {{ event.endDate }}</p>
+    <p>{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</p>
     <p>{{ event.description }}</p>
   </div>
 </template>
