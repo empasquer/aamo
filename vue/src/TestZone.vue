@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import axios from "axios";
 import IconButtonComponent from "./components/IconButtonComponent.vue";
-import Headings from "./components/Headings.vue";
+import Headings from "./components/HeadingsComponent.vue";
+import Text from "./components/BodyTextComponent.vue";
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
@@ -27,6 +28,9 @@ async function fecthArtworks() {
     <Headings :level=1 text="H1"></Headings>
     <Headings :level=2 text="H2"></Headings>
     <Headings :level=3 text="H3"></Headings>
+    <Text>this is styled text</Text>
+    <Text size="3xl" width="bold" >this is styled text</Text>
+
     <div id="scroll-test" style="margin-top: 2000px">Scroll test</div>
 
 
