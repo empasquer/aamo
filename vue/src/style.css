@@ -33,7 +33,21 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
+body::before {
+  content: '';
+  position: fixed; /* Change to fixed so the background stays fixed during scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../public/Untitled_Artwork 5.png');
+  background-size: cover; /* Ensure it covers the entire screen */
+  background-repeat: no-repeat; /* Prevent repeating the image */
+  background-position: center center; /* Center the image */
+  background-attachment: fixed; /* Keep the background fixed during scrolling */
+  z-index: -1; /* Make sure the background stays behind the content */
+  opacity: 0.5;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

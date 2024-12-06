@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import IconButtonComponent from "./components/IconButtonComponent.vue";
+import Headings from "./components/Headings.vue";
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
@@ -23,8 +24,12 @@ async function fecthArtworks() {
     <div class="bg-red-300">blablaaaa</div>
 
     <p class="p-4 m-10 border-2 text-red-900">hellloooo im styled with tailwindcss</p>
-
+    <Headings :level=1 text="H1"></Headings>
+    <Headings :level=2 text="H2"></Headings>
+    <Headings :level=3 text="H3"></Headings>
     <div id="scroll-test" style="margin-top: 2000px">Scroll test</div>
+
+
   </div>
 </template>
 
