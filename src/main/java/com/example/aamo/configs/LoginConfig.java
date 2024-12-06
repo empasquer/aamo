@@ -20,7 +20,7 @@ public class LoginConfig {
 
     //Beans managed by Spring IoC so we can inject them if needed, or else just use them
     //Bean to define the security setting
-    @Bean
+   /* @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
@@ -38,6 +38,8 @@ public class LoginConfig {
 
         return http.build();
     }
+
+    */
 
     //Handles the actual authentication
     //This is where the authentication object is created and stored in Security Context (session-based)
