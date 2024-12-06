@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AboutMeView from '../views/AboutMeView.vue';
+import GalleriView from "../views/GalleriView.vue";
 // Uncomment and add paths to other components when they are available
-// import Gallery from '../views/GalleryView.vue';
 // import LogIn from '../views/LogInView.vue';
 
 const router = createRouter({
@@ -12,6 +12,12 @@ const router = createRouter({
             path: '/om-mig',
             name: 'about-me',
             component: AboutMeView, // Ensure this is a valid component
+        },
+
+        {
+            path: '/galleri',
+            name: 'galleri',
+            component: GalleriView, // Ensure this is a valid component
         },
 
     ],
