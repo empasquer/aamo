@@ -3,7 +3,7 @@
 // Define props for the component
 const props = defineProps<{
   size?: string;
-  width?: string; // doesn't work
+  textContent: string;
 }>();
 </script>
 
@@ -13,11 +13,8 @@ const props = defineProps<{
       'font-inter',
       'p-4',
       size ? `text-${size}` : 'text-base sm:text-xl',
-      width ? `font-${width}` : 'font-normal'
+      width ? `w-${width}` : 'w-full'
     ]">
-    <slot />
+    {{ textContent }}
   </p>
 </template>
-<style scoped>
-
-</style>
