@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import axios from "axios";
 import IconButtonComponent from "../components/IconButtonComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import Headings from "../components/Headings.vue";
@@ -17,7 +18,7 @@ async function fecthArtworks() {
 
 <template>
   <div>
-    <LogoComponent width="h-[100px]"></LogoComponent>
+    <LogoComponent height="h-[100px]" fill="red"></LogoComponent>
     <button @click="fecthArtworks">Fetch Artworks</button>
 
     <div class="bg-blue-400 flex">
