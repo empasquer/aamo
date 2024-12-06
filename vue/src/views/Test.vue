@@ -2,6 +2,7 @@
 import IconButtonComponent from "../components/IconButtonComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import Headings from "../components/Headings.vue";
+import LogoComponent from "../components/LogoComponent.vue";
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
@@ -16,6 +17,7 @@ async function fecthArtworks() {
 
 <template>
   <div>
+    <LogoComponent width="h-[100px]"></LogoComponent>
     <button @click="fecthArtworks">Fetch Artworks</button>
 
     <div class="bg-blue-400 flex">
