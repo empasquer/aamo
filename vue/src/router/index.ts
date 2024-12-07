@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import AboutMeView from '../views/AboutMeView.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import AboutMeView from "../views/AboutMeView.vue";
+import Test from "../views/Test.vue";
 import GalleriView from '../views/GalleriView.vue';
 // Uncomment and add paths to other components when they are available
 // import LogIn from '../views/LogInView.vue';
@@ -20,6 +21,11 @@ const router = createRouter({
             component: GalleriView, // Ensure this is a valid component
         },
 
+        {
+            path: "/test",
+            name: "test",
+            component: Test, // Ensure this is a valid component
+        },
     ],
 });
 
