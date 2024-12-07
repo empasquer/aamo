@@ -1,20 +1,12 @@
-<script lang="ts">
-import AboutMe from '../components/AboutMe.vue';
-import EventTimeline from '../components/EventTimeline.vue';
-
-export default {
-  name: 'AboutMeView',
-  components: {
-    AboutMe,
-    EventTimeline,
-  },
-};
+<script setup lang="ts">
+import AboutMe from "../components/AboutMe.vue";
+import EventTimeline from "../components/EventTimeline.vue";
 </script>
 
 <template>
   <div>
     <AboutMe></AboutMe>
-   <EventTimeline></EventTimeline>
+    <EventTimeline></EventTimeline>
   </div>
 </template>
 

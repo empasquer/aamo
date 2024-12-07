@@ -1,16 +1,10 @@
 <script setup lang="ts">
-
-import InstagramIconComponent from "./icons/InstagramIconComponent.vue";
-import MailIconComponent from "./icons/MailIconComponent.vue";
-import ArrowCircleIconComponent from "./icons/ArrowCircleIconComponent.vue";
-
 // Define props for the component
 const props = defineProps<{
-  color?: string;
-  height?: string;
-  width?: string;
-  variant: "instagram" | "mail" | "arrow-circle";
-  scrollToId?: string;
+  color?: string; // Custom text color for the icon
+  height: string; // Height of the icon (e.g., '25px')
+  variant: "instagram" | "mail" | "arrow-circle"; // Determines which icon to display
+  scrollToId?: string; // Target ID for scrolling (only relevant for arrow-circle)
 }>();
 
 // Methods
@@ -40,16 +34,33 @@ function scrollToElement() {
 </script>
 
 <template>
-  <button @click="handleClick" :class="[color || 'text-gray-700', height || 'h-6', width || 'w-6']" class="inline-block">
-    <!-- Instagram Icon -->
-    <InstagramIconComponent v-if="variant === 'instagram'" />
-    <!-- Mail Icon -->
-    <MailIconComponent v-if="variant === 'mail'" />
-    <!-- Arrow Circle Icon -->
-    <ArrowCircleIconComponent v-if="variant === 'arrow-circle'" />
-  </button>
-</template>
+  <div class="w-fit h-fit">
+    <button
+      @click="handleClick"
+      :style="{ width: props.height, height: props.height }"
+      class="bg-transparent border-0 p-0 flex items-center justify-center"
+    >
+      <!-- Font Awesome Outline Icons -->
+      <i v-if="variant === 'instagram'" class="fa-brands fa-instagram" :style="{ fontSize: props.height, color: props.color || '#4A4A4A' }"></i>
 
-<style scoped>
-/* Add component-specific styles if needed */
-</style>
+      <i v-if="variant === 'mail'" class="fa-regular fa-envelope" :style="{ fontSize: props.height, color: props.color || '#4A4A4A' }"></i>
+
+      <!-- Custom SVG for Arrow Circle -->
+      <svg
+        v-if="variant === 'arrow-circle'"
+        viewBox="0 0 50 50"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        :style="{ width: props.height, height: props.height }"
+      >
+        <path
+          d="M15.5 24.5L24.5 33.5M24.5 33.5L33.5 24.5M24.5 33.5V15.5M47 24.5C47 36.9264 36.9264 47 24.5 47C12.0736 47 2 36.9264 2 24.5C2 12.0736 12.0736 2 24.5 2C36.9264 2 47 12.0736 47 24.5Z"
+          :stroke="props.color || '#F0F6F9'"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+</template>
