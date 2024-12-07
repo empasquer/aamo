@@ -37,14 +37,15 @@ export default {
 <template>
   <div class="events-container">
     <div class="flex flex-box">
-      <div class="flex flex-col items-center w-96">
+      <div class="flex flex-col items-center w-full">
         <!-- Chevron Arrow -->
         <div>
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
         <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 3em;"></div>
         <!-- Event List -->
-        <ul>
+        <div class="overflow-y-auto w-full flex justify-center">
+        <ul >
           <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
             <!-- Vertical Line -->
             <div class="h-40 w-2 bg-gray-600"></div>
@@ -57,6 +58,7 @@ export default {
           </li>
         </ul>
       </div>
+      </div>
       <!-- Event Details -->
       <div v-if="selectedEventId">
         <EventDetails :eventId="selectedEventId"></EventDetails>
@@ -64,7 +66,19 @@ export default {
     </div>
   </div>
 </template>
-
 <style scoped>
-/* Add styles here */
+/* Hide scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
+.overflow-y-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.overflow-y-auto {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Ensure the container still scrolls */
+.overflow-y-auto {
+  overflow-y: auto; /* Keep scrolling enabled */
+}
 </style>
