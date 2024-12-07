@@ -44,7 +44,7 @@ export default {
         </div>
         <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 3em;"></div>
         <!-- Event List -->
-        <div class="overflow-y-auto w-full flex justify-center">
+        <div class="overflow-y-auto w-full flex justify-center h-96">
         <ul >
           <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
             <!-- Vertical Line -->
