@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AboutMeView from '../views/AboutMeView.vue';
-import GalleriView from "../views/GalleriView.vue";
+import GalleriView from '../views/GalleriView.vue';
 // Uncomment and add paths to other components when they are available
 // import LogIn from '../views/LogInView.vue';
 

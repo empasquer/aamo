@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {defineComponent, onMounted, ref} from 'vue'
+import ImageComponent from "../components/ImageComponent.vue";
 
 //definerer artwork interfacet.
 interface ArtWork {
@@ -20,7 +21,7 @@ const isLoading = ref(true);
 //Henter artwork nor componenten bliver brugt.
 onMounted(async () =>{
   try {
-    const response = await fetch("http://localhost:8080/artworks");
+    const response = await fetch("http://localhost:8080/galleri");
     if (!response.ok) {
       throw new Error("Failed to fetch artworks");
     }
