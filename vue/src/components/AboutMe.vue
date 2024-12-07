@@ -1,9 +1,10 @@
 <script lang="ts">
 import axios from 'axios';
-// comment to push
-// comment to push
+import BodyText from "./BodyTextComponent.vue";
+import Headings from "./HeadingsComponent.vue";
 export default {
-  name: 'AboutMeView',
+  name: 'AboutMe',
+  components: {Headings, BodyText},
   data() {
     return {
       description: '',
@@ -25,21 +26,21 @@ export default {
 </script>
 
 <template>
-  <div class="p-4">
-    <h1 class="text-center">OM MIG</h1>
+  <div class=" sm:p-4">
+    <Headings :level=1 text="OM MIG" class="text-center"></Headings>
 
-    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 ">
       <!-- Image -->
       <img
-          class="w-48 md:w-64 lg:w-82"
+          class="w-72 sm:w-96 p-4 mt-2"
           src="../assets/eva.png"
           alt="Eva"
       />
 
       <!-- Description -->
-      <p class="text-base sm:text-lg leading-relaxed text-gray-700">
-        {{ description }}
-      </p>
+      <BodyText :textContent=description :width=2.5 sm::width=14 class="text-justify sm:leading-8">
+
+      </BodyText>
     </div>
   </div>
 </template>
