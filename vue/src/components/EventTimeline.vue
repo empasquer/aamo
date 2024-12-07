@@ -35,8 +35,8 @@ export default {
 </script>
 
 <template>
-  <div class="events-container">
-    <div class="flex flex-box">
+  <div class="events-container w-0 sm:w-6">
+    <div class="flex flex-col sm:flex-box">
       <div class="flex flex-col items-center w-96">
         <!-- Chevron Arrow -->
         <div>
