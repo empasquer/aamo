@@ -1,6 +1,7 @@
 <script lang="ts">
 import Carousel from './Carousel.vue';
 import axios from 'axios';
+import Headings from './HeadingsComponent.vue'
 
 export default {
   name: 'EventDetails',
@@ -26,6 +27,7 @@ export default {
   },
   components: {
     Carousel,
+    Headings,
   },
   computed: {
     mediaUrls() {
@@ -56,14 +58,15 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center sm:items-start gap-6 p-40">
+  <div class="flex flex-col items-center  gap-6 p-4 mt-32">
+
+    <!-- Event Details -->
+    <Headings :level=3 :text="event.title"></Headings>
+    <h4>{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
+    <p class="sm:w-1/2 sm:w-full text-justify">{{ event.description }}</p>
     <!-- Carousel -->
     <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
 
-    <!-- Event Details -->
-    <p>{{ event.title }}</p>
-    <p>{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</p>
-    <p>{{ event.description }}</p>
   </div>
 </template>
 

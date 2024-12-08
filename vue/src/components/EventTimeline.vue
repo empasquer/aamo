@@ -1,6 +1,7 @@
 <script lang="ts">
 import EventDetails from './EventDetails.vue';
 import EventButton from './EventButton.vue';
+import Headings from "./HeadingsComponent.vue";
 import axios from 'axios';
 
 export default {
@@ -8,6 +9,7 @@ export default {
   components: {
     EventDetails,
     EventButton,
+    Headings,
   },
   data() {
     return {
@@ -19,6 +21,12 @@ export default {
     selectEvent(eventId) {
       this.selectedEventId = eventId;
     },
+    displayFirstEvent() {
+      if (this.events.length > 0) {
+        this.selectedEventId = this.events[0].eventId;
+      }
+
+    }
   },
   mounted() {
     axios
@@ -26,26 +34,29 @@ export default {
         .then((response) => {
           this.events = response.data;
           console.log(response.data);
+          this.displayFirstEvent();
         })
         .catch((error) => {
           console.error('Error fetching events:', error);
         });
+
   },
 };
 </script>
 
 <template>
-  <div class="events-container w-0 sm:w-6">
-    <div class="flex flex-col sm:flex-box">
-      <div class="flex flex-col items-center w-96">
+  <div class="events-container ">
+    <Headings text="EVENTS" :level=2 class="flex p-6"></Headings>
+    <div class="flex flex-col w-full sm:flex-row p-4">
+      <div class="flex flex-col  items-center w-full sm:w-1/2 pt-4 ">
 
         <!-- Chevron Arrow -->
         <div>
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
-        <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 3em;"></div>
+        <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 4em;"></div>
         <!-- Event List -->
-        <div class="overflow-y-auto w-full flex justify-center h-96">
+        <div class="overflow-y-auto w-full flex justify-center h-4/6">
         <ul >
           <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
             <!-- Vertical Line -->
@@ -53,7 +64,7 @@ export default {
             <!-- Event Button -->
             <EventButton
                 :event="event"
-                class="absolute top-1/2 left-[-118px] transform -translate-y-1/2 -translate-x-0"
+                class="absolute "style="left: -7.4em"
                 @select-event="selectEvent"
             />
           </li>
@@ -61,7 +72,7 @@ export default {
       </div>
       </div>
       <!-- Event Details -->
-      <div v-if="selectedEventId">
+      <div class="sm:w-10/12">
         <EventDetails :eventId="selectedEventId"></EventDetails>
       </div>
     </div>
