@@ -1,5 +1,6 @@
 package com.example.aamo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,12 +17,14 @@ public class ArtWorkTag {
 
     @ManyToOne
     @JoinColumn(name = "artworkidfk", nullable = false)
+    @JsonBackReference
     private ArtWork artWork;
 
-    public ArtWorkTag(TagType tagType, String tagValue, ArtWork artWork) {
+    //Har slettet ArtWork i denne, så man ikke er
+    // afhængig af at billedet er gemt og oprettet FØR man laver tags til det.
+    public ArtWorkTag(TagType tagType, String tagValue) {
         this.tagType = tagType;
         this.tagValue = tagValue;
-        this.artWork = artWork;
     }
 
     public ArtWorkTag(){

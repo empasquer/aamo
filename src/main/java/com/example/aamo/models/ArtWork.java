@@ -1,5 +1,7 @@
 package com.example.aamo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,7 +19,7 @@ import java.util.List;
         private String description;
         private double price;
         private boolean isSold;
-        private LocalDateTime dateCreated;
+        //private LocalDateTime dateCreated;
         private boolean type; //maleri eller ej
 
         @OneToOne
@@ -25,19 +27,20 @@ import java.util.List;
         private Media media;
 
         @OneToMany(mappedBy = "artWork", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonManagedReference
         private List<ArtWorkTag> tags = new ArrayList<>();
 
 
         public ArtWork(long artWorkId, String title,
                        String description, double price,
-                       boolean isSold, LocalDateTime dateCreated,
+                       boolean isSold,
                        boolean type, Media media) {
             this.artWorkId = artWorkId;
             this.title = title;
             this.description = description;
             this.price = price;
             this.isSold = isSold;
-            this.dateCreated = dateCreated;
+            ///this.dateCreated = dateCreated;
             this.type = type;
 
             this.media = media;
@@ -88,13 +91,16 @@ import java.util.List;
             isSold = sold;
         }
 
-        public LocalDateTime getDateCreated() {
+        /*public LocalDateTime getDateCreated() {
             return dateCreated;
         }
 
         public void setDateCreated(LocalDateTime dateCreated) {
             this.dateCreated = dateCreated;
         }
+
+         */
+
 
         public boolean isType() {
             return type;
