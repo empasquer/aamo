@@ -5,6 +5,7 @@ const props = defineProps<{
   size?: string;
   textContent: string;
   width?: number
+
 }>();
 </script>
 
