@@ -21,7 +21,7 @@ const isLoading = ref(true);
 //Henter artwork nor componenten bliver brugt.
 onMounted(async () =>{
   try {
-    const response = await fetch("http://localhost:8080/galleri");
+    const response = await fetch("http://localhost:8080/api/galleri");
     if (!response.ok) {
       throw new Error("Failed to fetch artworks");
     }

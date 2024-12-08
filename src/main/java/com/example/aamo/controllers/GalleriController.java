@@ -18,7 +18,7 @@ public class GalleriController {
         this.artWorkRepository = artWorkRepository;
     }
 
-    @GetMapping("/galleri")
+    @GetMapping("/api/galleri")
     public List<ArtWork> getLatestArtWorkOnlyPaintings(){
        return artWorkRepository.findAll();
 

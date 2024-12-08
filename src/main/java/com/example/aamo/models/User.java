@@ -1,6 +1,6 @@
 package com.example.aamo.models;
 
-import jakarta.persistence.*;
+/*import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -85,3 +85,5 @@ public class User implements UserDetails {
         return Collections.emptyList();  //No roles/authorities for now
     }
 }
+
+ */

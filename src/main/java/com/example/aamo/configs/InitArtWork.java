@@ -38,7 +38,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Havfrue",
                 "Herskerinden over alle havene ..",
                 20_000,
-                "/200x200/havfrue.jpg",
+                "uploads/200x200/havfrue.jpg",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "200x200"),
                         new ArtWorkTag(TagType.THEME, "Unaturlig"),
@@ -49,7 +49,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Rød storm",
                 "Skyer som er røde og vilde. Man ved aldrig hvor man har dem. ...",
                 5000,
-                "/50x50/IMG_3435.jpg",
+                "uploads/50x50/IMG_3435.JPG",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "50x50"),
                         new ArtWorkTag(TagType.THEME, "Himmel"),
@@ -59,7 +59,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Unavngivet",
                 "Bla blasåå fint, bør i skov...",
                 4000,
-                "/50x50/IMG_3440.jpg",
+                "uploads/50x50/IMG_3440.jpg",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "50x50"),
                         new ArtWorkTag(TagType.THEME, "Abstrakt"),
@@ -71,7 +71,7 @@ public class InitArtWork implements CommandLineRunner {
                 "Kender du det når du kan fornemme at nogen kigger på dig? " +
                         "Det er sådan at være omkring dette maleri. der er altid en i busken som sidder på lur. Kratlusker er der nogen som kalder dem...",
                 7000,
-                "/100x100/IMG_3421.jpg",
+                "uploads/100x100/IMG_3421.jpg",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "100x100"),
                         new ArtWorkTag(TagType.THEME, "Mystik"),
@@ -82,7 +82,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Fiona",
                 "...",
                 6000,
-                "/90x40/PmD5we8m.jpg",
+                "uploads/90x40/PmD5we8m.jpg",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "90x40"),
                         new ArtWorkTag(TagType.THEME, "Damer"),
@@ -93,7 +93,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Unavngivet",
                 "...",
                 500,
-                "/20x20/IMG_3459.jpg",
+                "uploads/20x20/IMG_3459.jpg",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "20x20"),
                         new ArtWorkTag(TagType.THEME, "Natur"),
@@ -103,7 +103,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Unavngivet",
                 "...",
                 8000,
-                "/60x80/IMG_3437.jpg",
+                "uploads/60x80/IMG_3437.JPG",
                 List.of(
                         new ArtWorkTag(TagType.SIZE, "60x80"),
                         new ArtWorkTag(TagType.THEME, "Natur"),
