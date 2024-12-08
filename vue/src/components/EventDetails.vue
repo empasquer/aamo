@@ -58,14 +58,15 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center  gap-6 p-4 mt-32">
+  <div class="flex flex-col items-center   gap-6 p-4 sm:mt-32">
 
     <!-- Event Details -->
     <Headings :level=3 :text="event.title"></Headings>
-    <h4>{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
-    <p class="sm:w-1/2 sm:w-full text-justify">{{ event.description }}</p>
     <!-- Carousel -->
     <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
+    <h4 class="font-inter text-[#4A4A4A]">{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
+    <BodyText :textContent="event.description" class="sm:w-3/4 w-full text-center sm:leading-8"></BodyText>
+
 
   </div>
 </template>

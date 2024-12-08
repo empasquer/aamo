@@ -15,6 +15,7 @@ export default {
     return {
       events: [],
       selectedEventId: null,
+      isMobile: window.innerWidth <= 768,
     };
   },
   methods: {
@@ -25,8 +26,10 @@ export default {
       if (this.events.length > 0) {
         this.selectedEventId = this.events[0].eventId;
       }
-
-    }
+    },
+    handleResize() {
+      this.isMobile = window.innerWidth <= 768;
+    },
   },
   mounted() {
     axios
@@ -40,14 +43,25 @@ export default {
           console.error('Error fetching events:', error);
         });
 
+    window.addEventListener('resize', this.handleResize);
   },
+  beforeDestroy() {
+    // Clean up the event listener when the component is destroyed
+    window.removeEventListener('resize', this.handleResize);
+  },
+
 };
 </script>
 
 <template>
   <div class="events-container ">
     <Headings text="EVENTS" :level=2 class="flex p-6"></Headings>
-    <div class="flex flex-col w-full sm:flex-row p-4">
+
+    <div  v-if="isMobile"  class="sm:w-10/12">
+      <EventDetails :eventId="selectedEventId"></EventDetails>
+    </div>
+
+    <div class="timeline flex flex-col w-full sm:flex-row p-4">
       <div class="flex flex-col  items-center w-full sm:w-1/2 pt-4 ">
 
         <!-- Chevron Arrow -->
@@ -72,7 +86,7 @@ export default {
       </div>
       </div>
       <!-- Event Details -->
-      <div class="sm:w-10/12">
+      <div v-if="!isMobile"  class="sm:w-10/12">
         <EventDetails :eventId="selectedEventId"></EventDetails>
       </div>
     </div>
