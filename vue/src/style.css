@@ -17,13 +17,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+*::selection {
+  color: #2d2d2dff;
+  background-color: #495c9f6f;
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #4a4a4a;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #151515ff;
 }
 
 * {
@@ -41,7 +47,7 @@ body {
 }
 body::before {
   content: "";
-  position: fixed; /* Change to fixed so the background stays fixed during scrolling */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -52,7 +58,7 @@ body::before {
   background-position: center center; /* Center the image */
   background-attachment: fixed; /* Keep the background fixed during scrolling */
   z-index: -1; /* Make sure the background stays behind the content */
-  opacity: 0.5;
+  /* opacity: 0.5; */
 }
 h1 {
   font-size: 3.2em;
@@ -93,7 +99,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #19385cff;
   }
   button {
     background-color: #f9f9f9;
