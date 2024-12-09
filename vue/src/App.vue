@@ -11,7 +11,8 @@ import FooterComponent from "./components/FooterComponent.vue";
 
 <template>
   <HeaderComponent></HeaderComponent>
-  <RouterView />
+  <RouterView class="pt-[calc(93px+2rem)]" />
   <FooterComponent></FooterComponent>
 </template>
+
 <style scoped></style>
