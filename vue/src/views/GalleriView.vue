@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {defineComponent, onMounted, ref} from 'vue'
+import GalleryDescriptionComponent from "../components/GalleryDescriptionComponent.vue";
 import ImageComponent from "../components/ImageComponent.vue";
 import SmallArtWorkDetailsComponent from "../components/SmallArtWorkDetailsComponent.vue";
+import Headings from "../components/HeadingsComponent.vue";
+import FooterComponent from "../components/FooterComponent.vue";
 
 //definerer artwork interfacet.
 interface ArtWork {
@@ -14,8 +17,6 @@ interface ArtWork {
   };
 }
 
-
-
 //her er de reaktive variabler
 const artWorks = ref<ArtWork[]>([]);
 const hoveredArtWorks = ref<ArtWork | null>(null);
@@ -26,7 +27,7 @@ onMounted(async () =>{
   try {
     const response = await fetch("http://localhost:8080/api/galleri");
     if (!response.ok) {
-      throw new Error("Failed to fetch artworks");
+      throw new Error("Failed to fetch gallery data");
     }
     artWorks.value = await response.json();
   } catch (error) {
@@ -36,19 +37,34 @@ onMounted(async () =>{
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-4">
-    <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="relative">
-      <!-- Billedkomponent -->
-      <ImageComponent
-          :artWork="artWork"
-          @hover="hoveredArtWorks = $event"
-      />
-      <!-- Detaljekomponent (vises kun ved hover) -->
-      <SmallArtWorkDetailsComponent
-          :artWork="hoveredArtWorks === artWork ? artWork : null"
-      />
+
+  <Headings :level="1" text="GALLERI"></Headings>
+
+  <div class="p-4">
+    <!-- Overskrift + galleri beskrivelse -->
+    <GalleryDescriptionComponent />
+
+
+
+    <!-- Galleri -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="relative">
+        <!-- Billedkomponent -->
+        <ImageComponent
+            :artWork="artWork"
+           @hover="hoveredArtWorks = $event"
+        />
+        <!-- Detaljekomponent (vises kun ved hover) -->
+        <SmallArtWorkDetailsComponent
+            :artWork="hoveredArtWorks === artWork ? artWork : null"
+        />
+
+
+      </div>
     </div>
   </div>
+
+  <FooterComponent></FooterComponent>
 </template>
 
 <style scoped>
