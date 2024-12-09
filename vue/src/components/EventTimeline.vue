@@ -61,7 +61,7 @@ export default {
       <EventDetails :eventId="selectedEventId"></EventDetails>
     </div>
 
-    <div class="timeline flex flex-col w-full sm:flex-row p-4">
+    <div class="timeline flex flex-col w-full sm:flex-row sm:p-4">
       <div class="flex flex-col  items-center w-full sm:w-1/2 pt-4 ">
 
         <!-- Chevron Arrow -->

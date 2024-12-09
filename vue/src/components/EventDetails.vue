@@ -62,9 +62,10 @@ export default {
 
     <!-- Event Details -->
     <Headings :level=3 :text="event.title"></Headings>
+
+    <h4 class="font-inter text-[#4A4A4A]">{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
     <!-- Carousel -->
     <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
-    <h4 class="font-inter text-[#4A4A4A]">{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
     <BodyText :textContent="event.description" class="sm:w-3/4 w-full text-center sm:leading-8"></BodyText>
 
 

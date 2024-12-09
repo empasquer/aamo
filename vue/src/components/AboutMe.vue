@@ -38,7 +38,7 @@ export default {
       <!-- Image -->
       <img
           class="w-72 sm:w-96 p-4 mt-2"
-          src="../assets/eva.png"
+          src="/eva.png"
           alt="Eva"
       />
 
