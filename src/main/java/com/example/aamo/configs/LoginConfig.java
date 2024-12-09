@@ -1,6 +1,6 @@
 package com.example.aamo.configs;
 
-import com.example.aamo.models.User;
+/*import com.example.aamo.models.User;
 import com.example.aamo.repositories.LoginRepository;
 import com.example.aamo.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,11 @@ public class LoginConfig {
         return http.build();
     }
 
+
+
     //Handles the actual authentication
     //This is where the authentication object is created and stored in Security Context (session-based)
-    @Bean
+   // @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, LoginService loginService) throws Exception {
         //Gets the helper class object so we can use it for authentication
         AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -67,3 +69,5 @@ public class LoginConfig {
     }
 
 }
+
+ */

@@ -5,6 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -27,6 +28,16 @@ public class Event {
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> mediaUrls;
+
+
+    @Transient // Prevents this field from being persisted
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    @Transient
+    private String formattedStartDate;
+
+    @Transient
+    private String formattedEndDate;
 
     public Event(int eventId, @Nonnull LocalDate startDate, @Nullable LocalDate endDate, @Nullable String title, @Nullable String description, List<Media> mediaUrls) {
         this.eventId = eventId;
@@ -93,6 +104,46 @@ public class Event {
 
     public void setMediaUrls(List<Media> mediaUrls) {
         this.mediaUrls = mediaUrls;
+    }
+
+
+    @Nonnull
+    public String getFormattedStartDate() {
+        return formattedStartDate;
+    }
+
+    @Nullable
+    public String getFormattedEndDate() {
+        return formattedEndDate;
+    }
+
+    @PostLoad
+    private void formatDatesAfterLoad() {
+        // Convert LocalDate to formatted strings after loading from the database
+        this.formattedStartDate = startDate.format(FORMATTER);
+        this.formattedEndDate = (endDate != null) ? endDate.format(FORMATTER) : null;
+    }
+
+    @PrePersist
+    private void normalizeDatesBeforeSave() {
+        // Convert formatted strings back to LocalDate before saving
+        if (formattedStartDate != null) {
+            this.startDate = LocalDate.parse(formattedStartDate, FORMATTER);
+        }
+        if (formattedEndDate != null) {
+            this.endDate = LocalDate.parse(formattedEndDate, FORMATTER);
+        }
+    }
+
+    @PreUpdate
+    private void updateDatesBeforeSave() {
+        // Convert formatted strings back to LocalDate before updating
+        if (formattedStartDate != null) {
+            this.startDate = LocalDate.parse(formattedStartDate, FORMATTER);
+        }
+        if (formattedEndDate != null) {
+            this.endDate = LocalDate.parse(formattedEndDate, FORMATTER);
+        }
     }
 }
 

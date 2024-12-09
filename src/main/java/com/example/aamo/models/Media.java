@@ -1,5 +1,6 @@
 package com.example.aamo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -15,6 +16,10 @@ public class Media {
     @JoinColumn(name = "event_id") // Foreign key to Event
     @JsonIgnore
     private Event event;
+
+    @OneToOne(mappedBy = "media")
+    @JsonBackReference
+    private ArtWork artWork;
 
 
     public Media(int mediaId, String mediaUrl) {
