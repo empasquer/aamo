@@ -2,7 +2,7 @@
 import axios from "axios";
 import IconButtonComponent from "../components/IconButtonComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
-import Headings from "../components/Headings.vue";
+import Headings from "../components/HeadingsComponent.vue";
 import LogoComponent from "../components/LogoComponent.vue";
 
 async function fetchKommuner() {
@@ -11,7 +11,7 @@ async function fetchKommuner() {
 }
 
 async function fecthArtworks() {
-  const response = await axios.get("http://127.0.0.1:8080/artworks");
+  const response = await axios.get("http://localhost:8080/api/galleri");
   console.log(response);
 }
 </script>
