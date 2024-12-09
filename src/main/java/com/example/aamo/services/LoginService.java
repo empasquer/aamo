@@ -1,6 +1,6 @@
 package com.example.aamo.services;
 
-import com.example.aamo.models.User;
+/*import com.example.aamo.models.User;
 import com.example.aamo.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,3 +34,5 @@ public class LoginService implements UserDetailsService {
     }
 
 }
+
+ */
