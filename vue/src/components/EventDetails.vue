@@ -2,7 +2,7 @@
 import Carousel from './Carousel.vue';
 import axios from 'axios';
 import Headings from './HeadingsComponent.vue'
-
+//comment to push
 export default {
   name: 'EventDetails',
   props: {
