@@ -5,12 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//Ont its own, so there isnt a conflicting loop between config and LoginService
 @Configuration
 public class PasswordConfig {
 
     //PasswordEncoder is an interface in Spring Security
-    //
     @Bean
     public PasswordEncoder passwordEncoder() {
         //We use bcrypt, a hashing algorithm that includes a salt mechanism already in it
