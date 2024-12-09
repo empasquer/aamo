@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineComponent, onMounted, ref} from 'vue'
+import { defineComponent, onMounted, ref } from "vue";
 import ImageComponent from "../components/ImageComponent.vue";
 
 //definerer artwork interfacet.
@@ -17,9 +17,8 @@ interface ArtWork {
 const artworks = ref<ArtWork[]>([]);
 const isLoading = ref(true);
 
-
 //Henter artwork nor componenten bliver brugt.
-onMounted(async () =>{
+onMounted(async () => {
   try {
     const response = await fetch("http://localhost:8080/api/galleri");
     if (!response.ok) {
@@ -36,16 +35,16 @@ onMounted(async () =>{
 
 <template>
   <div class="gallery-container">
-    <h1>Gallery</h1>
-    <p v-if="isLoading">Loading artworks...</p>
+    <h1>MALERIER</h1>
+    <p v-if="isLoading">Henter kunstværker.. :)</p>
     <div v-else>
       <ImageComponent
-          v-for="artwork in artworks"
-          :key="artwork.artWorkId"
-          :title="artwork.title"
-          :description="artwork.description"
-          :mediaUrl="artwork.media.mediaUrl"
-          :price="artwork.price"
+        v-for="artwork in artworks"
+        :key="artwork.artWorkId"
+        :title="artwork.title"
+        :description="artwork.description"
+        :mediaUrl="artwork.media.mediaUrl"
+        :price="artwork.price"
       />
     </div>
   </div>
