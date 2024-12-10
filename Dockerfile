@@ -24,9 +24,6 @@ COPY src ./src
 # Build the application using the Maven wrapper
 RUN ./mvnw clean package -DskipTests
 
-# List the contents of target to confirm the .jar file exists
-RUN ls -alh target/
-
 # Expose the application port
 EXPOSE 8080
 
