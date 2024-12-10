@@ -1,6 +1,4 @@
 <script lang="ts">
-import VueTouch from 'vue3-touch-events';
-
 export default {
   name: "Carousel",
   props: {
@@ -14,9 +12,7 @@ export default {
       currentIndex: 0,
     };
   },
-  component: {
-    VueTouch
-  },
+
   computed: {
     currentMediaUrl() {
       // Access the mediaUrl property from the array of media URLs
