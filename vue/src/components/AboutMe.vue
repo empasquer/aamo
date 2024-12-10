@@ -1,30 +1,25 @@
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import BodyText from "./BodyTextComponent.vue";
 import Headings from "./HeadingsComponent.vue";
 
-export default {
-  name: "AboutMe",
-  components: { Headings, BodyText },
+// Reactive state
+const description = ref("");
 
-  data() {
-    return {
-      description: "",
-    };
-  },
-  mounted() {
-    axios
+// Fetch the description when the component is mounted
+onMounted(() => {
+  axios
       .get("http://localhost:8080/api/about")
       .then((response) => {
         console.log("API Response:", response); // Check the entire response
-        this.description = response.data.description;
+        description.value = response.data.description;
       })
       .catch((error) => {
         console.error("Error fetching the description:", error);
-        this.description = "Failed to load description.";
+        description.value = "Failed to load description.";
       });
-  },
-};
+});
 </script>
 
 <template>
@@ -36,7 +31,7 @@ export default {
       <img class="w-72 sm:w-96 p-4 mt-2" src="/eva.png" alt="Eva" />
 
       <!-- Description -->
-      <BodyText :textContent="description" :width="2.5" sm::width="14" class="text-justify sm:leading-8"> </BodyText>
+      <BodyText :textContent="description" :width="2.5" sm:width="14" class="text-justify sm:leading-8"></BodyText>
     </div>
   </div>
 </template>

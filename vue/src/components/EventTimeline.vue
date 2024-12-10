@@ -1,56 +1,51 @@
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import EventDetails from "./EventDetails.vue";
 import EventButton from "./EventButton.vue";
 import Headings from "./HeadingsComponent.vue";
 import axios from "axios";
 
-export default {
-  name: "EventTimeline",
-  components: {
-    EventDetails,
-    EventButton,
-    Headings,
-  },
-  data() {
-    return {
-      events: [],
-      selectedEventId: null,
-      isMobile: window.innerWidth <= 768,
-    };
-  },
-  methods: {
-    selectEvent(eventId) {
-      this.selectedEventId = eventId;
-    },
-    displayFirstEvent() {
-      if (this.events.length > 0) {
-        this.selectedEventId = this.events[0].eventId;
-      }
-    },
-    handleResize() {
-      this.isMobile = window.innerWidth <= 768;
-    },
-  },
-  mounted() {
-    axios
+// Reactive state
+const events = ref([]);
+const selectedEventId = ref<number | null>(null);
+const isMobile = ref(window.innerWidth <= 768);
+
+// Methods
+const selectEvent = (eventId: number) => {
+  selectedEventId.value = eventId;
+};
+
+const displayFirstEvent = () => {
+  // Set the first event only if no event has been selected
+  if (events.value.length > 0 && selectedEventId.value === null) {
+    selectedEventId.value = events.value[0].eventId;
+  }
+};
+
+const handleResize = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+// Lifecycle hooks
+onMounted(() => {
+  axios
       .get("http://localhost:8080/api/events")
       .then((response) => {
-        this.events = response.data;
-        console.log(response.data);
-        this.displayFirstEvent();
+        events.value = response.data;
+        displayFirstEvent(); // Set the first event if needed
       })
       .catch((error) => {
         console.error("Error fetching events:", error);
       });
 
-    window.addEventListener("resize", this.handleResize);
-  },
-  beforeDestroy() {
-    // Clean up the event listener when the component is destroyed
-    window.removeEventListener("resize", this.handleResize);
-  },
-};
+  window.addEventListener("resize", handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", handleResize);
+});
 </script>
+
 
 <template>
   <div id="events" class="events-container">
@@ -86,6 +81,7 @@ export default {
     </div>
   </div>
 </template>
+
 <style scoped>
 /* Hide scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
 .overflow-y-auto::-webkit-scrollbar {
