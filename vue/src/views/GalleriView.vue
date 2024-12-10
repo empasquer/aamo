@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import ImageComponent from "../components/ImageComponent.vue";
+import HeadingsComponent from "../components/HeadingsComponent.vue";
 
 //definerer artwork interfacet.
 interface ArtWork {
@@ -35,7 +36,7 @@ onMounted(async () => {
 
 <template>
   <div class="gallery-container">
-    <h1>GALLERI</h1>
+    <HeadingsComponent :level=1 text="GALLERI" class="text-center"></HeadingsComponent>
     <p v-if="isLoading">Henter kunstværker.. :)</p>
     <div v-else>
       <ImageComponent
