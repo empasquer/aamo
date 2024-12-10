@@ -2,10 +2,16 @@ import { createRouter, createWebHistory } from "vue-router";
 import AboutMeView from "../views/AboutMeView.vue";
 import GalleriView from "../views/GalleriView.vue";
 import OtherArtworksView from "../views/OtherArtworksView.vue";
+import HomePage from "../views/HomePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/",
+      name: "homepage",
+      component: HomePage,
+    },
     {
       path: "/om-mig",
       name: "about-me",

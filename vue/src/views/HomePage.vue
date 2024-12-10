@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HeroComponent from "../components/HeroComponent.vue";
+</script>
 
 <template>
-  <div>Homepage</div>
+  <HeroComponent scroll-to-id="#galleri-section"></HeroComponent>
 </template>
