@@ -2,6 +2,13 @@
 import LogoComponent from "./LogoComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
 import IconButtonComponent from "./IconButtonComponent.vue";
+
+const props = defineProps({
+  scrollToId: {
+    type: String,
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -17,7 +24,7 @@ import IconButtonComponent from "./IconButtonComponent.vue";
       <HeadingsComponent :level="1" text="EVAAAMO" class="hidden"></HeadingsComponent>
     </div>
     <div class="absolute top-[80vh] md:top-[60vh] left-0 w-full h-[15vh] md:h-[35vh] flex items-center justify-center z-20">
-      <IconButtonComponent color="white" variant="arrow-circle" scroll-to-id="#galleri-section" height="10vh"></IconButtonComponent>
+      <IconButtonComponent color="white" variant="arrow-circle" scroll-to-id="props.scrollToId" height="10vh"></IconButtonComponent>
     </div>
   </section>
 </template>

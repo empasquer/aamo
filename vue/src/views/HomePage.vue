@@ -3,5 +3,5 @@ import HeroComponent from "../components/HeroComponent.vue";
 </script>
 
 <template>
-  <HeroComponent></HeroComponent>
+  <HeroComponent scroll-to-id="#galleri-section"></HeroComponent>
 </template>
