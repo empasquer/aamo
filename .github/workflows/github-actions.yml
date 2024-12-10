@@ -59,8 +59,8 @@ jobs:
         uses: docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349 #v3.7.1 oct 4 2024
 
       # Step 3: run Maven and create Target directory
-      - name: Run Maven package
-        run: mvn package
+      #- name: Run Maven package
+      #  run: mvn package
 
       # Step 3: Build Backend Docker Image
       - name: Build Backend Image

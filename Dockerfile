@@ -1,6 +1,5 @@
 # Use an OpenJDK 21 image
-#FROM openjdk:21-jdk-slim
-FROM maven:3.9.8-eclipse-temurin-21
+FROM openjdk:21-jdk-slim
 
 # Create /app directory and ensure correct permissions
 RUN mkdir -p /app && chmod 777 /app
@@ -29,7 +28,7 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Copy the target folder into the container
-COPY target/ ./target/
+COPY target/*.jar /app/target/
 
 # Run the Spring Boot app using a wildcard to match the .jar file
 CMD ["sh", "-c", "until nc -z database 3306; do echo 'Waiting for database...'; sleep 5; done; java -jar ./target/*.jar"]
