@@ -35,7 +35,7 @@ onMounted(async () => {
 
 <template>
   <div class="gallery-container">
-    <h1>MALERIER</h1>
+    <h1>GALLERI</h1>
     <p v-if="isLoading">Henter kunstværker.. :)</p>
     <div v-else>
       <ImageComponent

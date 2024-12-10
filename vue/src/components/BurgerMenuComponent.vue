@@ -29,7 +29,7 @@ const closeMenu = () => {
         <router-link :to="{ path: '/om-mig', hash: '#events' }" class="text-[#EAEAEA] font-bold underline underline-offset-8" @click="closeMenu">
           EVENTS
         </router-link>
-        <router-link to="/galleri" class="text-[#EAEAEA] font-bold underline underline-offset-8" @click="closeMenu"> MALERIER </router-link>
+        <router-link to="/galleri" class="text-[#EAEAEA] font-bold underline underline-offset-8" @click="closeMenu"> GALLERI </router-link>
         <router-link to="/oevrige-vaerker" class="text-[#EAEAEA] underline font-bold underline-offset-8" @click="closeMenu">
           ØVRIGE VÆRKER
         </router-link>

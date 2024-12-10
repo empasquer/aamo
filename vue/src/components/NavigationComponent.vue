@@ -16,7 +16,7 @@ const isActive = (path: string) => router.currentRoute.value.path === path;
         EVENTS
       </router-link>
       <router-link to="/galleri" class="font-bold" :class="{ 'text-[#8baaac]': isActive('/galleri'), 'hover:text-gray-700': true }">
-        MALERIER
+        GALLERI
       </router-link>
       <router-link to="/oevrige-vaerker" class="font-bold" :class="{ 'text-[#8baaac]': isActive('/oevrige-vaerker'), 'hover:text-gray-700': true }">
         ØVRIGE VÆRKER
