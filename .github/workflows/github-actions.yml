@@ -65,19 +65,16 @@ jobs:
           java-version: "21"
           distribution: "temurin"
 
-      - name: Check Java version
-        run: java -version
-
-      # Step 3: run Maven and create Target directory
+      # Step 4: run Maven and create Target directory
       - name: Run Maven install
         run: mvn install
 
-      # Step 3: Build Backend Docker Image
+      # Step 5: Build Backend Docker Image
       - name: Build Backend Image
         run: |
           docker build -t backend:latest ./
 
-      # Step 4: Build Frontend Docker Image
+      # Step 6: Build Frontend Docker Image
       - name: Build Frontend Image
         run: |
           docker build -t frontend:latest ./vue
