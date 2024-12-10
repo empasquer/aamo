@@ -3,8 +3,7 @@ import {defineComponent, onMounted, ref} from 'vue'
 import GalleryDescriptionComponent from "../components/GalleryDescriptionComponent.vue";
 import ImageComponent from "../components/ImageComponent.vue";
 import SmallArtWorkDetailsComponent from "../components/SmallArtWorkDetailsComponent.vue";
-import Headings from "../components/HeadingsComponent.vue";
-import FooterComponent from "../components/FooterComponent.vue";
+import HeadingsComponent from "../components/HeadingsComponent.vue";
 
 //definerer artwork interfacet.
 interface ArtWork {
@@ -23,7 +22,7 @@ const hoveredArtWorks = ref<ArtWork | null>(null);
 
 
 //Henter artwork nor componenten bliver brugt.
-onMounted(async () =>{
+onMounted(async () => {
   try {
     const response = await fetch("http://localhost:8080/api/galleri");
     if (!response.ok) {
@@ -38,7 +37,7 @@ onMounted(async () =>{
 
 <template>
 
-  <Headings :level="1" text="GALLERI"></Headings>
+  <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
 
   <div class="p-4">
     <!-- Overskrift + galleri beskrivelse -->
@@ -63,10 +62,13 @@ onMounted(async () =>{
       </div>
     </div>
   </div>
-
-  <FooterComponent></FooterComponent>
 </template>
 
 <style scoped>
-
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
 </style>
