@@ -56,7 +56,7 @@ public class InitArtWork implements CommandLineRunner {
                         new ArtWorkTag(TagType.COLOR, "Rød")
                 )
         );
-        createAndSaveInitArtWork( "Unavngivet",
+        createAndSaveInitArtWork( "",
                 "Bla blasåå fint, bør i skov...",
                 4000,
                 "uploads/50x50/IMG_3440.jpg",
@@ -90,7 +90,7 @@ public class InitArtWork implements CommandLineRunner {
                 )
         );
 
-        createAndSaveInitArtWork( "Unavngivet",
+        createAndSaveInitArtWork( "",
                 "...",
                 500,
                 "uploads/20x20/IMG_3459.jpg",
@@ -100,7 +100,7 @@ public class InitArtWork implements CommandLineRunner {
                         new ArtWorkTag(TagType.COLOR, "Gul")
                 )
         );
-        createAndSaveInitArtWork( "Unavngivet",
+        createAndSaveInitArtWork( "",
                 "...",
                 8000,
                 "uploads/60x80/IMG_3437.JPG",
