@@ -5,5 +5,5 @@ import SectionImagesComponent from "../components/SectionImagesComponent.vue";
 
 <template>
   <HeroComponent scroll-to-id="#galleri-section"></HeroComponent>
-  <SectionImagesComponent></SectionImagesComponent>
+  <SectionImagesComponent id="#galleri-section"></SectionImagesComponent>
 </template>

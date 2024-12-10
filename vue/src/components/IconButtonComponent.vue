@@ -23,11 +23,15 @@ function handleClick() {
 
 function scrollToElement() {
   const element = document.getElementById(props.scrollToId || "");
+  const header = document.querySelector("header");
+  const headerHeight = header ? header.offsetHeight : 0;
+
+  const topOffset = window.innerWidth >= 768 ? headerHeight + 0 : headerHeight + 10;
+
   if (element) {
-    element.scrollIntoView({
+    window.scrollTo({
+      top: element.offsetTop - topOffset,
       behavior: "smooth",
-      block: "start",
-      inline: "nearest",
     });
   }
 }

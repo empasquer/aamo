@@ -7,15 +7,17 @@ const props = defineProps<{
 }>();
 
 function handleClick() {
-  window.open(props.href, "_blank");
+  window.location.href = props.href;
 }
 </script>
 
 <template>
-  <div class="h-[300px] relative">
-    <button @click="handleClick" class="w-full h-full bg-[url(props.image)] bg-cover bg-center bg-no-repeat">
-      <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <span :style="{ color: props.color || '#fff' }" class="text-white text-lg font-semibold"> {{ text }}</span>
+  <div>
+    <button @click="handleClick" class="w-full h-full bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: 'url(' + props.image + ')' }">
+      <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+        <span :style="{ color: props.color || '#fff' }" class="text-white text-lg font-semibold">
+          {{ props.text }}
+        </span>
       </div>
     </button>
   </div>

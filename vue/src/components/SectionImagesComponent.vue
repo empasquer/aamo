@@ -4,16 +4,16 @@ import ImageLinkButtonComponent from "./ImageLinkButtonComponent.vue";
 </script>
 
 <template>
-  <HeadingsComponent level:2 text="Mine malerier"></HeadingsComponent>
-  <section class="">
-    <div class="grid md:grid-cols-4 gap-4 top-[-1.7rem] grid-cols-1">
-      <div class="mx-8 h-[45vh] bg-[url(./assets/hero-pics/1.jpeg)] bg-cover bg-center"></div>
-      <div class="mx-8 h-[45vh] bg-[url(./assets/hero-pics/2.jpeg)] bg-cover"></div>
-      <div class="mx-8 h-[45vh] bg-[url(./assets/hero-pics/3.jpeg)] bg-cover bg-center"></div>
+  <section class="mt-[15vh] md:mt-[20vh]">
+    <HeadingsComponent class="text-left" :level="2" text="Mine malerier"></HeadingsComponent>
+    <div class="md:mx-[3rem] grid md:grid-cols-4 gap-2 grid-cols-1">
+      <div class="mx-8 md:mx-0 h-[45vh] bg-[url(./assets/hero-pics/1.jpeg)] bg-cover bg-center"></div>
+      <div class="mx-8 md:mx-0 h-[45vh] bg-[url(./assets/hero-pics/2.jpeg)] bg-cover"></div>
+      <div class="mx-8 md:mx-0 h-[45vh] bg-[url(./assets/hero-pics/3.jpeg)] bg-cover bg-center"></div>
       <ImageLinkButtonComponent
-        class="mx-8 h-[45vh] bg-cover bg-center"
+        class="mx-8 md:mx-0 h-[45vh] bg-cover bg-center"
         href="/galleri"
-        text="Klik her for at se mere &rarr;"
+        text="Se mere &rarr;"
         image="../../public/uploads/90x40/PmD5we8m.jpg"
       ></ImageLinkButtonComponent>
     </div>

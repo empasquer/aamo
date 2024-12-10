@@ -30,12 +30,12 @@ const router = createRouter({
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      const headerHeight = document.querySelector("header")?.offsetHeight || 0; // Adjust for your header
+      const headerHeight = document.querySelector("header")?.offsetHeight || 0;
       const viewportHeight = window.innerHeight;
 
       return {
         el: to.hash,
-        top: headerHeight > 0 ? headerHeight : viewportHeight * 0.1, // Example: responsive offset
+        top: headerHeight > 0 ? headerHeight : viewportHeight * 0.1,
         behavior: "smooth",
       };
     } else if (savedPosition) {
