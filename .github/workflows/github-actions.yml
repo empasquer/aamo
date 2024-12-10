@@ -1,14 +1,12 @@
 name: Maven Test and Docker Build
 # Made nov 17 2024
-
 on:
   push:
     branches:
-      - ['*']
+      - '*'
   pull_request:
     branches:
-      - ['*']
-      -
+      - '*'
   workflow_dispatch:
 
 # These actions use hash pinning for increased security

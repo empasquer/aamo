@@ -19,8 +19,8 @@ export default {
         title: '',
         startDate: '',
         endDate: '',
-        formatedStartDate: '',
-        formatedEndDate: '',
+        formattedStartDate: '',
+        formattedEndDate: '',
         description: '',
       },
     };
