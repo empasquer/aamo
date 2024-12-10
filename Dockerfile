@@ -1,5 +1,6 @@
 # Use an OpenJDK 21 image
-FROM openjdk:21-jdk-slim
+#FROM openjdk:21-jdk-slim
+FROM maven:3.9.8-eclipse-temurin-21
 
 # Create /app directory and ensure correct permissions
 RUN mkdir -p /app && chmod 777 /app
