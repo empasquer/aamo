@@ -1,5 +1,12 @@
 <script setup lang="ts">
 
+import {computed} from "vue";
+
+interface ArtWorkTag {
+  tagType: string;
+  tagValue: string;
+}
+
 interface ArtWork {
   artWorkId: number;
   title: string;
@@ -8,19 +15,28 @@ interface ArtWork {
   media: {
     mediaUrl: string;
   };
+  tags: ArtWorkTag[];
 }
 
-defineProps<{
+const props = defineProps<{
   artWork: ArtWork | null;
 }>();
+
+const sizeTag = computed(() => {
+  return props.artWork?.tags.find(tag => tag.tagType === "SIZE")?.tagValue || null;
+});
+
+console.log(props.artWork)
 
 </script>
 
 <template>
   <div v-if="artWork"
-       class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 text-white rounded shadow-lg p-4 flex flex-col justify-center items-center transition-opacity duration-300 opacity-100 pointer-events-none">
-    <h3 class="text-lg font-bold mb-2">{{ artWork.title }}</h3>
-    <p class="text-sm mb-2">{{ artWork.description }}</p>
+       class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 text-white !important rounded shadow-lg p-4 flex flex-col justify-start items-start transition-opacity duration-300 opacity-100 pointer-events-none">
+    <h3 class="text-3xl font-bold tracking-wide text-white !important mb-2 text-left">
+      {{ artWork.title ? `"${artWork.title}"` : 'Unavngivet' }}</h3>
+    <p class="text-lg text-white !important font-bold mb-2 text-left" v-if="sizeTag">{{ sizeTag }}</p>
+    <p class="text-lg text-white !important mb-2 mt-4 text-left">{{ artWork.description }}</p>
   </div>
 </template>
 

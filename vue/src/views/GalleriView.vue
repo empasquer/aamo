@@ -40,7 +40,6 @@ onMounted(async () => {
   <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
 
   <div class="p-4">
-    <!-- Overskrift + galleri beskrivelse -->
     <GalleryDescriptionComponent />
 
 
