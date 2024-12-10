@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <section class="relative">
-    <div class="grid md:grid-cols-3 gap-6 relative top-[-1.7rem] grid-cols-1">
+    <div class="grid md:grid-cols-3 gap-6 relative top-[100px] grid-cols-1">
       <div class="relative h-[75vh] bg-[url(./assets/hero-pics/1.jpeg)] bg-cover bg-center hidden md:block"></div>
       <div class="relative md:h-[75vh] bg-[url(./assets/hero-pics/2.jpeg)] bg-cover bg-[40%_center] h-screen w-full"></div>
       <div class="relative h-[75vh] bg-[url(./assets/hero-pics/3.jpeg)] bg-cover bg-center hidden md:block"></div>
