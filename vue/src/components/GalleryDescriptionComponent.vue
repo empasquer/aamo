@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
   <div class="p-4">
-    <p class="text-base sm:text-lg leading-relaxed text-gray-700">
+    <p class="text-base sm:text-lg leading-relaxed text-gray-700 mb-8">
       {{ galleryDescription }}
     </p>
   </div>
