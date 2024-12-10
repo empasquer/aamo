@@ -1,10 +1,10 @@
 <script lang="ts">
-import Carousel from './Carousel.vue';
-import axios from 'axios';
-import Headings from './HeadingsComponent.vue'
+import Carousel from "./Carousel.vue";
+import axios from "axios";
+import Headings from "./HeadingsComponent.vue";
 //comment to push
 export default {
-  name: 'EventDetails',
+  name: "EventDetails",
   props: {
     eventId: {
       type: [String, Number],
@@ -16,12 +16,12 @@ export default {
       event: {
         mediaUrls: [],
         currentIndex: 0,
-        title: '',
-        startDate: '',
-        endDate: '',
-        formatedStartDate: '',
-        formatedEndDate: '',
-        description: '',
+        title: "",
+        startDate: "",
+        endDate: "",
+        formatedStartDate: "",
+        formatedEndDate: "",
+        description: "",
       },
     };
   },
@@ -37,13 +37,13 @@ export default {
   methods: {
     fetchEvent(eventId: string | number) {
       axios
-          .get(`http://localhost:8080/api/event?eventId=${eventId}`)
-          .then((response) => {
-            this.event = response.data;
-          })
-          .catch((error) => {
-            console.error('Error fetching the event:', error);
-          });
+        .get(`http://localhost:8080/api/event?eventId=${eventId}`)
+        .then((response) => {
+          this.event = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching the event:", error);
+        });
     },
   },
   watch: {
@@ -58,17 +58,14 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center   gap-6 p-4 sm:mt-32">
-
+  <div class="flex flex-col items-center gap-6 p-4 sm:mt-32">
     <!-- Event Details -->
-    <Headings :level=3 :text="event.title"></Headings>
+    <Headings :level="3" :text="event.title"></Headings>
 
-    <h4 class="font-inter text-[#4A4A4A]">{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
+    <h4 class="font-inter text-[#4A4A4A]">{{ event.formatedStartDate }} - {{ event.formatedEndDate }}</h4>
     <!-- Carousel -->
     <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
     <BodyText :textContent="event.description" class="sm:w-3/4 w-full text-center sm:leading-8"></BodyText>
-
-
   </div>
 </template>
 
