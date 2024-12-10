@@ -11,4 +11,3 @@ import IconButtonComponent from "./IconButtonComponent.vue";
     </div>
   </footer>
 </template>
-
