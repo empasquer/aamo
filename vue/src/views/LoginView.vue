@@ -19,24 +19,33 @@ const handleSubmit = async (event: Event) => {
   event.preventDefault();
   errorMessage.value = ''; //Clear any previous error message
 
+  if (!email.value || !password.value) {
+    errorMessage.value = 'Email og kodeord er påkrævet!';
+    return;
+  }
+
   try {
     const response = await axios.post('http://localhost:8080/api/login', {
       email: email.value,
       password: password.value,
     });
 
-    console.log('Login Response:', response);  // Log the response to check its structure
-
+    console.log('Login Response:', response);
 
     if (response.data.status === 'success') {
       console.log('Login successful, redirecting to /om-mig');
-
-      await router.push('/om-mig');
+      await router.push({ name: 'about-me' });
     } else {
-      errorMessage.value = response.data.errorMessage || 'Log ind mislykkedes!';
+      errorMessage.value = response.data.message || 'Log ind mislykkedes!';
+      console.error('Login failed:', response.data);
     }
-  } catch (error) {
-    errorMessage.value = 'Noget gik galt under log ind!';
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage.value = error.response.data.message;
+    } else {
+      errorMessage.value = 'Noget gik galt under log ind!';
+    }
+    console.error('Error during login:', error);
   }
 };
 </script>
@@ -48,7 +57,7 @@ const handleSubmit = async (event: Event) => {
 
       <!-- Email Input -->
       <BasicInputComponent
-          label="Email*"
+          label="EMAIL*"
           name="email"
           v-model="email"
           type="email"
@@ -58,16 +67,16 @@ const handleSubmit = async (event: Event) => {
 
       <!-- Password Input -->
       <BasicInputComponent
-          label="Kodeord*"
+          label="KODEORD*"
           name="password"
           v-model="password"
           type="password"
-          placeholder="******"
+          placeholder="*********"
           required
       ></BasicInputComponent>
 
       <!-- Error Message -->
-      <div v-if="errorMessage" class="text-red-500 text-sm mt-2">
+      <div v-if="errorMessage" class="text-red-700 text-base font-medium mb-3 underline">
         <p>{{ errorMessage }}</p>
       </div>
 

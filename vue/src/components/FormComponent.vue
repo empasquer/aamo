@@ -9,7 +9,7 @@ const props = defineProps({
   },
   formWidth: {
     type: String,
-    default: 'w-48 md:w-64 lg:w-82',
+    default: 'w-60 md:w-80 lg:w-86',
   },
   action: {
     type: String,
@@ -26,20 +26,14 @@ const computedWidth = computed(() => {
   return props.formWidth;
 });
 
-// Method to handle form submission
-const handleSubmit = (event: Event) => {
-  event.preventDefault(); // Prevent default form submission
-  const formElement = event.target as HTMLFormElement;
-  formElement.submit(); // Manually submit the form
-};
 </script>
 
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
-    <div :class="['p-8', 'shadow-md', computedWidth]" style="background-color: rgba(0, 0, 0, 0.5);">
-      <h1 class="text-[#EAEAEA] text-2xl font-bold text-center mb-6">{{ title }}</h1>
-      <form :action="action" :method="method" @submit="handleSubmit">
-        <slot></slot>
+    <div :class="['p-8', 'shadow-md', computedWidth,  'mx-auto']" style="width: 24rem; background-color: rgba(0, 0, 0, 0.5);">
+      <h1 class="text-[#EAEAEA] text-4xl font-bold text-center mb-6">{{ title }}</h1>
+      <form :action="action" :method="method" @submit="action ? undefined : $emit('submit')">
+      <slot></slot>
       </form>
     </div>
   </div>

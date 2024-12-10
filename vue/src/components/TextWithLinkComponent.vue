@@ -82,5 +82,7 @@ const handleClick = () => {
 </template>
 
 <style scoped>
-/* You can add component-specific styles here */
+a:hover {
+  color: inherit; /* Keeps the same color on hover */
+}
 </style>

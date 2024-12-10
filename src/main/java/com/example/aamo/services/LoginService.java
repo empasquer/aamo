@@ -29,10 +29,12 @@ public class LoginService {
         User user = findUserByEmail(email);
 
         System.out.println("Mail used: " + email);
+        System.out.println("Password used: " + password);
         if (user != null) {
             String storedPassword = user.getPassword();
             if (verifyPassword(password, storedPassword)) {
                 session.setAttribute("loggedIn", true);
+                System.out.println("succes");
                 return true; //Authentication successful
             } else {
                 System.out.println("Password mismatch");
