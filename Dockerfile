@@ -24,11 +24,14 @@ COPY src ./src
 # Build the application using the Maven wrapper
 RUN ./mvnw clean package -DskipTests
 
+# List the contents of target to confirm the .jar file exists
+RUN ls -alh target/
+
 # Expose the application port
 EXPOSE 8080
 
 # Copy the target folder into the container
-COPY target/*.jar /app/target/
+COPY target/ ./target/
 
 # Run the Spring Boot app using a wildcard to match the .jar file
 CMD ["sh", "-c", "until nc -z database 3306; do echo 'Waiting for database...'; sleep 5; done; java -jar ./target/*.jar"]
