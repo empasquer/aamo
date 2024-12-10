@@ -1,12 +1,13 @@
 <script lang="ts">
 import Carousel from './Carousel.vue';
 import axios from 'axios';
-
+import Headings from './HeadingsComponent.vue'
+//comment to push
 export default {
   name: 'EventDetails',
   props: {
     eventId: {
-      type: [String, Number], // Assuming eventId can be a string or number
+      type: [String, Number],
       required: true,
     },
   },
@@ -18,12 +19,15 @@ export default {
         title: '',
         startDate: '',
         endDate: '',
+        formatedStartDate: '',
+        formatedEndDate: '',
         description: '',
       },
     };
   },
   components: {
     Carousel,
+    Headings,
   },
   computed: {
     mediaUrls() {
@@ -54,14 +58,17 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col items-center sm:items-start gap-6 p-40">
-    <!-- Carousel -->
-    <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
+  <div class="flex flex-col items-center   gap-6 p-4 sm:mt-32">
 
     <!-- Event Details -->
-    <p>{{ event.title }}</p>
-    <p>{{ event.startDate }} - {{ event.endDate }}</p>
-    <p>{{ event.description }}</p>
+    <Headings :level=3 :text="event.title"></Headings>
+
+    <h4 class="font-inter text-[#4A4A4A]">{{ event.formattedStartDate }} - {{ event.formattedEndDate }}</h4>
+    <!-- Carousel -->
+    <Carousel v-if="mediaUrls && mediaUrls.length > 0" :media-urls="mediaUrls" />
+    <BodyText :textContent="event.description" class="sm:w-3/4 w-full text-center sm:leading-8"></BodyText>
+
+
   </div>
 </template>
 

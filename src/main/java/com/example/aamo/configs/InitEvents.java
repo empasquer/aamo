@@ -24,12 +24,12 @@ public class InitEvents implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Create Media
-        Media pic1 = new Media("https://drive.google.com/file/d/1t9kR9zP8hg65fSrWt7akc4qL3LvChKx8");
-        Media pic2 = new Media("https://drive.google.com/file/d/13ESaXYb7MCcUDQpz3k5TUc4rL1TW2sUx");
-        Media pic3 = new Media("https://drive.google.com/file/d/13K92S6VZnW24vfL62EgPsvEAUH40cmoi");
-        Media pic4 = new Media("https://drive.google.com/file/d/1M6rhHkpaIOKP-josJMEGYdZVPKIyebXq");
-        Media pic5 = new Media("https://drive.google.com/file/d/1pa8lOX3l9IGoocaTmjas_4Vzekel9tFX");
-        Media pic6 = new Media("https://drive.google.com/file/d/1Owv5KOuksV0NjwmTDCvQlCXgltJv27rs");
+        Media pic1 = new Media("/eva.png");
+        Media pic2 = new Media("/eva.png");
+        Media pic3 = new Media("/eva.png");
+        Media pic4 = new Media("/eva.png");
+        Media pic5 = new Media("/eva.png");
+        Media pic6 = new Media("/eva.png");
 
         Media vid1 = new Media("https://www.youtube.com/embed/EShUeudtaFg?si=5Cg_1H8yUQcEfDlI");
 
