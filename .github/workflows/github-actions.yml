@@ -58,6 +58,13 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349 #v3.7.1 oct 4 2024
 
+      # Step 3: Set up JDK 21 in the Docker Build Job
+      - name: Set up JDK 21
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b #v4.5.0 oct 21 2024
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
       - name: Check Java version
         run: java -version
 
