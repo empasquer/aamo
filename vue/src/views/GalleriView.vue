@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import {defineComponent, onMounted, ref} from 'vue'
+import GalleryDescriptionComponent from "../components/GalleryDescriptionComponent.vue";
 import ImageComponent from "../components/ImageComponent.vue";
+import SmallArtWorkDetailsComponent from "../components/SmallArtWorkDetailsComponent.vue";
 import HeadingsComponent from "../components/HeadingsComponent.vue";
 
 //definerer artwork interfacet.
@@ -15,38 +17,48 @@ interface ArtWork {
 }
 
 //her er de reaktive variabler
-const artworks = ref<ArtWork[]>([]);
-const isLoading = ref(true);
+const artWorks = ref<ArtWork[]>([]);
+const hoveredArtWorks = ref<ArtWork | null>(null);
+
 
 //Henter artwork nor componenten bliver brugt.
 onMounted(async () => {
   try {
     const response = await fetch("http://localhost:8080/api/galleri");
     if (!response.ok) {
-      throw new Error("Failed to fetch artworks");
+      throw new Error("Failed to fetch gallery data");
     }
-    artworks.value = await response.json();
+    artWorks.value = await response.json();
   } catch (error) {
-    console.error(error);
-  } finally {
-    isLoading.value = false;
+    console.error("Fejl ved hentniong af artworks:", error);
   }
 });
 </script>
 
 <template>
-  <div class="gallery-container">
-    <HeadingsComponent :level=1 text="GALLERI" class="text-center"></HeadingsComponent>
-    <p v-if="isLoading">Henter kunstværker.. :)</p>
-    <div v-else>
-      <ImageComponent
-        v-for="artwork in artworks"
-        :key="artwork.artWorkId"
-        :title="artwork.title"
-        :description="artwork.description"
-        :mediaUrl="artwork.media.mediaUrl"
-        :price="artwork.price"
-      />
+
+  <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
+
+  <div class="p-4">
+    <GalleryDescriptionComponent />
+
+
+
+    <!-- Galleri -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="relative">
+        <!-- Billedkomponent -->
+        <ImageComponent
+            :artWork="artWork"
+           @hover="hoveredArtWorks = $event"
+        />
+        <!-- Detaljekomponent (vises kun ved hover) -->
+        <SmallArtWorkDetailsComponent
+            :artWork="hoveredArtWorks === artWork ? artWork : null"
+        />
+
+
+      </div>
     </div>
   </div>
 </template>
