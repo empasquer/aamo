@@ -1,6 +1,6 @@
 package com.example.aamo.services;
 
-/*import com.example.aamo.models.User;
+import com.example.aamo.models.User;
 import com.example.aamo.repositories.LoginRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +28,15 @@ public class LoginService {
     public boolean authenticateUser(String email, String password) {
         User user = findUserByEmail(email);
 
-        System.out.println("Mail used: " + email);
-        System.out.println("Password used: " + password);
         if (user != null) {
             String storedPassword = user.getPassword();
             if (verifyPassword(password, storedPassword)) {
                 session.setAttribute("loggedIn", true);
-                System.out.println("succes");
                 return true; //Authentication successful
             } else {
-                System.out.println("Password mismatch");
                 return false; //Password mismatch
             }
         } else {
-            System.out.println("User not found");
             return false; //User not found
         }
     }
@@ -78,4 +73,3 @@ public class LoginService {
 
 }
 
- */

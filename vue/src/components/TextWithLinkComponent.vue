@@ -73,11 +73,11 @@ const handleClick = () => {
 
 <template>
   <div :class="computedClasses">
-    <span>{{ textParts.before }}</span>
+    <span class="text-[#EAEAEA] font-inter">{{ textParts.before }}</span>
     <a href="#" @click.prevent="handleClick" class="underline cursor-pointer text-[#EAEAEA] font-inter">
       {{ textParts.clickable }}
     </a>
-    <span>{{ textParts.after }}</span>
+    <span class="text-[#EAEAEA] font-inter">{{ textParts.after }}</span>
   </div>
 </template>
 

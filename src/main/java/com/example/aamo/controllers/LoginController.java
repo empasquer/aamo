@@ -29,7 +29,7 @@ public class LoginController {
         String password = credentials.get("password");
 
         if (loginService.authenticateUser(email, password)) {
-            return ResponseEntity.ok().body(Map.of("message", "Du er nu logget in", "status", "success"));
+            return ResponseEntity.ok().body(Map.of("message", "Du er nu logget ind", "status", "success"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Forkert mail eller kodeord"));
         }
@@ -53,18 +53,18 @@ public class LoginController {
         String email = request.get("email");
 
         if (!mailService.isValidEmail(email)) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Forkert mail format"));
+            return ResponseEntity.badRequest().body(Map.of("message", "Forkert mail"));
         }
 
         if (loginService.findUserByEmail(email) == null) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Bruger med denne mail eksistere ikke"));
+            return ResponseEntity.badRequest().body(Map.of("message", "Bruger med denne mail eksisterer ikke"));
         }
 
         String newPassword = loginService.randomPassword();
         mailService.sendEmail(email, newPassword);
         loginService.updatePassword(newPassword, email);
 
-        return ResponseEntity.ok().body(Map.of("message", "Nyt kodeord er sendt til din mail"));
+        return ResponseEntity.ok().body(Map.of("message", "Nyt kodeord er sendt til din mail", "status", "success"));
     }
 
     @PostMapping("/reset-password/admin")
@@ -78,11 +78,11 @@ public class LoginController {
         }
 
         if (!newPassword.equals(repeatedPassword)) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Kodeordene er ikke end"));
+            return ResponseEntity.badRequest().body(Map.of("message", "Kodeordene er ikke ens"));
         }
 
         loginService.updatePassword(newPassword, currentEmail);
-        return ResponseEntity.ok().body(Map.of("message", "Kodeordet er opdateret"));
+        return ResponseEntity.ok().body(Map.of("message", "Kodeordet er opdateret", "status", "success"));
     }
 
 

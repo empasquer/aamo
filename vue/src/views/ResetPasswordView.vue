@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import axios from 'axios';
 import FormComponent from '../components/FormComponent.vue';
 import BasicInputComponent from '../components/BasicInputComponent.vue';
@@ -7,11 +7,20 @@ import FormButtonComponent from '../components/FormButtonComponent.vue';
 import TextWithLinkComponent from '../components/TextWithLinkComponent.vue';
 import {useRouter} from "vue-router";
 
-const email = ref('');
-const password = ref('');
+const currentEmail = ref('');
+const newPassword = ref('');
+const repeatedPassword = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
 const router = useRouter();
+
+const isLoggedIn = ref(false);
+
+onMounted(() => {
+  // Check if user is logged in by checking sessionStorage
+  const status = sessionStorage.getItem('loggedIn');
+  isLoggedIn.value = status === 'true';
+});
 
 
 //Handle form submission
@@ -19,29 +28,31 @@ const handleSubmit = async (event: Event) => {
   event.preventDefault();
   errorMessage.value = ''; //Clear any previous error message
 
-  if (!email.value || !password.value) {
-    errorMessage.value = 'Email og kodeord er påkrævet!';
+  if (!currentEmail.value || !newPassword.value || !repeatedPassword.value) {
+    errorMessage.value = 'Email og begge kodeord er påkrævet!';
     return;
   }
 
   loading.value = true;
   try {
-    const response = await axios.post('http://localhost:8080/api/login', {
-      email: email.value,
-      password: password.value,
+    const response = await axios.post('http://localhost:8080/api/reset-password', {
+      currentEmail: currentEmail.value,
+      newPassword: newPassword.value,
+      repeatedPassword: repeatedPassword.value,
     });
 
+
     if (response.data.status === 'success') {
-      sessionStorage.setItem('loggedIn', 'true');
-      await router.push({ name: 'admin-galleri' });
+      sessionStorage.removeItem('loggedIn');
+      await router.push({ name: 'login' });
     } else {
-      errorMessage.value = response.data.message || 'Log ind mislykkedes!';
+      errorMessage.value = response.data.message || 'Nulstilling af kodeord mislykkedes!';
     }
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.message) {
       errorMessage.value = error.response.data.message;
     } else {
-      errorMessage.value = 'Noget gik galt under log ind!';
+      errorMessage.value = 'Noget gik galt under nulstilling af kodeord!';
     }
   } finally {
     loading.value = false; // Reset loading state
@@ -52,13 +63,13 @@ const handleSubmit = async (event: Event) => {
 <template>
   <div id="app">
     <!-- Form Component with Title -->
-    <FormComponent title="Log ind" @submit="handleSubmit">
+    <FormComponent title="Nulstil kodeord" @submit="handleSubmit">
 
       <!-- Email Input -->
       <BasicInputComponent
           label="EMAIL*"
-          name="email"
-          v-model="email"
+          name="currentEmail"
+          v-model="currentEmail"
           type="email"
           placeholder="mail@mail.com"
           required
@@ -66,9 +77,19 @@ const handleSubmit = async (event: Event) => {
 
       <!-- Password Input -->
       <BasicInputComponent
-          label="KODEORD*"
-          name="password"
-          v-model="password"
+          label="NYT KODEORD*"
+          name="newPassword"
+          v-model="newPassword"
+          type="password"
+          placeholder="*********"
+          required
+      ></BasicInputComponent>
+
+      <!-- Password Input -->
+      <BasicInputComponent
+          label="GENTAG NYT KODEORD*"
+          name="repeatedPassword"
+          v-model="repeatedPassword"
           type="password"
           placeholder="*********"
           required
@@ -80,17 +101,8 @@ const handleSubmit = async (event: Event) => {
       </div>
 
       <!-- Submit Button -->
-      <FormButtonComponent :loading="loading">Log ind</FormButtonComponent>
+      <FormButtonComponent :loading="loading">Gem nyt kodeord</FormButtonComponent>
 
-      <!-- Forgot Password Link -->
-      <TextWithLinkComponent
-          text="Har du glemt dit kodeord? Klik her for at få tilsendt et nyt."
-          link="glemt-kodeord"
-          font-size="text-sm"
-          text-align="text-center"
-          padding="pt-4"
-          font-weight="font-medium"
-      ></TextWithLinkComponent>
     </FormComponent>
   </div>
 </template>

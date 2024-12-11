@@ -17,6 +17,13 @@ interface ArtWork {
 //her er de reaktive variabler
 const artworks = ref<ArtWork[]>([]);
 const isLoading = ref(true);
+const isLoggedIn = ref(false);
+
+onMounted(() => {
+  // Check if user is logged in by checking sessionStorage
+  const status = sessionStorage.getItem('loggedIn');
+  isLoggedIn.value = status === 'true';
+});
 
 //Henter artwork nor componenten bliver brugt.
 onMounted(async () => {
@@ -37,6 +44,7 @@ onMounted(async () => {
 <template>
   <div class="gallery-container">
     <HeadingsComponent :level=1 text="GALLERI" class="text-center"></HeadingsComponent>
+    <p v-if="isLoggedIn">You are logged in!</p>
     <p v-if="isLoading">Henter kunstværker.. :)</p>
     <div v-else>
       <ImageComponent

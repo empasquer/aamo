@@ -4,6 +4,8 @@ import GalleriView from "../views/GalleriView.vue";
 import OtherArtworksView from "../views/OtherArtworksView.vue";
 import HomePage from "../views/HomePage.vue";
 import LoginView from "../views/LoginView.vue";
+import ForgottenPasswordView from "../views/ForgottenPasswordView.vue";
+import ResetPasswordView from "../views/ResetPasswordView.vue";
 import axios from "axios";
 
 const router = createRouter({
@@ -34,6 +36,22 @@ const router = createRouter({
       name: "login",
       component: LoginView,
     },
+    {
+      path: "/glemt-kodeord",
+      name: "forgotten-password",
+      component: ForgottenPasswordView,
+    },
+    {
+      path: "/admin/nulstil-kodeord",
+      name: "reset-password",
+      component: ResetPasswordView,
+    },
+    {
+      path: "/admin/galleri",
+      name: "admin-galleri",
+      component: GalleriView,
+    },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
@@ -55,20 +73,22 @@ const router = createRouter({
 
 // Global navigation guard
 router.beforeEach(async (to, from, next) => {
-  try {
-    const response = await axios.get("http://localhost:8080/api/session-status"); // Check login status with the Spring Boot API
-    const isLoggedIn = response.data.loggedIn;
+  if (to.path.startsWith("/admin")) {
+    try {
+      const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-    // If the route contains "/admin/" and the user is not logged in, redirect to log in
-    if (to.path.includes("/admin/") && !isLoggedIn) {
-      next({ name: "login" }); // Redirect to login page
-    } else {
-      next(); // Allow the navigation
+      if (!isLoggedIn) {
+        // If not logged in, redirect to login page
+        next({ name: 'login' });
+        return;
+      }
+    } catch (error) {
+      console.error("Error checking login status:", error);
+      next({ name: "homepage" });
+      return;
     }
-  } catch (error) {
-    console.error("Error checking login status:", error);
-    next({ name: "login" }); // Proceed even if the API fails...just redirects to login for now
   }
+  next(); // Allow navigation for all other routes
 });
 
 export default router;

@@ -8,40 +8,36 @@ import TextWithLinkComponent from '../components/TextWithLinkComponent.vue';
 import {useRouter} from "vue-router";
 
 const email = ref('');
-const password = ref('');
 const errorMessage = ref('');
 const loading = ref(false);
 const router = useRouter();
-
 
 //Handle form submission
 const handleSubmit = async (event: Event) => {
   event.preventDefault();
   errorMessage.value = ''; //Clear any previous error message
 
-  if (!email.value || !password.value) {
-    errorMessage.value = 'Email og kodeord er påkrævet!';
+  if (!email.value) {
+    errorMessage.value = 'Email er påkrævet!';
     return;
   }
 
   loading.value = true;
   try {
-    const response = await axios.post('http://localhost:8080/api/login', {
+    const response = await axios.post('http://localhost:8080/api/forgotten-password', {
       email: email.value,
-      password: password.value,
     });
 
     if (response.data.status === 'success') {
-      sessionStorage.setItem('loggedIn', 'true');
-      await router.push({ name: 'admin-galleri' });
+      await router.push({ name: 'login' });
     } else {
-      errorMessage.value = response.data.message || 'Log ind mislykkedes!';
+      errorMessage.value = response.data.message || 'Mislykkedes at sende email!';
     }
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.message) {
       errorMessage.value = error.response.data.message;
     } else {
-      errorMessage.value = 'Noget gik galt under log ind!';
+      errorMessage.value = 'Noget gik galt!';
     }
   } finally {
     loading.value = false; // Reset loading state
@@ -52,25 +48,15 @@ const handleSubmit = async (event: Event) => {
 <template>
   <div id="app">
     <!-- Form Component with Title -->
-    <FormComponent title="Log ind" @submit="handleSubmit">
+    <FormComponent title="Glemt kodeord" @submit="handleSubmit">
 
       <!-- Email Input -->
       <BasicInputComponent
-          label="EMAIL*"
+          label="DIN KONTO EMAIL*"
           name="email"
           v-model="email"
           type="email"
           placeholder="mail@mail.com"
-          required
-      ></BasicInputComponent>
-
-      <!-- Password Input -->
-      <BasicInputComponent
-          label="KODEORD*"
-          name="password"
-          v-model="password"
-          type="password"
-          placeholder="*********"
           required
       ></BasicInputComponent>
 
@@ -80,12 +66,11 @@ const handleSubmit = async (event: Event) => {
       </div>
 
       <!-- Submit Button -->
-      <FormButtonComponent :loading="loading">Log ind</FormButtonComponent>
+      <FormButtonComponent :loading="loading">Send mail</FormButtonComponent>
 
-      <!-- Forgot Password Link -->
       <TextWithLinkComponent
-          text="Har du glemt dit kodeord? Klik her for at få tilsendt et nyt."
-          link="glemt-kodeord"
+          text="Har du husket dit kodeord alligevel? Klik her for at gå tilbage til log ind"
+          link="login"
           font-size="text-sm"
           text-align="text-center"
           padding="pt-4"
