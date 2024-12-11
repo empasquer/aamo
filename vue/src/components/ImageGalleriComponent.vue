@@ -5,6 +5,7 @@ import ImageComponent from "./ImageComponent.vue";
 import SmallArtWorkDetailsComponent from "./SmallArtWorkDetailsComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
+import LargeArtWorkDetailsComponent from "./LargeArtWorkDetailsComponent.vue";
 import Masonry from 'masonry-layout'
 import imagesLoaded from 'imagesloaded';
 
@@ -27,7 +28,7 @@ interface ArtWorkTag {
 //her er de reaktive variabler
 const artWorks = ref<ArtWork[]>([]);
 const hoveredArtWorks = ref<ArtWork | null>(null);
-//const masonry = new Masonry(artWorks);
+const selectedArtWork = ref<ArtWork | null>(null);
 
 const initMasonry = () => {
   const grid = document.querySelector(".masonry-grid") as HTMLElement;
@@ -59,6 +60,12 @@ onMounted(async () => {
     console.error("Fejl ved hentniong af artworks:", error);
   }
 });
+
+// Funktion til at håndtere klik på et kunstværk
+const selectArtWork = (artWork: ArtWork) => {
+  selectedArtWork.value = artWork;
+};
+
 </script>
 
 <template>
@@ -70,18 +77,23 @@ onMounted(async () => {
 
 
     <!-- Galleri grid -->
-    <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> -->
-    <!-- Masonry grid -->
     <div class="masonry-grid">
       <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="masonry-item">
+
         <!-- Billedkomponent -->
         <ImageComponent
             :artWork="artWork"
             @hover="hoveredArtWorks = $event"
+            @click="selectArtWork(artWork)"
         />
         <!-- Detaljekomponent (vises kun ved hover) -->
         <SmallArtWorkDetailsComponent
             :artWork="hoveredArtWorks === artWork ? artWork : null"
+            @click="selectArtWork(artWork)"
+        />
+        <!-- Pop-up komponent (vises kun ved klik på artWork) -->
+        <LargeArtWorkDeatailsComponent
+          v-if="selectedArtWork === artWork" :artWork="selectedArtWork"
         />
       </div>
     </div>

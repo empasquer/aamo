@@ -20,7 +20,7 @@ defineProps<{
   artWork: ArtWork;
 }>();
 
-const emit = defineEmits(["hover"]);
+const emit = defineEmits(["hover", "click"]);
 </script>
 
 
@@ -29,6 +29,7 @@ const emit = defineEmits(["hover"]);
       class="relative cursor-pointer group"
       @mouseenter="$emit('hover', artWork)"
       @mouseleave="$emit('hover', null)"
+      @click="$emit('click', artWork)"
   >
     <img
         :src="artWork.media.mediaUrl"
