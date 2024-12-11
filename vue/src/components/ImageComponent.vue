@@ -1,10 +1,5 @@
 <script setup lang="ts">
 
-interface ArtWorkTag {
-  tagType: string;
-  tagValue: string;
-}
-
 interface ArtWork {
   artWorkId: number;
   title: string;
@@ -14,6 +9,11 @@ interface ArtWork {
     mediaUrl: string;
   };
   tags: ArtWorkTag[];
+}
+
+interface ArtWorkTag {
+  tagType: string;
+  tagValue: string;
 }
 
 defineProps<{
