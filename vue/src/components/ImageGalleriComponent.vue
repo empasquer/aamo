@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {defineComponent, nextTick, onMounted, ref} from 'vue'
+import {nextTick, onMounted, ref} from 'vue'
 import GalleryDescriptionComponent from "./GalleryDescriptionComponent.vue";
 import ImageComponent from "./ImageComponent.vue";
 import SmallArtWorkDetailsComponent from "./SmallArtWorkDetailsComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
 import LargeArtWorkDetailsComponent from "./LargeArtWorkDetailsComponent.vue";
+import FilterSortMenuComponent from "./FilterSortMenuComponent.vue";
 import Masonry from 'masonry-layout'
 import imagesLoaded from 'imagesloaded';
 
@@ -27,8 +28,28 @@ interface ArtWorkTag {
 
 //her er de reaktive variabler
 const artWorks = ref<ArtWork[]>([]);
+const filteredArtWorks = ref<ArtWork[]>([]);
 const hoveredArtWorks = ref<ArtWork | null>(null);
 const selectedArtWork = ref<ArtWork | null>(null);
+
+//Filter instillinger
+const activeFilters = ref({
+  size: [],
+  //theme: [],
+  //color: [],
+});
+
+//funktion som filtrerer billederne
+const filterArtWorks = () => {
+  filteredArtWorks.value = artWorks.value.filter((artWork) =>
+    artWork.tags.some(
+        (tag) =>
+            tag.tagType === 'size' && activeFilters.value.size.includes(tag.tagValue)
+    )
+
+  );
+};
+
 
 const initMasonry = () => {
   const grid = document.querySelector(".masonry-grid") as HTMLElement;
@@ -54,6 +75,7 @@ onMounted(async () => {
       throw new Error("Failed to fetch gallery data");
     }
     artWorks.value = await response.json();
+    filteredArtWorks.value = [...artWorks.value];
     await nextTick(); // venter til at DOM er opdaterede.
     initMasonry(); //nu initialiserer den billederne ved hjælp af masonry
   } catch (error) {
@@ -74,6 +96,15 @@ const selectArtWork = (artWork: ArtWork) => {
     <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
 
     <GalleryDescriptionComponent />
+
+    <!-- Filter Menu -->
+    <FilterSortMenuComponent
+        :tags="artWorks.flatMap(artwork => artwork.tags)"
+    @filter-applied="(filters) => {
+    activeFilters.size = filters.size;
+    filterArtWorks();
+    }"
+    />
 
 
     <!-- Galleri grid -->
