@@ -34,15 +34,15 @@ watch(selectedTags, onFilterChange);
 <template>
   <div>
     <h3 class="font-bold">Størrelse</h3>
-    <div v-for="tag in props.tags" :key="tag.tagValue">
+    <div v-for="tag in props.tags" :key="tag">
       <label>
         <input
             type="checkbox"
-            :id="tag.tagValue"
-            :value="tag.tagValue"
+            :id="tag"
+            :value="tag"
             v-model="selectedTags"
         />
-        {{ tag.tagValue }}
+        {{ tag }}
       </label>
     </div>
   </div>

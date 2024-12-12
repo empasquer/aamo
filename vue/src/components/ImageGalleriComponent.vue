@@ -100,10 +100,10 @@ const selectArtWork = (artWork: ArtWork) => {
     <!-- Filter Menu -->
     <FilterSortMenuComponent
         :tags="artWorks.flatMap(artwork => artwork.tags)"
-    @filter-applied="(filters) => {
-    activeFilters.size = filters.size;
-    filterArtWorks();
-    }"
+        @filter-applied="(filters) => {
+          activeFilters.size = filters.size;
+          filterArtWorks();
+        }"
     />
 
 
@@ -114,18 +114,18 @@ const selectArtWork = (artWork: ArtWork) => {
         <!-- Billedkomponent -->
         <ImageComponent
             :artWork="artWork"
-            @hover="hoveredArtWorks = $event"
-            @click="selectArtWork(artWork)"
-        />
-        <!-- Detaljekomponent (vises kun ved hover) -->
+            @hover="hoveredArtWorks = $event"/>
+        <!--@click="selectArtWork(artWork)"-->
+
+    <!-- Detaljekomponent (vises kun ved hover) -->
         <SmallArtWorkDetailsComponent
             :artWork="hoveredArtWorks === artWork ? artWork : null"
             @click="selectArtWork(artWork)"
         />
         <!-- Pop-up komponent (vises kun ved klik på artWork) -->
-        <LargeArtWorkDeatailsComponent
+        <!--<LargeArtWorkDeatailsComponent
           v-if="selectedArtWork === artWork" :artWork="selectedArtWork"
-        />
+        />-->
       </div>
     </div>
   </div>

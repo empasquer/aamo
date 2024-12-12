@@ -15,10 +15,16 @@ const props = defineProps<{
 }>();
 
 //TODO er det vigtigt her at 'size' står som SIZE som i enum?
-const sizeTags = computed(() =>
-    props.tags.filter((tag) => tag.tagType === 'SIZE'));
-//const themeTags = computed(() => allTags.value.filter(tag => tag.tagType === 'theme'));
-//const colorTags = computed(() => allTags.value.filter(tag => tag.tagType === 'color'));
+const sizeTags = computed(() => {
+  const uniqueSizeTags= Array.from(
+      new Set(props.tags.
+      filter((tag) => tag.tagType === 'SIZE')
+          .map((tag) => tag.tagValue)
+      )
+  );
+  return uniqueSizeTags.map((size) => (size));
+});
+
 
 const selectedFilters = ref({
   size: [] as string[],
