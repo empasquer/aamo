@@ -41,14 +41,19 @@ const activeFilters = ref({
 
 //funktion som filtrerer billederne
 const filterArtWorks = () => {
-  filteredArtWorks.value = artWorks.value.filter((artWork) =>
-    artWork.tags.some(
-        (tag) =>
-            tag.tagType === 'SIZE' && activeFilters.value.size.includes(tag.tagValue)
-    )
-
-  );
-  nextTick(() => initMasonry());
+  if (activeFilters.value.size.length === 0) {
+    // Hvis ingen størrelse er valgt, vis alle malerier
+    filteredArtWorks.value = [...artWorks.value];
+  } else {
+    // Ellers filtrer malerier baseret på aktive filtre
+    filteredArtWorks.value = artWorks.value.filter((artWork) =>
+        artWork.tags.some(
+            (tag) =>
+                tag.tagType === "SIZE" && activeFilters.value.size.includes(tag.tagValue)
+        )
+    );
+  }
+  nextTick(() => initMasonry()); // Opdater Masonry efter ændring
 };
 
 

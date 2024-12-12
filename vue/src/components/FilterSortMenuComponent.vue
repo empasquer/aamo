@@ -26,6 +26,8 @@ const sizeTags = computed(() => {
 });
 
 
+
+
 const selectedFilters = ref({
   size: [] as string[],
 });
@@ -45,7 +47,7 @@ const applyFilters = () => {
     :tags="sizeTags"
     @filter-changed="(filters) => selectedFilters.size = filters"/>
 
-    <button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">Anvend Filtre</button>
+    <!--<button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>-->
 
   </div>
 </template>

@@ -12,9 +12,12 @@ const props = defineProps<{
 }>();
 
 
-
-//TODO her skal vi kun hente tagType hvor enummet er SIZE og så vise alle de tagValues der følger med den
+const showSizes = ref(false);
 const selectedTags = ref<string[]>([]);
+
+const toggleSizes = () => {
+  showSizes.value = !showSizes.value;
+}
 
 const toggleTag = (tag: string) => {
   if (selectedTags.value.includes(tag)) {
@@ -33,17 +36,22 @@ watch(selectedTags, onFilterChange);
 
 <template>
   <div>
-    <h3 class="font-bold">Størrelse</h3>
-    <div v-for="tag in props.tags" :key="tag">
-      <label>
-        <input
-            type="checkbox"
-            :id="tag"
-            :value="tag"
-            v-model="selectedTags"
-        />
-        {{ tag }}
-      </label>
+    <!-- Klikbar overskrift -->
+    <h3 @click="toggleSizes" class="font-bold cursor-pointer">Størrelse</h3>
+    <!-- Skjulte muligheder -->
+    <div v-if="showSizes" class="mt-2">
+      <div v-for="tag in props.tags" :key="tag">
+        <label>
+          <input
+              type="checkbox"
+              :id="tag"
+              :value="tag"
+              v-model="selectedTags"
+          />
+          {{ tag }}
+        </label>
+      </div>
+      <button @click="onFilterChange" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>
     </div>
   </div>
 </template>
