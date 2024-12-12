@@ -14,7 +14,6 @@ const props = defineProps<{
   tags: ArtWorkTag[];
 }>();
 
-//TODO er det vigtigt her at 'size' står som SIZE som i enum?
 const sizeTags = computed(() => {
   const uniqueSizeTags= Array.from(
       new Set(props.tags.
@@ -25,11 +24,31 @@ const sizeTags = computed(() => {
   return uniqueSizeTags.map((size) => (size));
 });
 
+const themeTags = computed(() => {
+  const uniqueThemeTags= Array.from(
+      new Set(props.tags.
+          filter((tag) => tag.tagType === 'THEME')
+              .map((tag) => tag.tagValue)
+      )
+  );
+  return uniqueThemeTags.map((theme) => (theme));
+});
 
+const colorTags = computed(() => {
+  const uniqueColorTags= Array.from(
+      new Set(props.tags.
+          filter((tag) => tag.tagType === 'COLOR')
+              .map((tag) => tag.tagValue)
+      )
+  );
+  return uniqueColorTags.map((color) => (color));
+});
 
 
 const selectedFilters = ref({
   size: [] as string[],
+  theme: [] as string[],
+  color: [] as string[]
 });
 
 const emit = defineEmits (['filter-applied']);
@@ -44,10 +63,18 @@ const applyFilters = () => {
 <template>
   <div>
     <FilterSizeComponent
-    :tags="sizeTags"
-    @filter-changed="(filters) => selectedFilters.size = filters"/>
+        :tags="sizeTags"
+        @filter-changed="(filters) => selectedFilters.size = filters"/>
 
-    <!--<button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>-->
+    <FilterThemeComponent
+        :tags="themeTags"
+        @filter-changed="(filters) => selectedFilters.theme = filters"/>
+
+    <FilterColorComponent
+        :tags="colorTags"
+        @filter-changed="(filters) => selectedFilters.color = filters"/>
+
+    <button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>
 
   </div>
 </template>

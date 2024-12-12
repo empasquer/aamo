@@ -51,7 +51,7 @@ watch(selectedTags, onFilterChange);
           {{ tag }}
         </label>
       </div>
-      <button @click="onFilterChange" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>
+      <!-- <button @click="onFilterChange" class="mt-4 p-2 bg-blue-500 text-white">SØG</button> -->
     </div>
   </div>
 </template>
