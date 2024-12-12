@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {defineComponent, nextTick, onMounted, ref} from 'vue'
+import { defineComponent, nextTick, onMounted, ref } from "vue";
 import GalleryDescriptionComponent from "./GalleryDescriptionComponent.vue";
 import ImageComponent from "./ImageComponent.vue";
 import SmallArtWorkDetailsComponent from "./SmallArtWorkDetailsComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
-import Masonry from 'masonry-layout'
-import imagesLoaded from 'imagesloaded';
+import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 
 interface ArtWork {
   artWorkId: number;
@@ -39,11 +39,10 @@ const initMasonry = () => {
         percentPosition: true,
         gutter: 16,
       });
-      masonry.layout()
+      masonry.layout();
     });
   }
 };
-
 
 //Henter artwork nor componenten bliver brugt.
 onMounted(async () => {
@@ -62,12 +61,10 @@ onMounted(async () => {
 </script>
 
 <template>
-
   <div class="py-4 px-4 sm:px-20">
     <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
 
     <GalleryDescriptionComponent />
-
 
     <!-- Galleri grid -->
     <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> -->
@@ -75,14 +72,9 @@ onMounted(async () => {
     <div class="masonry-grid">
       <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="masonry-item">
         <!-- Billedkomponent -->
-        <ImageComponent
-            :artWork="artWork"
-            @hover="hoveredArtWorks = $event"
-        />
+        <ImageComponent :artWork="artWork" @hover="hoveredArtWorks = $event" />
         <!-- Detaljekomponent (vises kun ved hover) -->
-        <SmallArtWorkDetailsComponent
-            :artWork="hoveredArtWorks === artWork ? artWork : null"
-        />
+        <SmallArtWorkDetailsComponent :artWork="hoveredArtWorks === artWork ? artWork : null" />
       </div>
     </div>
   </div>
@@ -92,7 +84,6 @@ onMounted(async () => {
 .masonry-grid {
   display: grid; /* Masonry håndterer layout*/
 }
-
 
 .masonry-item {
   break-inside: avoid; /* Forhindrer sammenbrud mellem elementer*/

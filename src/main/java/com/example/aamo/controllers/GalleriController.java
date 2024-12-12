@@ -4,6 +4,7 @@ import com.example.aamo.models.ArtWork;
 import com.example.aamo.repositories.ArtWorkRepository;
 import com.example.aamo.services.JsonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,6 +36,13 @@ public class GalleriController {
                 .toList();
 
          */
+    }
+
+    @GetMapping("/api/galleri/chosen-paintings")
+    public List<ArtWork> getChosenPaintings() {
+        return artWorkRepository.findAll(Sort.by(Sort.Direction.DESC, "artWorkId")).stream()
+                .limit(4)
+                .toList();
     }
 
 
