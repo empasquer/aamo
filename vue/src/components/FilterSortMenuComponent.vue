@@ -28,8 +28,6 @@ const sizeTags = computed(() => {
 
 const selectedFilters = ref({
   size: [] as string[],
-  //theme: [] as string[],
-  //color: [] as string[],
 });
 
 const emit = defineEmits (['filter-applied']);
@@ -46,15 +44,6 @@ const applyFilters = () => {
     <FilterSizeComponent
     :tags="sizeTags"
     @filter-changed="(filters) => selectedFilters.size = filters"/>
-
-    <!--<FilterThemeComponent
-    :tags="themeTags"
-    @filter-changed="filters => selectedFilters.theme = filters"/>
-
-    <FilterColorComponent
-    :tags="colorTags"
-    @filter-changed="filters => selectedFilters.color = filters"/>
-    -->
 
     <button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">Anvend Filtre</button>
 

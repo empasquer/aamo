@@ -48,6 +48,7 @@ const filterArtWorks = () => {
     )
 
   );
+  nextTick(() => initMasonry());
 };
 
 
@@ -109,7 +110,7 @@ const selectArtWork = (artWork: ArtWork) => {
 
     <!-- Galleri grid -->
     <div class="masonry-grid">
-      <div v-for="artWork in artWorks" :key="artWork.artWorkId" class="masonry-item">
+      <div v-for="artWork in filteredArtWorks" :key="artWork.artWorkId" class="masonry-item">
 
         <!-- Billedkomponent -->
         <ImageComponent
