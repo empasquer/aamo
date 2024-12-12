@@ -63,6 +63,7 @@ public class ArtworkService {
 
     public void saveArtworkWithTagsAndPicture(ArtworkDTO artworkDTO) {
         ArtWork artWork = createArtwork(artworkDTO);
+        System.out.println(artworkDTO.getTags());
         findOrSaveTags(artWork, artworkDTO.getTags());
 
     }

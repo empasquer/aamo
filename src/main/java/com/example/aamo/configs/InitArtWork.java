@@ -34,7 +34,20 @@ public class InitArtWork implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       //Lavet en metode som kan oprette nyt maler.
+        List<ArtWorkTag> tags = List.of(
+                new ArtWorkTag(TagType.SIZE, "50x50"),
+                new ArtWorkTag(TagType.SIZE, "100x100"),
+                new ArtWorkTag(TagType.SIZE, "200x200"),
+                new ArtWorkTag(TagType.THEME, "Fisk"),
+                new ArtWorkTag(TagType.THEME, "Damer"),
+                new ArtWorkTag(TagType.COLOR, "Blå"),
+                new ArtWorkTag(TagType.COLOR, "Gul"),
+                new ArtWorkTag(TagType.COLOR, "Grøn")
+        );
+       artWorkTagRepository.saveAll(tags);
+
+       /*
+        //Lavet en metode som kan oprette nyt maler.
         createAndSaveInitArtWork( "Havfrue",
                 "Herskerinden over alle havene ..",
                 20_000,
@@ -139,6 +152,8 @@ public class InitArtWork implements CommandLineRunner {
         artWork.setTags(tags);
         artWorkRepository.save(artWork);
         artWorkTagRepository.saveAll(tags);
+
+        */
     }
 
 }

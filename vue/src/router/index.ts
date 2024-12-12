@@ -6,6 +6,7 @@ import HomePage from "../views/HomePage.vue";
 import LoginView from "../views/LoginView.vue";
 import ForgottenPasswordView from "../views/ForgottenPasswordView.vue";
 import ResetPasswordView from "../views/ResetPasswordView.vue";
+import Test from "../views/Test.vue"
 import axios from "axios";
 
 const router = createRouter({
@@ -50,6 +51,11 @@ const router = createRouter({
       path: "/admin/galleri",
       name: "admin-galleri",
       component: GalleriView,
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: Test,
     },
 
   ],

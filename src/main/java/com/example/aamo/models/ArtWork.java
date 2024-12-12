@@ -23,6 +23,7 @@ import java.util.List;
         private boolean type; //maleri eller ej
 
         @OneToOne
+        @JsonManagedReference
         @JoinColumn(name = "mediaidfk", referencedColumnName = "mediaId", nullable = false)
         private Media media;
 
