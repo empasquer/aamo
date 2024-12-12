@@ -35,23 +35,25 @@ watch(selectedTags, onFilterChange);
 </script>
 
 <template>
-  <div>
-    <!-- Klikbar overskrift -->
-    <h3 @click="toggleColors" class="font-bold cursor-pointer">Farver</h3>
-    <!-- Skjulte muligheder -->
+  <div class="filter-item flex flex-col">
+    <h3
+        @click="toggleColors"
+        class="font-bold cursor-pointer text-lg text-gray-700 hover:text-[#4289a3]">
+      Farve
+    </h3>
     <div v-if="showColors" class="mt-2">
-      <div v-for="tag in props.tags" :key="tag">
-        <label>
+      <div v-for="tag in props.tags" :key="tag" class="mb-2">
+        <label class="flex items-center space-x-2">
           <input
               type="checkbox"
               :id="tag"
               :value="tag"
               v-model="selectedTags"
+              class="w-4 h-4"
           />
-          {{ tag }}
+          <span class="text-gray-600">{{ tag }}</span>
         </label>
       </div>
-      <!-- <button @click="onFilterChange" class="mt-4 p-2 bg-blue-500 text-white">SØG</button> -->
     </div>
   </div>
 </template>

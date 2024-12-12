@@ -61,21 +61,27 @@ const applyFilters = () => {
 </script>
 
 <template>
-  <div>
-    <FilterSizeComponent
-        :tags="sizeTags"
-        @filter-changed="(filters) => selectedFilters.size = filters"/>
+  <div class="filter-sort-menu p-4">
+    <div class="filter-options flex gap-16 flex-wrap">
+      <FilterSizeComponent
+          :tags="sizeTags"
+          @filter-changed="(filters) => selectedFilters.size = filters"
+      />
+      <FilterThemeComponent
+          :tags="themeTags"
+          @filter-changed="(filters) => selectedFilters.theme = filters"
+      />
+      <FilterColorComponent
+          :tags="colorTags"
+          @filter-changed="(filters) => selectedFilters.color = filters"
+      />
+      <button
+          @click="applyFilters"
+          class="mt-0 px-4 py-1 bg-transparent border-[2.8px] border-gray-700 text-gray-700 font-bold text-base hover:border-[#4289a3] hover:text-[#4289a3] transition duration-300 align-middle transform -translate-y-1">
+        SØG
+      </button>
 
-    <FilterThemeComponent
-        :tags="themeTags"
-        @filter-changed="(filters) => selectedFilters.theme = filters"/>
-
-    <FilterColorComponent
-        :tags="colorTags"
-        @filter-changed="(filters) => selectedFilters.color = filters"/>
-
-    <button @click="applyFilters" class="mt-4 p-2 bg-blue-500 text-white">SØG</button>
-
+    </div>
   </div>
 </template>
 
