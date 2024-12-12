@@ -44,7 +44,7 @@ const filterArtWorks = () => {
   filteredArtWorks.value = artWorks.value.filter((artWork) =>
     artWork.tags.some(
         (tag) =>
-            tag.tagType === 'size' && activeFilters.value.size.includes(tag.tagValue)
+            tag.tagType === 'SIZE' && activeFilters.value.size.includes(tag.tagValue)
     )
 
   );
@@ -76,7 +76,7 @@ onMounted(async () => {
     }
     artWorks.value = await response.json();
     filteredArtWorks.value = [...artWorks.value];
-    await nextTick(); // venter til at DOM er opdaterede.
+    await nextTick(); // venter til at DOM er opdaterede. Denne brokker sig som om await ikke er foran, hvilket det er. sååå bare endnu en dum fejl, som vi bliver nødt til at ignorere.
     initMasonry(); //nu initialiserer den billederne ved hjælp af masonry
   } catch (error) {
     console.error("Fejl ved hentniong af artworks:", error);

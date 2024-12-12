@@ -26,9 +26,9 @@ import java.util.List;
         @JoinColumn(name = "mediaidfk", referencedColumnName = "mediaId", nullable = false)
         private Media media;
 
-        @OneToMany(mappedBy = "artWork", cascade = CascadeType.ALL, orphanRemoval = true)
+        @ManyToMany(cascade = CascadeType.MERGE)
         @JsonManagedReference
-        private List<ArtWorkTag> tags = new ArrayList<>();
+        private List<ArtWorkTag> tags;
 
 
         public ArtWork(long artWorkId, String title,

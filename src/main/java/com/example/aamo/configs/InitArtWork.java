@@ -14,7 +14,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class InitArtWork implements CommandLineRunner {
@@ -34,15 +37,21 @@ public class InitArtWork implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       //Lavet en metode som kan oprette nyt maler.
+
+        //Initiliserer og geemmer tags, så de kun er der 1 gang.
+        Map<String, ArtWorkTag> tagMap = initializeTags();
+
+
+
+        //Lavet en metode som kan oprette nyt maler.
         createAndSaveInitArtWork( "Havfrue",
                 "Herskerinden over alle havene ..",
                 20_000,
                 "uploads/200x200/havfrue.jpg",
                 List.of(
-                        new ArtWorkTag(TagType.SIZE, "200x200"),
-                        new ArtWorkTag(TagType.THEME, "Unaturlig"),
-                        new ArtWorkTag(TagType.COLOR, "Blå")
+                        tagMap.get("200x200"),
+                        tagMap.get("Unaturlig"),
+                        tagMap.get("Blå")
                 )
         );
 
@@ -51,21 +60,12 @@ public class InitArtWork implements CommandLineRunner {
                 5000,
                 "uploads/50x50/IMG_3435.JPG",
                 List.of(
-                        new ArtWorkTag(TagType.SIZE, "50x50"),
-                        new ArtWorkTag(TagType.THEME, "Himmel"),
-                        new ArtWorkTag(TagType.COLOR, "Rød")
+                        tagMap.get("50x50"),
+                        tagMap.get("Himmel"),
+                        tagMap.get("Rød")
                 )
         );
-        createAndSaveInitArtWork( "",
-                "Bla blasåå fint, bør i skov...",
-                4000,
-                "uploads/50x50/IMG_3440.jpg",
-                List.of(
-                        new ArtWorkTag(TagType.SIZE, "50x50"),
-                        new ArtWorkTag(TagType.THEME, "Abstrakt"),
-                        new ArtWorkTag(TagType.COLOR, "Blå")
-                )
-        );
+
 
         createAndSaveInitArtWork( "Østens Kvinde",
                 "Kender du det når du kan fornemme at nogen kigger på dig? " +
@@ -73,47 +73,118 @@ public class InitArtWork implements CommandLineRunner {
                 7000,
                 "uploads/100x100/IMG_3421.jpg",
                 List.of(
-                        new ArtWorkTag(TagType.SIZE, "100x100"),
-                        new ArtWorkTag(TagType.THEME, "Mystik"),
-                        new ArtWorkTag(TagType.COLOR, "Blå")
+                        tagMap.get("100x100"),
+                        tagMap.get("Mystik"),
+                        tagMap.get("Blå")
                 )
         );
 
         createAndSaveInitArtWork( "Fiona",
                 "...",
-                6000,
+                7000,
                 "uploads/90x40/PmD5we8m.jpg",
                 List.of(
-                        new ArtWorkTag(TagType.SIZE, "90x40"),
-                        new ArtWorkTag(TagType.THEME, "Damer"),
-                        new ArtWorkTag(TagType.COLOR, "Pink")
+                        tagMap.get("90x40"),
+                        tagMap.get("Damer"),
+                        tagMap.get("Pink")
                 )
         );
 
+
         createAndSaveInitArtWork( "",
                 "...",
-                500,
-                "uploads/20x20/IMG_3459.jpg",
-                List.of(
-                        new ArtWorkTag(TagType.SIZE, "20x20"),
-                        new ArtWorkTag(TagType.THEME, "Natur"),
-                        new ArtWorkTag(TagType.COLOR, "Gul")
-                )
-        );
-        createAndSaveInitArtWork( "",
-                "...",
-                8000,
+                5000,
                 "uploads/60x80/IMG_3437.JPG",
                 List.of(
-                        new ArtWorkTag(TagType.SIZE, "60x80"),
-                        new ArtWorkTag(TagType.THEME, "Natur"),
-                        new ArtWorkTag(TagType.COLOR, "Gul")
+                        tagMap.get("60x80"),
+                        tagMap.get("Natur"),
+                        tagMap.get("Gul")
                 )
         );
 
+        //TODO nye malerier
+        createAndSaveInitArtWork( "Egyptisk Dame",
+                "...",
+                7000,
+                "uploads/100x90/egyptiskDame.jpg",
+                List.of(
+                        tagMap.get("100x90"),
+                        tagMap.get("Mystik"),
+                        tagMap.get("Blå")
+                )
+        );
 
+        createAndSaveInitArtWork( "",
+                "...",
+                5000,
+                "uploads/50x50/IMG_1283.jpeg",
+                List.of(
+                        tagMap.get("50x50"),
+                        tagMap.get("Mystik"),
+                        tagMap.get("Lyserød")
+                )
+        );
+
+        createAndSaveInitArtWork( "",
+                "...",
+                6000,
+                "uploads/50x50/IMG_1284.jpeg",
+                List.of(
+                        tagMap.get("50x50"),
+                        tagMap.get("Damer"),
+                        tagMap.get("Sort")
+                )
+        );
+
+        createAndSaveInitArtWork( "",
+                "...",
+                7000,
+                "uploads/90x40/10ZZIoOm.jpg",
+                List.of(
+                        tagMap.get("90x40"),
+                        tagMap.get("Damer"),
+                        tagMap.get("Rød")
+                )
+        );
 
     }
+
+
+    private Map<String, ArtWorkTag> initializeTags() {
+
+       // List<ArtWorkTag> existingTags = artWorkTagRepository.findAll();
+        Map<String, ArtWorkTag> tagMap = new HashMap<>();
+
+        List<ArtWorkTag> tags = List.of(
+                new ArtWorkTag(TagType.SIZE, "50x50"),
+                new ArtWorkTag(TagType.SIZE, "100x100"),
+                new ArtWorkTag(TagType.SIZE, "200x200"),
+                new ArtWorkTag(TagType.SIZE, "90x40"),
+                new ArtWorkTag(TagType.SIZE, "60x80"),
+                new ArtWorkTag(TagType.SIZE, "100x90"),
+                new ArtWorkTag(TagType.THEME, "Fisk"),
+                new ArtWorkTag(TagType.THEME, "Damer"),
+                new ArtWorkTag(TagType.THEME, "Unaturlig"),
+                new ArtWorkTag(TagType.THEME, "Himmel"),
+                new ArtWorkTag(TagType.THEME, "Mystik"),
+                new ArtWorkTag(TagType.THEME, "Natur"),
+                new ArtWorkTag(TagType.COLOR, "Blå"),
+                new ArtWorkTag(TagType.COLOR, "Gul"),
+                new ArtWorkTag(TagType.COLOR, "Grøn"),
+                new ArtWorkTag(TagType.COLOR, "Rød"),
+                new ArtWorkTag(TagType.COLOR, "Lyserød"),
+                new ArtWorkTag(TagType.COLOR, "Sort"),
+                new ArtWorkTag(TagType.COLOR, "Pink")
+        );
+
+        for (ArtWorkTag tag : tags){
+            artWorkTagRepository.save(tag);
+
+            tagMap.put(tag.getTagValue(), tag);
+        }
+        return tagMap;
+    }
+
     private void createAndSaveInitArtWork (String title,
                                            String description,
                                            int price,
@@ -135,10 +206,15 @@ public class InitArtWork implements CommandLineRunner {
         artWork.setType(true);
         artWork.setMedia(media);
 
-        tags.forEach( tag -> tag.setArtWork(artWork));
-        artWork.setTags(tags);
+        List<ArtWorkTag> existingTags = artWorkTagRepository.findAllById(
+                tags.stream().map(ArtWorkTag::getTagId).collect(Collectors.toList())
+        );
+
+        // Tilknyt de eksisterende tags til artWork (merge dem)
+        artWork.setTags(existingTags);
+
+        // Gem artWork i databasen
         artWorkRepository.save(artWork);
-        artWorkTagRepository.saveAll(tags);
     }
 
 }
