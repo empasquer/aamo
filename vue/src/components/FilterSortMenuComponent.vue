@@ -16,7 +16,7 @@ const props = defineProps<{
 
 //TODO er det vigtigt her at 'size' står som SIZE som i enum?
 const sizeTags = computed(() =>
-    props.tags.filter((tag) => tag.tagType === 'size'));
+    props.tags.filter((tag) => tag.tagType === 'SIZE'));
 //const themeTags = computed(() => allTags.value.filter(tag => tag.tagType === 'theme'));
 //const colorTags = computed(() => allTags.value.filter(tag => tag.tagType === 'color'));
 
