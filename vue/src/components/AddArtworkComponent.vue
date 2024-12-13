@@ -39,40 +39,6 @@ const toggleTags = () => {
   showTags.value = !showTags.value;
 }
 
-const handleSubmit = async (event: Event) => {
-  console.log(event)
-  event.preventDefault();
-  loading.value = true;
-
-  try {
-    const payload = {
-          ...artwork.value,
-          tags: artwork.value.tags.map(tag => ({
-            tagType: tag.tagType.toUpperCase(),
-            tagValue: tag.tagValue,
-          })),
-    };
-    await axios.post('http://localhost:8080/api/addArtwork',payload);
-
-    alert('Artwork submitted successfully!');
-    // Clear the form
-    artwork.value = {
-      title: '',
-      description: '',
-      price: 0,
-      mediaUrl: '',
-      type: true,
-      tags: [],
-      isSold: false,
-    };
-  } catch (error) {
-    console.error(error);
-    alert('Error submitting artwork');
-  } finally {
-    loading.value = false;
-  }
-};
-
 onMounted(async () => {
   try {
     const response = await fetch('http://localhost:8080/api/tags');
@@ -95,6 +61,41 @@ onMounted(async () => {
     console.error(error);
   }
 });
+// Handle image preview
+const handleImagePreview = (event: Event) => {
+  const fileInput = event.target as HTMLInputElement;
+  const file = fileInput.files ? fileInput.files[0] : null;
+  if (file) {
+    artwork.value.mediaUrl = URL.createObjectURL(file); // Show preview
+  }
+};
+
+// Handle file upload to Cloudinary
+const handleFileUpload = async () => {
+  const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+  const file = fileInput?.files ? fileInput.files[0] : null;
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'Evaaamo'); // Cloudinary upload preset
+    formData.append('cloud_name', 'diyvre9ie'); // Cloudinary cloud name
+
+    try {
+      const response = await axios.post('https://api.cloudinary.com/v1_1/diyvre9ie/image/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Set the mediaUrl to the URL returned by Cloudinary
+      artwork.value.mediaUrl = response.data.secure_url;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert('Error uploading image');
+    }
+  }
+};
 
 // Helper function to handle tag selection
 const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
@@ -106,18 +107,64 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
     artwork.value.tags = artwork.value.tags.filter((t) => t.tagId !== tag.tagId);
   }
 };
+
+const handleSubmit = async (event: Event) => {
+  event.preventDefault();
+  loading.value = true;
+
+  try {
+    // If there is an image, upload it
+    if (artwork.value.mediaUrl) {
+      await handleFileUpload();  // This will upload the image and update mediaUrl
+    }
+
+    // Prepare the data payload
+    const payload = {
+      ...artwork.value,
+      tags: artwork.value.tags.map(tag => ({
+        tagType: tag.tagType.toUpperCase(),
+        tagValue: tag.tagValue,
+      })),
+    };
+
+    // Send the artwork data to the backend
+    await axios.post('http://localhost:8080/api/addArtwork', payload);
+
+    alert('Artwork submitted successfully!');
+    // Clear the form
+    artwork.value = {
+      title: '',
+      description: '',
+      price: 0,
+      mediaUrl: '',
+      type: true,
+      tags: [],
+      isSold: false,
+    };
+  } catch (error) {
+    console.error(error);
+    alert('Error submitting artwork');
+  } finally {
+    loading.value = false;
+  }
+};
+
 </script>
 
 <template>
-  <FormComponent title="Tilføj Kunstværk"  @submit="handleSubmit" >
+  <FormComponent formWidth="w-full" title="Tilføj Kunstværk"  @submit="handleSubmit" class="w-screen" >
     <div class="input wrapper flex flex-row">
         <div class="left column flex flex-col">
-          <BasicInputComponent
+          <div v-if="artwork.mediaUrl">
+            <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-48 md:w-64 lg:w-82" />
+          </div>
+          <input
               label="Billede"
+              @change="handleImagePreview"
+              accept="image/*"
               name="mediaUrl"
-              v-model="artwork.mediaUrl"
-              type="text"
-          ></BasicInputComponent>
+              type="file"
+          ></input>
 
         </div>
       <div class="right coloumn flex flex-col ">

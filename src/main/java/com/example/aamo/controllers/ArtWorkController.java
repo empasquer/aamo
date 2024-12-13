@@ -7,10 +7,20 @@ import com.example.aamo.models.TagType;
 import com.example.aamo.repositories.ArtWorkRepository;
 import com.example.aamo.repositories.ArtWorkTagRepository;
 import com.example.aamo.services.ArtworkService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
+
 @CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 @RestController
 public class ArtWorkController {
@@ -18,6 +28,7 @@ public class ArtWorkController {
     private ArtWorkTagRepository artWorkTagRepository;
     private ArtworkService artworkService;
 
+    private static final String UPLOAD_DIR = "src/main/resources/static/";
     public ArtWorkController(ArtWorkRepository artWorkRepository, ArtWorkTagRepository artWorkTagRepository, ArtworkService artworkService){
         this.artWorkRepository = artWorkRepository;
         this.artWorkTagRepository = artWorkTagRepository;
@@ -55,4 +66,6 @@ public class ArtWorkController {
         artworkService.saveArtworkWithTagsAndPicture(artworkDTO);
         return ResponseEntity.ok("works");
     }
+
+
 }
