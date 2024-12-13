@@ -108,15 +108,15 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
   }
 };
 
-const handleSubmit = async (event: Event) => {
-  event.preventDefault();
+const handleSubmit = async (event:Event) => {
+  event.preventDefault()
   loading.value = true;
 
   try {
     // If there is an image, upload it
-    if (artwork.value.mediaUrl) {
-      await handleFileUpload();  // This will upload the image and update mediaUrl
-    }
+   // if (artwork.value.mediaUrl) {
+   //   await handleFileUpload();  // This will upload the image and update mediaUrl
+   // }
 
     // Prepare the data payload
     const payload = {
@@ -152,19 +152,20 @@ const handleSubmit = async (event: Event) => {
 </script>
 
 <template>
-  <FormComponent formWidth="w-full" title="Tilføj Kunstværk"  @submit="handleSubmit" class="w-screen" >
+  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen" >
     <div class="input wrapper flex flex-row">
         <div class="left column flex flex-col">
           <div v-if="artwork.mediaUrl">
             <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-48 md:w-64 lg:w-82" />
           </div>
+
           <input
               label="Billede"
               @change="handleImagePreview"
               accept="image/*"
               name="mediaUrl"
               type="file"
-          ></input>
+          >
 
         </div>
       <div class="right coloumn flex flex-col ">
@@ -191,7 +192,8 @@ const handleSubmit = async (event: Event) => {
                     type="checkbox"
                     :value="tag.tagValue"
                     :checked="artwork.tags.some(t => t.tagId === tag.tagId)"
-                    @change="event => handleTagChange(tag, event.target.checked)"
+                    @change="(event) => handleTagChange(tag, event?.target?.checked)"
+
                 />
                 {{ tag.tagValue }}
               </label>

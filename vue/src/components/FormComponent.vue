@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed } from 'vue';
+import {  computed } from 'vue';
 
 // Define props for the component
 const props = defineProps({
@@ -32,7 +32,7 @@ const computedWidth = computed(() => {
   <div class="flex flex-col items-center justify-center min-h-screen">
     <div :class="['p-8', 'shadow-md', computedWidth,  'mx-auto']" style="width: 24rem; background-color: rgba(0, 0, 0, 0.5);">
       <h1 class="text-[#EAEAEA] text-4xl font-bold text-center mb-6">{{ title }}</h1>
-      <form :action="action" :method="method" @submit="action ? undefined : $emit('submit')">
+      <form :action="action" :method="method" @submit="action ? undefined : $emit('submit',$event)">
       <slot></slot>
       </form>
     </div>

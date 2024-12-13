@@ -40,6 +40,7 @@ public class ArtworkService {
     }
 
     private void findOrSaveTags(ArtWork artWork, List<ArtWorkTag> tagsDTO){
+
         List<ArtWorkTag> tagsToSave  = tagsDTO.stream()
                 .map(tagRequest -> {
                     ArtWorkTag tag = artWorkTagRepository.findByTagTypeAndTagValue(
@@ -63,7 +64,7 @@ public class ArtworkService {
 
     public void saveArtworkWithTagsAndPicture(ArtworkDTO artworkDTO) {
         ArtWork artWork = createArtwork(artworkDTO);
-        System.out.println(artworkDTO.getTags());
+        System.out.println(artworkDTO.getTags().getFirst().getTagValue());
         findOrSaveTags(artWork, artworkDTO.getTags());
 
     }
