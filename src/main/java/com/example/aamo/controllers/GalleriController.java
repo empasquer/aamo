@@ -4,11 +4,10 @@ import com.example.aamo.models.ArtWork;
 import com.example.aamo.repositories.ArtWorkRepository;
 import com.example.aamo.services.JsonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -43,8 +42,15 @@ public class GalleriController {
         return jsonService.readJsonFile("assets/GalleryDescription.json");
     }
 
-
-
+    @DeleteMapping("/api/artworks/{artWorkId}")
+    public ResponseEntity<Void> deleteArtWork(@PathVariable int artWorkId) {
+        if (artWorkRepository.existsById(artWorkId)) {
+            artWorkRepository.deleteById(artWorkId);
+            return ResponseEntity.noContent().build(); //Return 204 - No Content
+        } else {
+            return ResponseEntity.notFound().build(); //Return 404
+        }
+    }
 
    /* @GetMapping("/api/galleri")
     public Map<String, Object> getGalleriData() {

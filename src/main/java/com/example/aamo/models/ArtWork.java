@@ -22,7 +22,7 @@ import java.util.List;
         //private LocalDateTime dateCreated;
         private boolean type; //maleri eller ej
 
-        @OneToOne
+        @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinColumn(name = "mediaidfk", referencedColumnName = "mediaId", nullable = false)
         private Media media;
 
