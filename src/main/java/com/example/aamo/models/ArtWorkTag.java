@@ -15,8 +15,9 @@ public class ArtWorkTag {
 
     private String tagValue;
 
-    @ManyToOne
-    @JoinColumn(name = "artworkidfk", nullable = true)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artworkidfk")
     @JsonBackReference
     private ArtWork artWork;
 
