@@ -20,7 +20,7 @@ const isFrontPage = computed(() => router.currentRoute.value.path === "/");
   <header
     :class="[
       'w-screen fixed top-0 py-8 pl-8 flex justify-between items-center z-10',
-      isFrontPage ? 'bg-[url(./assets/bg-header-opacity.png)] bg-contain' : 'bg-white bg-opacity-80',
+      isFrontPage ? 'bg-[url(./assets/bg-op.png)] bg-contain' : 'bg-white bg-opacity-80',
     ]"
   >
     <LogoComponent opacity="false" width="w-[150px]" fill="#4a4a4a" />
