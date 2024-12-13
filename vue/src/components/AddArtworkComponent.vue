@@ -12,7 +12,7 @@ interface ArtWork {
   mediaUrl: string;
   type: boolean;
   isSold: boolean;
-  tags: ArtWorkTag[]; // We need ArtWorkTag objects here, not just tag values
+  tags: ArtWorkTag[];
 }
 
 const artwork = ref<ArtWork>({
@@ -33,6 +33,11 @@ interface ArtWorkTag {
 
 const loading = ref(false);
 const tagsByType = ref<Record<string, ArtWorkTag[]>>({});
+const showTags = ref(false);
+
+const toggleTags = () => {
+  showTags.value = !showTags.value;
+}
 
 const handleSubmit = async (event: Event) => {
   console.log(event)
@@ -41,17 +46,13 @@ const handleSubmit = async (event: Event) => {
 
   try {
     const payload = {
-      artworkDTO: {
-        ...artwork.value,
-        tags: artwork.value.tags.map(tag => ({
-          tagType: tag.tagType.toUpperCase(),
-          tagValue: tag.tagValue,
-        })),
-      },
+          ...artwork.value,
+          tags: artwork.value.tags.map(tag => ({
+            tagType: tag.tagType.toUpperCase(),
+            tagValue: tag.tagValue,
+          })),
     };
-    await axios.post('http://localhost:8080/api/addArtwork', {
-      artworkDTO: artwork.value,
-    });
+    await axios.post('http://localhost:8080/api/addArtwork',payload);
 
     alert('Artwork submitted successfully!');
     // Clear the form
@@ -109,14 +110,56 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
 
 <template>
   <FormComponent title="Tilføj Kunstværk"  @submit="handleSubmit" >
-    <BasicInputComponent
-        label="Titel"
-        name="title"
-        v-model="artwork.title"
-        type="text"
-        placeholder="Unanvgivet"
-    ></BasicInputComponent>
+    <div class="input wrapper flex flex-row">
+        <div class="left column flex flex-col">
+          <BasicInputComponent
+              label="Billede"
+              name="mediaUrl"
+              v-model="artwork.mediaUrl"
+              type="text"
+          ></BasicInputComponent>
 
+        </div>
+      <div class="right coloumn flex flex-col ">
+
+        <!-- tags -->
+        <div class="tags-section relative ">
+          <button
+          type="button"
+          class="toggle-tags-btn flex items-center"
+          @click="toggleTags"
+          >
+            <i :class="['fas', showTags ? 'fa-chevron-up' : ' fa-chevron-down']"></i>
+          <span class="ml-2">Tags</span>
+          </button>
+          <div :class="['tags-container', {'open': showTags}]">
+        <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col text-[#EAEAEA]">
+          <div>
+            <h3>{{ type }}</h3>
+          </div>
+          <div class="flex flex-row">
+            <div v-for="tag in tags" :key="tag.tagId">
+              <label>
+                <input
+                    type="checkbox"
+                    :value="tag.tagValue"
+                    :checked="artwork.tags.some(t => t.tagId === tag.tagId)"
+                    @change="event => handleTagChange(tag, event.target.checked)"
+                />
+                {{ tag.tagValue }}
+              </label>
+            </div>
+        </div>
+          </div>
+        </div>
+        </div>
+        <BasicInputComponent
+            label="Titel"
+            name="title"
+            v-model="artwork.title"
+            type="text"
+            placeholder="Unanvgivet"
+        ></BasicInputComponent>
     <BasicInputComponent
         label="Beskrivelse"
         name="description"
@@ -139,36 +182,13 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
     ></BasicInputComponent>
 
     <BasicInputComponent
-        label="Billede"
-        name="mediaUrl"
-        v-model="artwork.mediaUrl"
-        type="text"
-    ></BasicInputComponent>
-    <BasicInputComponent
         label="Er dette et maleri?"
         name="type"
         v-model="artwork.type"
         type="checkbox"
     ></BasicInputComponent>
 
-    <!-- tags -->
-    <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col">
-      <div>
-        <h3>{{ type }}</h3>
-      </div>
-      <div class="flex flex-row">
-        <div v-for="tag in tags" :key="tag.tagId">
-          <label>
-            <input
-                type="checkbox"
-                :value="tag.tagValue"
-                :checked="artwork.tags.some(t => t.tagId === tag.tagId)"
-                @change="event => handleTagChange(tag, event.target.checked)"
-            />
-            {{ tag.tagValue }}
-          </label>
-        </div>
-      </div>
+    </div>
     </div>
 
     <!-- Submit Button -->
@@ -177,4 +197,24 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
 </template>
 
 <style scoped>
+.tags-section {
+  position: relative;
+}
+.tags-container {
+  position:absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  z-index: 10;
+  transition: max-height 0.3s ease;
+  opacity: 0;
+  background-color: #4a4a4a;
+
+}
+.tags-container.open {
+  max-height: fit-content;
+  opacity: 0.8;
+}
 </style>
