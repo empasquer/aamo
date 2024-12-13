@@ -9,6 +9,7 @@ import com.example.aamo.repositories.ArtWorkTagRepository;
 import com.example.aamo.repositories.MediaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//@Transactional
 @Component
 public class InitArtWork implements CommandLineRunner {
 
@@ -65,7 +67,6 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("Rød")
                 )
         );
-
 
         createAndSaveInitArtWork( "Østens Kvinde",
                 "Kender du det når du kan fornemme at nogen kigger på dig? " +
