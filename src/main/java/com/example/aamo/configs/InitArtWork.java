@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-//@Transactional
+@Transactional
 @Component
 public class InitArtWork implements CommandLineRunner {
 
@@ -49,7 +49,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Havfrue",
                 "Herskerinden over alle havene ..",
                 20_000,
-                "uploads/200x200/havfrue.jpg",
+                "/uploads/200x200/havfrue.jpg",
                 List.of(
                         tagMap.get("200x200"),
                         tagMap.get("Unaturlig"),
@@ -60,7 +60,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Rød storm",
                 "Skyer som er røde og vilde. Man ved aldrig hvor man har dem. ...",
                 5000,
-                "uploads/50x50/IMG_3435.JPG",
+                "/uploads/50x50/IMG_3435.JPG",
                 List.of(
                         tagMap.get("50x50"),
                         tagMap.get("Himmel"),
@@ -72,7 +72,7 @@ public class InitArtWork implements CommandLineRunner {
                 "Kender du det når du kan fornemme at nogen kigger på dig? " +
                         "Det er sådan at være omkring dette maleri. der er altid en i busken som sidder på lur. Kratlusker er der nogen som kalder dem...",
                 7000,
-                "uploads/100x100/IMG_3421.jpg",
+                "/uploads/100x100/IMG_3421.jpg",
                 List.of(
                         tagMap.get("100x100"),
                         tagMap.get("Mystik"),
@@ -83,7 +83,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Fiona",
                 "...",
                 7000,
-                "uploads/90x40/PmD5we8m.jpg",
+                "/uploads/90x40/PmD5we8m.jpg",
                 List.of(
                         tagMap.get("90x40"),
                         tagMap.get("Damer"),
@@ -95,7 +95,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "",
                 "...",
                 5000,
-                "uploads/60x80/IMG_3437.JPG",
+                "/uploads/60x80/IMG_3437.JPG",
                 List.of(
                         tagMap.get("60x80"),
                         tagMap.get("Natur"),
@@ -107,7 +107,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "Egyptisk Dame",
                 "...",
                 7000,
-                "uploads/100x90/egyptiskDame.jpg",
+                "/uploads/100x90/egyptiskDame.jpg",
                 List.of(
                         tagMap.get("100x90"),
                         tagMap.get("Mystik"),
@@ -118,7 +118,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "",
                 "...",
                 5000,
-                "uploads/50x50/IMG_1283.jpeg",
+                "/uploads/50x50/IMG_1283.jpeg",
                 List.of(
                         tagMap.get("50x50"),
                         tagMap.get("Mystik"),
@@ -129,7 +129,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "",
                 "...",
                 6000,
-                "uploads/50x50/IMG_1284.jpeg",
+                "/uploads/50x50/IMG_1284.jpeg",
                 List.of(
                         tagMap.get("50x50"),
                         tagMap.get("Damer"),
@@ -140,7 +140,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "",
                 "...",
                 7000,
-                "uploads/90x40/10ZZIoOm.jpg",
+                "/uploads/90x40/10ZZIoOm.jpg",
                 List.of(
                         tagMap.get("90x40"),
                         tagMap.get("Damer"),

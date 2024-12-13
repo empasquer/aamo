@@ -33,6 +33,16 @@ interface ArtWorkTag {
 const artWorks = ref<ArtWork[]>([]);
 const filteredArtWorks = ref<ArtWork[]>([]);
 const hoveredArtWorks = ref<ArtWork | null>(null);
+let masonryInstance: Masonry | null = null;
+
+const selectedArtWork = ref<ArtWork | null>(null);
+
+const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+const isConfirmDeleteVisible = ref(false);
+const selectedArtWorkId = ref<number | null>(null);
+const selectedArtWorkTitle = ref<string>("");
+const route = useRoute();
+const isAdminRoute = route.path.startsWith("/admin");
 
 //Filter instillinger
 const activeFilters = ref({
@@ -106,17 +116,6 @@ const filterArtWorks = () => {
 };
 
 
-
-let masonryInstance: Masonry | null = null;
-
-const selectedArtWork = ref<ArtWork | null>(null);
-
-const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
-const isConfirmDeleteVisible = ref(false);
-const selectedArtWorkId = ref<number | null>(null);
-const selectedArtWorkTitle = ref<string>("");
-const route = useRoute();
-const isAdminRoute = route.path.startsWith("/admin");
 
 const openConfirmDelete = (artWorkId: number, title: string) => {
   selectedArtWorkId.value = artWorkId;
