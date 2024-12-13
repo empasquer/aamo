@@ -41,6 +41,7 @@ public class ArtWorkController {
     }
     @PostMapping("api/addArtwork")
     public void addArtwork(@RequestBody ArtworkDTO artworkDTO) {
+        System.out.println(artworkDTO);
         artworkService.saveArtworkWithTagsAndPicture(artworkDTO);
     }
     @GetMapping("api/saveArtwork")
