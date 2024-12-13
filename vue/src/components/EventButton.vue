@@ -1,32 +1,31 @@
-<script lang="ts">
-export default {
-  name: 'EventButton',
-  props: {
-    event: {
-      type: Object,
-      required: true,
-    },
+<script lang="ts" setup>
+import { defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  event: {
+    type: Object,
+    required: true,
   },
-  methods: {
-    handleClick() {
-      // Emit an event to the parent when the button is clicked
-      this.$emit('select-event', this.event.eventId);
-    },
+  isActive: {
+    type: Boolean,
+    default: false,
   },
-};
+});
+
+const emit = defineEmits(["select-event"]);
+
+function handleClick() {
+  emit("select-event", props.event.eventId);
+}
 </script>
 
 <template>
   <button
-      @click="handleClick"
-      class="flex items-center bg-transparent br-0 p-0  border-none h-auto w-auto sm:whitespace-nowrap space-x-4"
+    @click="handleClick"
+    class="relative flex flex-col items-center justify-center bg-transparent p-2 h-12 w-12 transform rotate-45 border border-gray-600 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500"
   >
-    <span>{{ event.formattedStartDate }}</span>
-    <i class="fa-solid fa-diamond text-gray-600 text-5xl"></i>
-    <span>{{ event.title }}</span>
+    <span class="absolute transform -rotate-45 text-sm text-gray-800">
+      {{ event.title }}
+    </span>
   </button>
 </template>
-
-<style scoped>
-/* Add styles specific to EventButton here if needed */
-</style>
