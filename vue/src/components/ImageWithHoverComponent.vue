@@ -47,7 +47,7 @@ const isAdminRoute = route.path.startsWith("/admin");
     <!-- Artwork Details (visible on hover) -->
     <div
         v-if="artWork"
-        class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 text-white rounded shadow-lg p-4 flex flex-col justify-start items-start transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none"
+        class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 text-white shadow-lg p-4 flex flex-col justify-start items-start transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none"
     >
       <h3 class="text-3xl font-bold tracking-wide text-white mb-2 text-left">
         {{ artWork.title ? `"${artWork.title}"` : 'Unavngivet' }}

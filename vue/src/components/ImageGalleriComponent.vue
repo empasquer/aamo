@@ -5,6 +5,7 @@ import ImageWithHoverComponent from "./ImageWithHoverComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
 import ConfirmDeleteComponent from './ConfirmDeleteComponent.vue';
+import LargeArtWorkComponent from "./LargeArtWorkComponent.vue";
 
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
@@ -30,6 +31,8 @@ interface ArtWorkTag {
 const artWorks = ref<ArtWork[]>([]);
 const hoveredArtWorks = ref<ArtWork | null>(null);
 let masonryInstance: Masonry | null = null;
+
+const selectedArtWork = ref<ArtWork | null>(null);
 
 const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 const isConfirmDeleteVisible = ref(false);
@@ -60,6 +63,14 @@ const handleDeleteConfirmed = async (artWorkId: number) => {
 
 const handleDeleteCancelled = () => {
   isConfirmDeleteVisible.value = false;
+};
+
+const openArtWorkModal = (artWork: ArtWork) => {
+  selectedArtWork.value = artWork;
+};
+
+const closeArtWork = () => {
+  selectedArtWork.value = null;
 };
 
 const initMasonry = () => {
@@ -106,9 +117,16 @@ onMounted(async () => {
             :isLoggedIn="isLoggedIn"
             @hover="hoveredArtWorks = $event"
             @deleteArtWork="openConfirmDelete"
+            @openModal="openArtWorkModal(artWork)"
         />
       </div>
     </div>
+
+    <LargeArtWorkComponent
+        v-if="selectedArtWork"
+        :artWork="selectedArtWork"
+        @close="closeArtWork"
+    />
 
     <ConfirmDeleteComponent
         v-if="isConfirmDeleteVisible"
