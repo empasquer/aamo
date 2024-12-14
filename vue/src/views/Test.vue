@@ -5,6 +5,7 @@ import FooterComponent from "../components/FooterComponent.vue";
 import Headings from "../components/HeadingsComponent.vue";
 import LogoComponent from "../components/LogoComponent.vue";
 import AddArtworkComponent from "../components/AddArtworkComponent.vue";
+import ProfileIconAndMenu from "../components/ProfileIconAndMenuComponent.vue";
 
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
@@ -22,7 +23,9 @@ async function saveArtworks() {
 </script>
 
 <template>
+
   <div>
+    <!--
     <LogoComponent height="h-[100px]" fill="red"></LogoComponent>
     <button @click="fecthArtworks">Fetch Artworks</button>
 
@@ -34,7 +37,9 @@ async function saveArtworks() {
 
     <div class="bg-red-300">blablaaaa</div>
     <p class="p-4 m-10 border-2 text-red-900">hellloooo im styled with tailwindcss</p>
-
+    -->
+    <ProfileIconAndMenu></ProfileIconAndMenu>
+<!--
     <Headings :level="1" text="H1"></Headings>
     <Headings :level="2" text="H2"></Headings>
     <Headings :level="3" text="H3"></Headings>
@@ -44,6 +49,7 @@ async function saveArtworks() {
 
 
     <FooterComponent></FooterComponent>
+    -->
   </div>
 </template>
 
