@@ -26,13 +26,25 @@ const computedWidth = computed(() => {
   return props.formWidth;
 });
 
+
+const emit = defineEmits(['submit']);
+
+const handleFormSubmit = (event: Event) => {
+  // Prevent default form submission behavior
+  event.preventDefault();
+
+  // Emit the 'submit' event if no action prop is set
+  if (!props.action) {
+    emit('submit', event);
+  }
+};
 </script>
 
 <template>
   <div class="flex flex-col items-center justify-center min-h-screen">
     <div :class="['p-8', 'shadow-md', computedWidth,  'mx-auto']" style="width: 24rem; background-color: rgba(0, 0, 0, 0.5);">
       <h1 class="text-[#EAEAEA] text-4xl font-bold text-center mb-6">{{ title }}</h1>
-      <form :action="action" :method="method" @submit="action ? undefined : $emit('submit',$event)">
+      <form :action="action" :method="method" @submit="handleFormSubmit">
       <slot></slot>
       </form>
     </div>

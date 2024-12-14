@@ -121,17 +121,31 @@ const addTag = (tagType: string) => {
       tagValue: newTagValue,
     };
 
-    tagsByType.value[tagType].push(newTag);
-    artwork.value.tags.push(newTag);
+    tagsByType.value[tagType].unshift(newTag);  // unshift adds it at the start
+    artwork.value.tags.unshift(newTag);
     newTags.value[tagType] ='';
   }
   console.log(newTagValue)
 };
 
+const sizeTagCount =  () => {
+  return artwork.value.tags.filter(tag => tag.tagType === 'SIZE').length;
+}
+
 const handleSubmit = async (event:Event) => {
   event.preventDefault()
   loading.value = true;
-
+  const count = sizeTagCount();
+  if (count < 1) {
+    alert("Der skal vælges 1 Størrelse")
+    loading.value = false;
+    return;
+  }
+  if (count > 1) {
+    alert("Vælg kun 1 Størrelse")
+    loading.value = false;
+    return
+  }
   try {
     // If there is an image, upload it
    // if (artwork.value.mediaUrl) {
@@ -185,6 +199,7 @@ const handleSubmit = async (event:Event) => {
               accept="image/*"
               name="mediaUrl"
               type="file"
+              required
           >
 
         </div>
@@ -272,7 +287,7 @@ const handleSubmit = async (event:Event) => {
     </div>
 
     <!-- Submit Button -->
-    <FormButtonComponent :loading="loading">Gem</FormButtonComponent>
+    <FormButtonComponent :loading="loading" type="submit">Gem</FormButtonComponent>
   </FormComponent>
 </template>
 
@@ -284,7 +299,6 @@ const handleSubmit = async (event:Event) => {
   position:absolute;
   top: 100%;
   left: 0;
-  width: 100%;
   max-height: 0;
   overflow: hidden;
   z-index: 10;
