@@ -54,7 +54,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("200x200"),
                         tagMap.get("Unaturlig"),
                         tagMap.get("Blå")
-                )
+                ),
+                true
         );
 
         createAndSaveInitArtWork( "Rød storm",
@@ -65,7 +66,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("50x50"),
                         tagMap.get("Himmel"),
                         tagMap.get("Rød")
-                )
+                ),
+                true
         );
 
         createAndSaveInitArtWork( "Østens Kvinde",
@@ -77,7 +79,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("100x100"),
                         tagMap.get("Mystik"),
                         tagMap.get("Blå")
-                )
+                ),
+                true
         );
 
         createAndSaveInitArtWork( "Fiona",
@@ -88,7 +91,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("90x40"),
                         tagMap.get("Damer"),
                         tagMap.get("Pink")
-                )
+                ),
+                true
         );
 
 
@@ -100,7 +104,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("60x80"),
                         tagMap.get("Natur"),
                         tagMap.get("Gul")
-                )
+                ),
+                false
         );
 
         //TODO nye malerier
@@ -112,7 +117,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("100x90"),
                         tagMap.get("Mystik"),
                         tagMap.get("Blå")
-                )
+                ),
+                false
         );
 
         createAndSaveInitArtWork( "",
@@ -123,7 +129,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("50x50"),
                         tagMap.get("Mystik"),
                         tagMap.get("Lyserød")
-                )
+                ),
+                true
         );
 
         createAndSaveInitArtWork( "",
@@ -134,7 +141,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("50x50"),
                         tagMap.get("Damer"),
                         tagMap.get("Sort")
-                )
+                ),
+                true
         );
 
         createAndSaveInitArtWork( "",
@@ -145,7 +153,8 @@ public class InitArtWork implements CommandLineRunner {
                         tagMap.get("90x40"),
                         tagMap.get("Damer"),
                         tagMap.get("Rød")
-                )
+                ),
+                true
         );
 
     }
@@ -190,7 +199,8 @@ public class InitArtWork implements CommandLineRunner {
                                            String description,
                                            int price,
                                            String mediaUrl,
-                                           List<ArtWorkTag> tags) throws IOException, URISyntaxException {
+                                           List<ArtWorkTag> tags,
+                                           boolean type) throws IOException, URISyntaxException {
         //bruges til path
         Path path = Paths.get(mediaUrl);
         Media media = new Media(path.toString());
@@ -204,7 +214,7 @@ public class InitArtWork implements CommandLineRunner {
         artWork.setDescription(description);
         artWork.setPrice(price);
         artWork.setSold(false);
-        artWork.setType(true);
+        artWork.setType(type);
         artWork.setMedia(media);
 
         List<ArtWorkTag> existingTags = artWorkTagRepository.findAllById(
