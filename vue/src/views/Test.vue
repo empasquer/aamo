@@ -6,7 +6,6 @@ import Headings from "../components/HeadingsComponent.vue";
 import LogoComponent from "../components/LogoComponent.vue";
 import AddArtworkComponent from "../components/AddArtworkComponent.vue";
 import ProfileIconAndMenu from "../components/ProfileIconAndMenuComponent.vue";
-
 async function fetchKommuner() {
   const response = await axios.get("http://localhost:8080/kommuner?regionskode=1084");
   console.log(response);
