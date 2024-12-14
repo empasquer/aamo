@@ -6,10 +6,7 @@ import HomePage from "../views/HomePage.vue";
 import LoginView from "../views/LoginView.vue";
 import ForgottenPasswordView from "../views/ForgottenPasswordView.vue";
 import ResetPasswordView from "../views/ResetPasswordView.vue";
-
-import Test from "../views/Test.vue"
-import axios from "axios";
-
+import Test from '../views/Test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
