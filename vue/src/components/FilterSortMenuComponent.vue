@@ -11,6 +11,7 @@ interface ArtWorkTag {
 }
 
 const props = defineProps<{
+  closeAll: boolean;
   tags: ArtWorkTag[];
 }>();
 
@@ -48,15 +49,22 @@ const colorTags = computed(() => {
 const selectedFilters = ref({
   size: [] as string[],
   theme: [] as string[],
-  color: [] as string[]
+  color: [] as string[],
+  price: "" as string,
 });
+
+const closeAllMenus = ref(false);
 
 const emit = defineEmits (['filter-applied']);
 
-//Opdaterer filtrerings resultateerne.
+
 const applyFilters = () => {
-  emit('filter-applied', selectedFilters.value);
-}
+  emit("filter-applied", selectedFilters.value);
+  closeAllMenus.value = true; // Trigger menus to close
+  setTimeout(() => {
+    closeAllMenus.value = false; // Reset for future openings
+  });
+};
 
 </script>
 
@@ -65,22 +73,31 @@ const applyFilters = () => {
     <div class="filter-options flex gap-16 flex-wrap">
       <FilterSizeComponent
           :tags="sizeTags"
+          :closeAll="closeAllMenus"
           @filter-changed="(filters) => selectedFilters.size = filters"
       />
       <FilterThemeComponent
           :tags="themeTags"
+          :closeAll="closeAllMenus"
           @filter-changed="(filters) => selectedFilters.theme = filters"
       />
       <FilterColorComponent
           :tags="colorTags"
+          :closeAll="closeAllMenus"
           @filter-changed="(filters) => selectedFilters.color = filters"
+      />
+      <SortPriceComponent
+          :closeAll="closeAllMenus"
+          @filter-changed="(filters) => {
+          selectedFilters.sortOrder = filters.sortOrder;
+        }"
       />
       <button
           @click="applyFilters"
-          class="mt-0 px-4 py-1 bg-transparent border-[2.8px] border-gray-700 text-gray-700 font-bold text-base hover:border-[#4289a3] hover:text-[#4289a3] transition duration-300 align-middle transform -translate-y-1">
+          class="mt-0 px-4 py-1 bg-transparent border-[2.8px] border-gray-700 text-gray-700 font-bold text-base hover:border-[#4289a3] hover:text-[#4289a3] transition duration-300 align-middle transform -translate-y-1"
+      >
         SØG
       </button>
-
     </div>
   </div>
 </template>
