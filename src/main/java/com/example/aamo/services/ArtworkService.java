@@ -49,7 +49,7 @@ public class ArtworkService {
                     ).orElseGet(() -> new ArtWorkTag(tagRequest.getTagType(), tagRequest.getTagValue()));
 
                     // Set the association with the artwork
-                    tag.setArtWork(artWork);
+                    //tag.setArtWork(artWork);
                     return tag;
                 })
                 .collect(Collectors.toList());
