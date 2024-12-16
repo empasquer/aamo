@@ -48,7 +48,7 @@ export default {
 <template>
   <div class="grid grid-cols-[auto_70vw_auto] items-center w-[90vw]" v-touch:swipeleft="next" v-touch:swiperight="prev">
     <button @click="prev" class="p-0 py-2 text-2xl bg-transparent cursor-pointer justify-self-start z-10">
-      <i class="fa-solid fa-chevron-left"></i>
+      <i class="text-white fa-solid fa-chevron-left"></i>
     </button>
 
     <div class="text-center w-full relative z-0">
@@ -61,7 +61,7 @@ export default {
     </div>
 
     <button @click="next" class="p-0 py-2 text-2xl bg-transparent cursor-pointer justify-self-end z-10">
-      <i class="fa-solid fa-chevron-right"></i>
+      <i class="text-white fa-solid fa-chevron-right"></i>
     </button>
   </div>
 </template>

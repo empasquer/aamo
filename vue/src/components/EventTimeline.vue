@@ -5,13 +5,11 @@ import EventDetails from "./EventDetails.vue";
 import EventButton from "./EventButton.vue";
 import Headings from "./HeadingsComponent.vue";
 
-// Reactive properties
 const events = ref([]);
 const selectedEventId = ref<number | string | null>(null);
 const isMobile = ref(window.innerWidth <= 768);
 const showModal = ref(false);
 
-// Methods
 const fetchEvents = async () => {
   try {
     const response = await axios.get("http://localhost:8080/api/events");
@@ -37,7 +35,6 @@ const handleResize = () => {
   isMobile.value = window.innerWidth <= 768;
 };
 
-// Lifecycle hooks
 onMounted(() => {
   fetchEvents();
   window.addEventListener("resize", handleResize);
@@ -50,72 +47,46 @@ onUnmounted(() => {
 
 <template>
   <div id="events" class="events-container">
-    <!-- Header -->
     <Headings text="EVENTS" :level="2" class="flex p-6" />
 
-    <!-- Modal for Mobile View -->
+    <!-- Modal for mobile view -->
     <div
       v-if="isMobile && showModal"
       @click.self="closeModal"
       class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-20"
     >
       <div class="relative bg-black bg-opacity-60 p-4 shadow-lg w-screen max-w-lg">
-        <button @click="closeModal" class="absolute top-0 right-1 text-white text-3xl p-4" aria-label="Close Modal">&times;</button>
+        <button @click="closeModal" class="absolute top-0 right-1 text-white text-3xl p-4 bg-transparent" aria-label="Close Modal">&times;</button>
         <EventDetails :eventId="selectedEventId" color="white" />
       </div>
     </div>
 
-    <!-- Timeline -->
+    <!-- Timeline and Event Buttons Section -->
     <div class="timeline flex flex-col w-full sm:flex-row sm:p-4">
-      <!-- Event Buttons -->
-      <div class="flex flex-col items-center w-full sm:w-1/2 pt-4">
-        <div>
+      <div class="flex flex-col items-center w-full sm:w-1/2 pt-4 relative">
+        <!-- Chevron Icon -->
+        <div class="absolute left-[-2.55rem] w-full text-center mb-2">
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
-        <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 4em"></div>
 
-        <div class="overflow-y-auto w-full flex justify-center h-4/6">
-          <ul>
-            <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
-              <div class="h-40 w-2 bg-gray-600"></div>
-              <EventButton :event="event" class="absolute" style="left: -7.4em" @select-event="selectEvent" />
+        <!-- Scrollable Event Buttons positioned above the line -->
+        <div id="single-events" class="absolute overflow-y-auto w-full h-[70vh] flex justify-center items-center z-10">
+          <ul class="flex flex-col justify-center items-center space-y-6">
+            <!-- Increased gap here -->
+            <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
+              <EventButton :event="event" @select-event="selectEvent" />
             </li>
           </ul>
         </div>
+
+        <!-- Vertical Line -->
+        <div id="line" class="absolute left-[10.65rem] top-[2rem] h-[70vh] w-[8px] bg-gray-600 z-0"></div>
       </div>
 
-      <!-- Event Details for Desktop -->
+      <!-- Event details for desktop -->
       <div v-if="!isMobile" class="sm:w-10/12">
         <EventDetails :eventId="selectedEventId" />
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Modal styles */
-.bg-opacity-70 {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-button[aria-label="Close Modal"] {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* Hide scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
-.overflow-y-auto::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for Firefox */
-.overflow-y-auto {
-  scrollbar-width: none;
-}
-
-/* Ensure the container still scrolls */
-.overflow-y-auto {
-  overflow-y: auto;
-}
-</style>
