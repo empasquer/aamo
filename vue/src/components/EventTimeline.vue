@@ -46,7 +46,6 @@ export default {
     window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy() {
-    // Clean up the event listener when the component is destroyed
     window.removeEventListener("resize", this.handleResize);
   },
 };
@@ -56,30 +55,28 @@ export default {
   <div id="events" class="events-container">
     <Headings text="EVENTS" :level="2" class="flex p-6"></Headings>
 
-    <div v-if="isMobile" class="sm:w-10/12">
-      <EventDetails :eventId="selectedEventId"></EventDetails>
+    <div v-if="isMobile" class="sm:w-10/12 fixed bg-black bg-opacity-70 top-[25vh] z-20 hidden">
+      <EventDetails :eventId="selectedEventId" class="text-white"></EventDetails>
     </div>
 
     <div class="timeline flex flex-col w-full sm:flex-row sm:p-4">
       <div class="flex flex-col items-center w-full sm:w-1/2 pt-4">
-        <!-- Chevron Arrow -->
         <div>
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
         <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 4em"></div>
-        <!-- Event List -->
+
         <div class="overflow-y-auto w-full flex justify-center h-4/6">
           <ul>
             <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
-              <!-- Vertical Line -->
               <div class="h-40 w-2 bg-gray-600"></div>
-              <!-- Event Button -->
+
               <EventButton :event="event" class="absolute" style="left: -7.4em" @select-event="selectEvent" />
             </li>
           </ul>
         </div>
       </div>
-      <!-- Event Details -->
+
       <div v-if="!isMobile" class="sm:w-10/12">
         <EventDetails :eventId="selectedEventId"></EventDetails>
       </div>
