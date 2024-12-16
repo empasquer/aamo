@@ -107,7 +107,9 @@ const handleDeleteConfirmed = async (artWorkId: number) => {
   try {
     await axios.delete(`http://localhost:8080/api/artworks/${artWorkId}`);
     artWorks.value = artWorks.value.filter(artWork => artWork.artWorkId !== artWorkId);
+    filteredArtWorks.value = filteredArtWorks.value.filter(artWork => artWork.artWorkId !== artWorkId);
     isConfirmDeleteVisible.value = false;
+
     if (masonryInstance) {
       await nextTick();
       masonryInstance.layout();
