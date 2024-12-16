@@ -19,7 +19,7 @@ const isFrontPage = computed(() => router.currentRoute.value.path === "/");
 <template>
   <header
     :class="[
-      'w-screen fixed top-0 py-8 pl-8 flex justify-between items-center z-10',
+      'w-screen fixed top-0 py-8 pl-8 flex justify-between items-center z-50',
       isFrontPage ? 'bg-[url(./assets/bg-op.png)] bg-contain' : 'bg-white bg-opacity-80',
     ]"
   >
@@ -28,7 +28,7 @@ const isFrontPage = computed(() => router.currentRoute.value.path === "/");
       <NavigationComponent />
     </div>
 
-    <div class="block md:hidden pr-8">
+    <div class="block md:hidden pr-8 z-50">
       <BurgerMenuComponent />
     </div>
   </header>

@@ -70,9 +70,12 @@ onUnmounted(() => {
         </div>
 
         <!-- Scrollable Event Buttons positioned above the line -->
-        <div id="single-events" class="absolute overflow-y-auto w-full h-[70vh] flex justify-center items-center z-10">
-          <ul class="flex flex-col justify-center items-center space-y-6">
-            <!-- Increased gap here -->
+        <div id="single-events" class="overflow-y-scroll absolute top-[5rem] w-full max-h-[70vh] flex justify-center items-center z-10 box-border">
+          <ul class="flex flex-col justify-center items-center space-y-12">
+            <p>1</p>
+            <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
+              <EventButton :event="event" @select-event="selectEvent" />
+            </li>
             <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
               <EventButton :event="event" @select-event="selectEvent" />
             </li>
@@ -80,10 +83,9 @@ onUnmounted(() => {
         </div>
 
         <!-- Vertical Line -->
-        <div id="line" class="absolute left-[10.65rem] top-[2rem] h-[70vh] w-[8px] bg-gray-600 z-0"></div>
+        <div id="line" class="absolute left-[10.65rem] top-[2rem] h-[75vh] w-[8px] bg-gray-600 z-0"></div>
       </div>
 
-      <!-- Event details for desktop -->
       <div v-if="!isMobile" class="sm:w-10/12">
         <EventDetails :eventId="selectedEventId" />
       </div>
