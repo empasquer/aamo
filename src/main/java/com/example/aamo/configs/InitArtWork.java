@@ -196,7 +196,7 @@ public class InitArtWork implements CommandLineRunner {
                 "/uploads/20x20/IMG_3452.jpg",
                 List.of(
                         tagMap.get("20x20"),
-                        tagMap.get("20x20"),
+                        tagMap.get("Dyr"),
                         tagMap.get("Blå")
                 ),
                 true
@@ -334,6 +334,7 @@ public class InitArtWork implements CommandLineRunner {
                 new ArtWorkTag(TagType.SIZE, "50x50"),
                 new ArtWorkTag(TagType.SIZE, "100x100"),
                 new ArtWorkTag(TagType.SIZE, "200x200"),
+                new ArtWorkTag(TagType.SIZE, "20x20"),
                 new ArtWorkTag(TagType.SIZE, "90x40"),
                 new ArtWorkTag(TagType.SIZE, "60x80"),
                 new ArtWorkTag(TagType.SIZE, "100x90"),
@@ -352,7 +353,7 @@ public class InitArtWork implements CommandLineRunner {
                 new ArtWorkTag(TagType.THEME, "Mystik"),
                 new ArtWorkTag(TagType.THEME, "Natur"),
                 new ArtWorkTag(TagType.THEME, "Abstrakt"),
-                new ArtWorkTag(TagType.THEME, "20x20"),
+                new ArtWorkTag(TagType.THEME, "Dyr"),
                 new ArtWorkTag(TagType.THEME, "Skulpture"),
                 new ArtWorkTag(TagType.COLOR, "Blå"),
                 new ArtWorkTag(TagType.COLOR, "Gul"),

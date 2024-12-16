@@ -74,19 +74,20 @@ const fetchArtWorks = async () => {
       artWorks.value.push(...paginatedData.content);
       filteredArtWorks.value = [...artWorks.value];
 
-      page.value += 1;  // Øg sidenummeret
-      totalPages.value = paginatedData.totalPages;  // Opdater totalPages
-      totalElements.value = paginatedData.totalElements;  // Opdater totalElements
-    }
+      page.value += 1;
+      totalPages.value = paginatedData.totalPages;
+      totalElements.value = paginatedData.totalElements;
 
-    await nextTick();
-    masonryInstance?.layout();  // Opdater layoutet
+      await nextTick(); // Vent på, at DOM'en opdateres
+      initMasonry();   // Initier eller opdater Masonry her
+    }
   } catch (error) {
     console.error("Fejl ved hentning af artworks:", error);
   } finally {
     isFetching.value = false;
   }
 };
+
 
 // Scroll-event med debounce
 let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
