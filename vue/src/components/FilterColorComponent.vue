@@ -8,6 +8,7 @@ interface ArtWorkTag {
 }
 
 const props = defineProps<{
+  closeAll: boolean;
   tags: ArtWorkTag[];
 }>();
 
@@ -32,16 +33,26 @@ const onFilterChange = () => emit('filter-changed', selectedTags.value);
 
 watch(selectedTags, onFilterChange);
 
+watch(
+    () => props.closeAll,
+    (newVal) => {
+      if (newVal) {
+        showColors.value = false;
+      }
+    }
+);
+
 </script>
 
 <template>
-  <div class="filter-item flex flex-col">
+  <div class="filter-item relative flex flex-col">
     <h3
         @click="toggleColors"
-        class="font-bold cursor-pointer text-lg text-gray-700 hover:text-[#4289a3]">
+        class="font-bold relative cursor-pointer text-lg text-gray-700 hover:text-[#4289a3]">
       Farve
     </h3>
-    <div v-if="showColors" class="mt-2">
+    <div v-if="showColors"
+         class="absolute bg-black bg-opacity-60 shadow-md top-10 mt-5 left-[-14px] p-5 z-10">
       <div v-for="tag in props.tags" :key="tag" class="mb-2">
         <label class="flex items-center space-x-2">
           <input
@@ -49,9 +60,9 @@ watch(selectedTags, onFilterChange);
               :id="tag"
               :value="tag"
               v-model="selectedTags"
-              class="w-4 h-4"
+              class="w-5 h-5 mt-3 text-white bg-black border-white focus:ring-white checked:bg-[#4289a3]"
           />
-          <span class="text-gray-600">{{ tag }}</span>
+          <span class="text-white mt-3 font-bold">{{ tag }}</span>
         </label>
       </div>
     </div>

@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { defineComponent, nextTick, onMounted, ref } from "vue";
+import {defineComponent, nextTick, onMounted, ref} from 'vue';
 import GalleryDescriptionComponent from "./GalleryDescriptionComponent.vue";
 import ImageWithHoverComponent from "./ImageWithHoverComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
-import Masonry from "masonry-layout";
-import imagesLoaded from "imagesloaded";
 import ConfirmDeleteComponent from './ConfirmDeleteComponent.vue';
 import LargeArtWorkComponent from "./LargeArtWorkComponent.vue";
 import FilterSortMenuComponent from "./FilterSortMenuComponent.vue";
+
+
+import Masonry from 'masonry-layout';
+import imagesLoaded from 'imagesloaded';
 import axios from "axios";
 import {useRoute} from "vue-router";
 
@@ -47,52 +49,70 @@ const activeFilters = ref({
   size: [],
   theme: [],
   color: [],
-  price: ""
 });
 
 // Funktion som filtrerer billederne
 const filterArtWorks = () => {
-  const { size, theme, color, sortOrder } = activeFilters.value;
-
-  let filtered = [...artWorks.value];
-
-
-  // Sortér efter pris
-  if (sortOrder === "asc") {
-    filtered.sort((a, b) => a.price - b.price);
-  } else if (sortOrder === "desc") {
-    filtered.sort((a, b) => b.price - a.price);
+  // Hvis ingen filtre er valgt, vis alle malerier
+  if (
+      activeFilters.value.size.length === 0 &&
+      activeFilters.value.color.length === 0 &&
+      activeFilters.value.theme.length === 0
+  ) {
+    filteredArtWorks.value = [...artWorks.value];
   } else {
-  // Ingen sortering, behold rækkefølgen som den var
-  filtered = [...artWorks.value];
+    filteredArtWorks.value = artWorks.value.filter((artWork) => {
+      // Tjek for tema
+      const matchesTheme = activeFilters.value.theme.length === 0 || artWork.tags.some(
+          (tag) => tag.tagType === "THEME" && activeFilters.value.theme.includes(tag.tagValue)
+      );
+
+      // Tjek for størrelse
+      const matchesSize = activeFilters.value.size.length === 0 || artWork.tags.some(
+          (tag) => tag.tagType === "SIZE" && activeFilters.value.size.includes(tag.tagValue)
+      );
+
+      // Tjek for farve
+      const matchesColor = activeFilters.value.color.length === 0 || artWork.tags.some(
+          (tag) => tag.tagType === "COLOR" && activeFilters.value.color.includes(tag.tagValue)
+      );
+
+      // Hvis kun tema er valgt, vis billeder der matcher temaet uanset størrelse og farve
+      if (activeFilters.value.size.length === 0 && activeFilters.value.color.length === 0 && activeFilters.value.theme.length > 0) {
+        return matchesTheme;
+      }
+
+      // Hvis kun størrelse er valgt, vis billeder der matcher størrelsen uanset farve og tema
+      if (activeFilters.value.size.length > 0 && activeFilters.value.color.length === 0 && activeFilters.value.theme.length === 0) {
+        return matchesSize;
+      }
+
+      // Hvis kun farve er valgt, vis billeder der matcher farven uanset størrelse og tema
+      if (activeFilters.value.color.length > 0 && activeFilters.value.size.length === 0 && activeFilters.value.theme.length === 0) {
+        return matchesColor;
+      }
+
+      // Hvis tema og størrelse er valgt, vis billeder der matcher begge uanset farve
+      if (activeFilters.value.theme.length > 0 && activeFilters.value.size.length > 0 && activeFilters.value.color.length === 0) {
+        return matchesTheme && matchesSize;
+      }
+
+      // Hvis tema og farve er valgt, vis billeder der matcher begge uanset størrelse
+      if (activeFilters.value.theme.length > 0 && activeFilters.value.color.length > 0 && activeFilters.value.size.length === 0) {
+        return matchesTheme && matchesColor;
+      }
+
+      // Hvis størrelse og farve er valgt, vis billeder der matcher begge uanset tema
+      if (activeFilters.value.size.length > 0 && activeFilters.value.color.length > 0 && activeFilters.value.theme.length === 0) {
+        return matchesSize && matchesColor;
+      }
+
+      // Hvis tema, størrelse og farve er valgt, vis billeder der matcher alle tre
+      return matchesTheme && matchesSize && matchesColor;
+    });
   }
 
-  // Filtrer på andre kriterier som størrelse, tema, farve (som tidligere)
-  filtered = filtered.filter((artWork) => {
-    const matchesTheme =
-        theme.length === 0 ||
-        artWork.tags.some(
-            (tag) => tag.tagType === "THEME" && theme.includes(tag.tagValue)
-        );
-
-    const matchesSize =
-        size.length === 0 ||
-        artWork.tags.some(
-            (tag) => tag.tagType === "SIZE" && size.includes(tag.tagValue)
-        );
-
-    const matchesColor =
-        color.length === 0 ||
-        artWork.tags.some(
-            (tag) => tag.tagType === "COLOR" && color.includes(tag.tagValue)
-        );
-
-    return matchesTheme && matchesSize && matchesColor;
-  });
-
-  filteredArtWorks.value = filtered;
-
-  nextTick(() => initMasonry());
+  nextTick(() => initMasonry()); // Opdater Masonry efter ændring
 };
 
 
@@ -145,10 +165,9 @@ const initMasonry = () => {
   }
 };
 
-
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:8080/api/galleri");
+    const response = await fetch("http://localhost:8080/api/other-works");
     if (!response.ok) {
       throw new Error("Failed to fetch gallery data");
     }
@@ -164,21 +183,17 @@ onMounted(async () => {
 
 <template>
   <div class="py-4 px-4 sm:px-20">
-    <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
-
-    <GalleryDescriptionComponent />
-
+    <HeadingsComponent :level="1" text="ØVRIGE VÆRKER"></HeadingsComponent>
 
     <!-- Filter Menu -->
     <FilterSortMenuComponent
         :tags="artWorks.flatMap(artwork => artwork.tags)"
         @filter-applied="(filters) => {
-    activeFilters.size = filters.size;
-    activeFilters.theme = filters.theme;
-    activeFilters.color = filters.color;
-    activeFilters.sortOrder = filters.sortOrder;
-    filterArtWorks();
-  }"
+          activeFilters.size = filters.size;
+          activeFilters.theme = filters.theme;
+          activeFilters.color = filters.color;
+          filterArtWorks();
+        }"
     />
 
 
