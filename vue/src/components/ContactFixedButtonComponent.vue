@@ -31,14 +31,14 @@ onMounted(() => {
     class="fixed right-0 bottom-[6vh] md:bottom-[12vh] flex items-center justify-center cursor-pointer bg-[#4289a3] bg-opacity-80 z-50"
     :class="{
       'w-10 h-10': isRetracted,
-      'w-10 h-[25vh]': !isRetracted,
+      '': !isRetracted,
     }"
     @mouseover="isRetracted = false"
     @mouseleave="isRetracted = true"
   >
-    <div v-if="!isRetracted" class="flex flex-col items-center justify-around w-full h-full text-center">
-      <i class="fas fa-envelope text-white text-xl mb-2"></i>
-      <span class="text-xl text-white writing-mode-vertical-lr text-orientation-mixed rotate-180 pt-4">Kontakt mig</span>
+    <div v-if="!isRetracted" class="flex flex-col items-center justify-center w-full h-full text-center py-4 px-2">
+      <i class="fas fa-envelope text-white text-xl mb-2 pt-1"></i>
+      <span class="text-xl text-white writing-mode-vertical-lr text-orientation-mixed rotate-180 pt-2 whitespace-nowrap">Kontakt mig</span>
     </div>
     <div v-if="isRetracted" class="flex items-center justify-center">
       <i class="fas fa-envelope text-white text-xl"></i>
