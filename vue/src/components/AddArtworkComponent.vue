@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import FormComponent from './FormComponent.vue';
+import FormComponent from "./FormComponent.vue";
+import PopOpModalComponent from "./PopOpModalComponent.vue";
 import BasicInputComponent from './BasicInputComponent.vue';
 import FormButtonComponent from './FormButtonComponent.vue';
 import axios from "axios";
@@ -186,9 +187,10 @@ const handleSubmit = async (event:Event) => {
 </script>
 
 <template>
+  <PopOpModalComponent>
   <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen w-72" >
-    <div class="input wrapper flex flex-row">
-        <div class="left column flex flex-col">
+    <div class="input wrapper flex flex-row justify-between">
+        <div class="left column flex flex-col pr-6">
           <div v-if="artwork.mediaUrl">
             <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-48 md:w-64 lg:w-82" />
           </div>
@@ -203,6 +205,32 @@ const handleSubmit = async (event:Event) => {
           >
 
         </div>
+      <div class="middle column flex flex-col pr-6">
+        <BasicInputComponent
+            label="Titel"
+            name="title"
+            v-model="artwork.title"
+            type="text"
+            placeholder="Unanvgivet"
+            class="w-full"
+        ></BasicInputComponent>
+        <BasicInputComponent
+            label="Beskrivelse"
+            name="description"
+            type="textArea"
+            v-model="artwork.description"
+            placeholder="Tilføj beskrivelse ..."
+        ></BasicInputComponent>
+        <BasicInputComponent
+            label="Pris"
+            name="price"
+            type="number"
+            v-model="artwork.price"
+            placeholder="Indtast pris ..."
+            class="w-8"
+        ></BasicInputComponent>
+
+      </div>
       <div class="right coloumn flex flex-col ">
 
         <!-- tags -->
@@ -217,11 +245,11 @@ const handleSubmit = async (event:Event) => {
           </button>
           <div :class="['tags-container', {'open': showTags}]">
         <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col text-[#EAEAEA]">
-          <div>
+          <div class="flex ">
             <h3>{{ type }}</h3>
           </div>
-          <div class="flex flex-row">
-            <div v-for="tag in tags" :key="tag.tagValue">
+          <div class="flex flex-row w-60 overflow-x-scroll scrollbar-thin ">
+            <div v-for="tag in tags" :key="tag.tagValue" class="pl-4">
               <label>
                 <input
                     type="checkbox"
@@ -235,13 +263,14 @@ const handleSubmit = async (event:Event) => {
             </div>
         </div>
 
-          <div class="new-tag">
+          <div class="new-tag p-0.5 flex pl-2">
             <input
             type="text"
             v-model="newTags[type]"
             placeholder="tilføj nyt tag"
+            class="w-28 p-0.5"
             >
-            <button type="button" @click="addTag(type)">
+            <button type="button" @click="addTag(type)" class=" p-0 ml-2.5 bg-transparent" >
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>
@@ -249,46 +278,26 @@ const handleSubmit = async (event:Event) => {
         </div>
         </div>
         <BasicInputComponent
-            label="Titel"
-            name="title"
-            v-model="artwork.title"
-            type="text"
-            placeholder="Unanvgivet"
+            label="Solgt?"
+            name="sold"
+            v-model="artwork.isSold"
+            type="checkbox"
         ></BasicInputComponent>
-    <BasicInputComponent
-        label="Beskrivelse"
-        name="description"
-        type="textArea"
-        v-model="artwork.description"
-        placeholder="Tilføj beskrivelse ..."
-    ></BasicInputComponent>
-    <BasicInputComponent
-        label="Pris"
-        name="price"
-        type="number"
-        v-model="artwork.price"
-        placeholder="Indtast pris ..."
-    ></BasicInputComponent>
-    <BasicInputComponent
-        label="Solgt?"
-        name="sold"
-        v-model="artwork.isSold"
-        type="checkbox"
-    ></BasicInputComponent>
 
-    <BasicInputComponent
-        label="Er dette et maleri?"
-        name="type"
-        v-model="artwork.type"
-        type="checkbox"
-    ></BasicInputComponent>
-
+        <BasicInputComponent
+            label="Er dette et maleri?"
+            name="type"
+            v-model="artwork.type"
+            type="checkbox"
+        ></BasicInputComponent>
+        <!-- Submit Button -->
+        <FormButtonComponent :loading="loading" type="submit">Gem</FormButtonComponent>
     </div>
     </div>
 
-    <!-- Submit Button -->
-    <FormButtonComponent :loading="loading" type="submit">Gem</FormButtonComponent>
+
   </FormComponent>
+  </PopOpModalComponent>
 </template>
 
 <style scoped>
@@ -297,18 +306,18 @@ const handleSubmit = async (event:Event) => {
 }
 .tags-container {
   position:absolute;
-  top: 100%;
-  left: 0;
-  max-height: 0;
+  top: 0em;
+  right: 9em;
   overflow: hidden;
   z-index: 10;
   transition: max-height 0.3s ease;
-  opacity: 0;
-  background-color: #4a4a4a;
+opacity: 0;
+  background-color: black;
+  width: 20em;
+
 
 }
 .tags-container.open {
-  max-height: fit-content;
-  opacity: 0.8;
+opacity: 1;
 }
 </style>

@@ -46,7 +46,7 @@ const handleInput = (event: Event) => {
         :name="props.name"
         :value="props.modelValue"
         @input="handleInput"
-        class="w-full p-2 border focus:outline-none focus:ring-2 focus:ring-gray-400"
+        class=" p-2 border focus:outline-none focus:ring-2 focus:ring-gray-400"
     />
   </div>
 </template>

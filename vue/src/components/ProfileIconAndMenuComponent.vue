@@ -1,10 +1,11 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
-import FormComponent from "./FormComponent.vue";
+import AddArtworkComponent from "./AddArtworkComponent.vue";
 import BodyTextComponent from "./BodyTextComponent.vue";
 const showMenu =ref(false)
 const showAddArtwork= ref(false);
+
 const toggleMenu = () =>{
   showMenu.value = !showMenu.value;
 }
@@ -17,7 +18,7 @@ const addArtwork = () => {
 <template>
   <!-- Display modals here -->
   <div v-if="showAddArtwork" class="absolute z-10 top-1">
-    <FormComponent><button @click="showAddArtwork=false">kryds</button></FormComponent>
+    <AddArtworkComponent><button @click="showAddArtwork=false">kryds</button></AddArtworkComponent>
 
   </div>
   <div class="profile-container "
@@ -27,7 +28,7 @@ const addArtwork = () => {
 
       <i class="fa-solid fa-user fa-2x "></i>
     </div>
-  <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28 h-auto text-white"
+  <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28  text-white"
   >
       <BodyTextComponent class="t underline cursor-pointer "textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
 

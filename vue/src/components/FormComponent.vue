@@ -41,8 +41,8 @@ const handleFormSubmit = (event: Event) => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen">
-    <div :class="['p-8', 'shadow-md', computedWidth,  'mx-auto']" style="width: 24rem; background-color: rgba(0, 0, 0, 0.5);">
+  <div class="flex flex-col items-center justify-center ">
+    <div :class="['p-8', 'shadow-md', computedWidth,  'mx-auto']" style="; background-color: rgba(0, 0, 0, 0.5);">
       <h1 class="text-[#EAEAEA] text-4xl font-bold text-center mb-6">{{ title }}</h1>
       <form :action="action" :method="method" @submit="handleFormSubmit">
       <slot></slot>
