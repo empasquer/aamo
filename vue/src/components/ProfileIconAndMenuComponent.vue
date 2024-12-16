@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
 import FormComponent from "./FormComponent.vue";
 import BodyTextComponent from "./BodyTextComponent.vue";
+import axios from "axios";
+import router from "../router";
+import {ref} from "vue";
 const showMenu =ref(false)
 const showAddArtwork= ref(false);
 const toggleMenu = () =>{
@@ -12,6 +14,16 @@ const addArtwork = () => {
   showMenu.value = false;
   showAddArtwork.value = true;
 }
+
+const logout = async () => {
+  try {
+    await axios.post(`http://localhost:8080/api/logout`);
+    sessionStorage.removeItem('loggedIn');
+    await router.push({ name: 'homepage' });
+  } catch (error) {
+    console.error("Error logging out: ", error);
+  }
+};
 </script>
 
 <template>
@@ -29,7 +41,8 @@ const addArtwork = () => {
     </div>
   <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28 h-auto text-white"
   >
-      <BodyTextComponent class="t underline cursor-pointer "textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
+      <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
+      <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Log ud" @click="logout"></BodyTextComponent>
 
 
   </div>
