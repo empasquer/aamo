@@ -35,8 +35,8 @@ public class GalleriController {
 
     @GetMapping("/api/galleri/chosen-paintings")
     public List<ArtWork> getChosenPaintings() {
-        return artWorkRepository.findAll(Sort.by(Sort.Direction.DESC, "artWorkId")).stream()
-                .limit(4)
+        return artWorkRepository.findByTypeTrue(Sort.by(Sort.Direction.DESC, "artWorkId")).stream()
+                .limit(4) // Tag kun de 4 nyeste
                 .toList();
     }
 
