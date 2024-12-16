@@ -28,12 +28,14 @@ const artwork = ref<ArtWork>({
 interface ArtWorkTag {
   tagType: string;
   tagValue: string;
-  tagId: number;
+  tagId?: number;
 }
 
 const loading = ref(false);
 const tagsByType = ref<Record<string, ArtWorkTag[]>>({});
 const showTags = ref(false);
+const newTags = ref<Record<string, string>>({});
+
 
 const toggleTags = () => {
   showTags.value = !showTags.value;
@@ -108,6 +110,24 @@ const handleTagChange = (tag: ArtWorkTag, checked: boolean) => {
   }
 };
 
+//Add new tag
+const addTag = (tagType: string) => {
+  console.log('newTags:', newTags.value);
+  const newTagValue = newTags.value[tagType]?.trim();
+  console.log('newTagValue:', newTagValue);
+  if(newTagValue && !tagsByType.value[tagType]?.some(tag => tag.tagValue === newTagValue)) {
+    const newTag: ArtWorkTag = {
+      tagType,
+      tagValue: newTagValue,
+    };
+
+    tagsByType.value[tagType].push(newTag);
+    artwork.value.tags.push(newTag);
+    newTags.value[tagType] ='';
+  }
+  console.log(newTagValue)
+};
+
 const handleSubmit = async (event:Event) => {
   event.preventDefault()
   loading.value = true;
@@ -152,7 +172,7 @@ const handleSubmit = async (event:Event) => {
 </script>
 
 <template>
-  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen" >
+  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen w-72" >
     <div class="input wrapper flex flex-row">
         <div class="left column flex flex-col">
           <div v-if="artwork.mediaUrl">
@@ -186,12 +206,12 @@ const handleSubmit = async (event:Event) => {
             <h3>{{ type }}</h3>
           </div>
           <div class="flex flex-row">
-            <div v-for="tag in tags" :key="tag.tagId">
+            <div v-for="tag in tags" :key="tag.tagValue">
               <label>
                 <input
                     type="checkbox"
                     :value="tag.tagValue"
-                    :checked="artwork.tags.some(t => t.tagId === tag.tagId)"
+                    :checked="artwork.tags.some(t => t.tagValue === tag.tagValue)"
                     @change="(event) => handleTagChange(tag, event?.target?.checked)"
 
                 />
@@ -199,6 +219,17 @@ const handleSubmit = async (event:Event) => {
               </label>
             </div>
         </div>
+
+          <div class="new-tag">
+            <input
+            type="text"
+            v-model="newTags[type]"
+            placeholder="tilføj nyt tag"
+            >
+            <button type="button" @click="addTag(type)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
           </div>
         </div>
         </div>
