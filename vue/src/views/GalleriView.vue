@@ -6,7 +6,6 @@ import ImageGalleriComponent from "../components/ImageGalleriComponent.vue";
 <template>
   <div>
     <ImageGalleriComponent />
-
   </div>
 
 </template>

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import {defineComponent, nextTick, onMounted, ref} from 'vue';
+import { defineComponent, nextTick, onMounted, ref } from "vue";
 import GalleryDescriptionComponent from "./GalleryDescriptionComponent.vue";
 import ImageWithHoverComponent from "./ImageWithHoverComponent.vue";
 import HeaderComponent from "./HeaderComponent.vue";
 import HeadingsComponent from "./HeadingsComponent.vue";
+import Masonry from "masonry-layout";
+import imagesLoaded from "imagesloaded";
 import ConfirmDeleteComponent from './ConfirmDeleteComponent.vue';
 import LargeArtWorkComponent from "./LargeArtWorkComponent.vue";
 import FilterSortMenuComponent from "./FilterSortMenuComponent.vue";
-
-
-import Masonry from 'masonry-layout';
-import imagesLoaded from 'imagesloaded';
 import axios from "axios";
 import {useRoute} from "vue-router";
 
@@ -147,6 +145,7 @@ const initMasonry = () => {
   }
 };
 
+
 onMounted(async () => {
   try {
     const response = await fetch("http://localhost:8080/api/galleri");
@@ -168,6 +167,7 @@ onMounted(async () => {
     <HeadingsComponent :level="1" text="GALLERI"></HeadingsComponent>
 
     <GalleryDescriptionComponent />
+
 
     <!-- Filter Menu -->
     <FilterSortMenuComponent
