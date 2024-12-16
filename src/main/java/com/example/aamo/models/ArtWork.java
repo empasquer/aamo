@@ -28,7 +28,7 @@ import java.util.List;
 
         @ManyToMany(cascade = CascadeType.MERGE)
         @JsonManagedReference
-        private List<ArtWorkTag> tags;
+        private List<ArtWorkTag> tags = new ArrayList<>();
 
 
         public ArtWork(long artWorkId, String title,

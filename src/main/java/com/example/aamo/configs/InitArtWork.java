@@ -40,9 +40,9 @@ public class InitArtWork implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
         //Initiliserer og geemmer tags, så de kun er der 1 gang.
         Map<String, ArtWorkTag> tagMap = initializeTags();
-
 
 
         //Lavet en metode som kan oprette nyt maler.
@@ -226,6 +226,7 @@ public class InitArtWork implements CommandLineRunner {
 
         // Gem artWork i databasen
         artWorkRepository.save(artWork);
+
     }
 
 }
