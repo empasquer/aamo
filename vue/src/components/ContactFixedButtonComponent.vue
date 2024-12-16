@@ -28,7 +28,7 @@ onMounted(() => {
   <!-- You can add this "transition-all ease-in-out duration-100" to the <a class etc> section for transition -->
   <a
     :href="'mailto:' + props.mailAddress"
-    class="fixed right-0 bottom-4 md:bottom-8 flex items-center justify-center cursor-pointer bg-[#4289a3] z-50"
+    class="fixed right-0 bottom-[6vh] md:bottom-[12vh] flex items-center justify-center cursor-pointer bg-[#4289a3] bg-opacity-80 z-50"
     :class="{
       'w-10 h-10': isRetracted,
       'w-10 h-[25vh]': !isRetracted,
