@@ -67,7 +67,7 @@ const filterArtWorks = () => {
   filtered = [...artWorks.value];
   }
 
-  // Filtrer på andre kriterier som størrelse, tema, farve (som tidligere)
+  // Filtrer på andre kriterier som størrelse, tema, farve
   filtered = filtered.filter((artWork) => {
     const matchesTheme =
         theme.length === 0 ||

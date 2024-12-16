@@ -98,7 +98,7 @@ public class InitArtWork implements CommandLineRunner {
         createAndSaveInitArtWork( "",
                 "Akryl på lærred",
                 3000,
-                "/uploads/60x60/1x52.jpg",
+                "/uploads/60x60/IMG_0943.jpeg",
                 List.of(
                         tagMap.get("60x60"),
                         tagMap.get("Natur"),
