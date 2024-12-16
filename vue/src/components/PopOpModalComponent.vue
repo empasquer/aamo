@@ -22,7 +22,7 @@ const closeModal = () => {
       v-if="isModalVisible"
       @click="closeModal"
       class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 cursor-pointer">
-    <div class="bg-black-modal shadow-lg max-w-6xl w-full p-6"
+    <div class="bg-black-modal shadow-lg  w-full p-6"
          @click.stop
     >
       <div class="flex flex-col md:flex-row gap-4">
@@ -53,14 +53,17 @@ const closeModal = () => {
   justify-content: center;
   align-items: center;
   z-index: 50; /* Sørg for, den ligger øverst */
+  opacity: 95%;
+  max-width: 100%;
 }
 
 .bg-black-modal {
-
+  height: 30em;
   max-height: 80%; /* Forhindrer overflow på små skærme */
   overflow-y: hidden; /* Tilføj scroll, hvis indhold er for stort */
   background-color: black;
   opacity: 80%;
   cursor: default;
+  overflow-x: hidden;
 }
 </style>

@@ -188,9 +188,9 @@ const handleSubmit = async (event:Event) => {
 
 <template>
   <PopOpModalComponent>
-  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen w-72" >
-    <div class="input wrapper flex flex-row justify-between">
-        <div class="left column flex flex-col pr-6">
+  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen w-72 " >
+    <div class="input wrapper flex flex-row justify-between ml-28 mr-96 mt-2">
+        <div class="left column flex flex-col pr-6 w-72">
           <div v-if="artwork.mediaUrl">
             <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-48 md:w-64 lg:w-82" />
           </div>
@@ -205,7 +205,7 @@ const handleSubmit = async (event:Event) => {
           >
 
         </div>
-      <div class="middle column flex flex-col pr-6">
+      <div class="middle column flex flex-col pr-6 w-72">
         <BasicInputComponent
             label="Titel"
             name="title"
@@ -227,56 +227,12 @@ const handleSubmit = async (event:Event) => {
             type="number"
             v-model="artwork.price"
             placeholder="Indtast pris ..."
-            class="w-8"
         ></BasicInputComponent>
 
       </div>
-      <div class="right coloumn flex flex-col ">
+      <div class="right coloumn flex flex-col w-72 ">
 
-        <!-- tags -->
-        <div class="tags-section relative ">
-          <button
-          type="button"
-          class="toggle-tags-btn flex items-center"
-          @click="toggleTags"
-          >
-            <i :class="['fas', showTags ? 'fa-chevron-up' : ' fa-chevron-down']"></i>
-          <span class="ml-2">Tags</span>
-          </button>
-          <div :class="['tags-container', {'open': showTags}]">
-        <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col text-[#EAEAEA]">
-          <div class="flex ">
-            <h3>{{ type }}</h3>
-          </div>
-          <div class="flex flex-row w-60 overflow-x-scroll scrollbar-thin ">
-            <div v-for="tag in tags" :key="tag.tagValue" class="pl-4">
-              <label>
-                <input
-                    type="checkbox"
-                    :value="tag.tagValue"
-                    :checked="artwork.tags.some(t => t.tagValue === tag.tagValue)"
-                    @change="(event) => handleTagChange(tag, event?.target?.checked)"
 
-                />
-                {{ tag.tagValue }}
-              </label>
-            </div>
-        </div>
-
-          <div class="new-tag p-0.5 flex pl-2">
-            <input
-            type="text"
-            v-model="newTags[type]"
-            placeholder="tilføj nyt tag"
-            class="w-28 p-0.5"
-            >
-            <button type="button" @click="addTag(type)" class=" p-0 ml-2.5 bg-transparent" >
-              <i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
-          </div>
-        </div>
-        </div>
         <BasicInputComponent
             label="Solgt?"
             name="sold"
@@ -290,12 +246,57 @@ const handleSubmit = async (event:Event) => {
             v-model="artwork.type"
             type="checkbox"
         ></BasicInputComponent>
-        <!-- Submit Button -->
-        <FormButtonComponent :loading="loading" type="submit">Gem</FormButtonComponent>
-    </div>
+
+        <!-- tags -->
+        <div class="tags-section relative ">
+          <button
+              type="button"
+              class="toggle-tags-btn flex items-center p-0 ml-2.5 bg-transparent text-white"
+              @click="toggleTags"
+          >
+            <span class="ml-2 text-white">Tags</span>
+            <i :class="['fas', showTags ? 'fa-chevron-left' : ' fa-chevron-right']" style="color: white"></i>
+
+          </button>
+          <div :class="['tags-container', {'open': showTags}]">
+            <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col text-white]">
+              <div class="flex ">
+                <h3 class="text-white">{{ type }}</h3>
+              </div>
+              <div class="flex flex-row w-60 overflow-x-scroll scrollbar text-white ">
+                <div v-for="tag in tags" :key="tag.tagValue" class="pl-4 text-white">
+                  <label class="text-white">
+                    <input
+                        type="checkbox"
+                        :value="tag.tagValue"
+                        :checked="artwork.tags.some(t => t.tagValue === tag.tagValue)"
+                        @change="(event) => handleTagChange(tag, event?.target?.checked)"
+
+                    />
+                    {{ tag.tagValue }}
+                  </label>
+                </div>
+              </div>
+
+              <div class="new-tag p-0.5 flex ">
+                <input
+                    type="text"
+                    v-model="newTags[type]"
+                    placeholder="tilføj nyt tag"
+                    class="w-28 p-0.5"
+                >
+                <button type="button" @click="addTag(type)" class=" p-0 ml-2.5 bg-transparent" >
+                  <i class="fa-solid fa-plus text-white"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-
+    <!-- Submit Button -->
+    <FormButtonComponent :loading="loading" type="submit" class="bg-amber-50 flex justify-items-end">Gem</FormButtonComponent>
   </FormComponent>
   </PopOpModalComponent>
 </template>
@@ -303,21 +304,27 @@ const handleSubmit = async (event:Event) => {
 <style scoped>
 .tags-section {
   position: relative;
+
 }
 .tags-container {
   position:absolute;
-  top: 0em;
-  right: 9em;
+  top: -12em;
+  left: 7em;
   overflow: hidden;
   z-index: 10;
   transition: max-height 0.3s ease;
 opacity: 0;
   background-color: black;
-  width: 20em;
+  width: 40em;
+  max-height: 50em;
 
 
 }
 .tags-container.open {
 opacity: 1;
+}
+
+.scrollbar {
+  scrollbar-width: thin;
 }
 </style>
