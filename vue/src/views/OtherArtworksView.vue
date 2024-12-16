@@ -1,5 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import OtherArtWorksComponent from "../components/OtherArtWorksComponent.vue";
+</script>
 
 <template>
-  <div>ØVRIGE VÆRKER</div>
+  <div>
+    <OtherArtWorksComponent />
+  </div>
+
 </template>
