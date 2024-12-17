@@ -35,6 +35,11 @@ const emit = defineEmits<{
   (event: 'close'): void;
 }>();
 
+const tagTranslations = {
+  SIZE: 'Størrelse',
+  COLOR: 'Farve',
+  THEME: 'Tema',
+}
 const handleClose = () => {
   const container = document.querySelector('.tags-container');
   if (container) {
@@ -313,12 +318,12 @@ const handleSubmit = async (event:Event) => {
               <i :class="['fas', showTags ? 'fa-chevron-left' : 'fa-chevron-right']" style="color: white"></i>
               <span class="ml-2 text-white">Tags</span>
             </button>
-            <div :class="['tags-container', { open: showTags }, 'flex', 'right-[8em]', 'sm:right-[12em]', 'md:right-[16em]', 'lg:right-[22em]']">
+            <div :class="['tags-container', { open: showTags }, 'flex', 'right-[8em]', 'sm:right-[12em]', 'md:right-[16em]', 'lg:right-[24em]']">
 
               <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group pl-24  flex flex-col text-white">
 
                 <div class="flex">
-                  <h3 class="text-white">{{ type }}</h3>
+                  <h3 class="text-white font-inter underline pb-4">{{  tagTranslations[type] || type  }}</h3>
                 </div>
 
                 <div class="flex flex-col w-auto h-40 justify-between overflow-y-scroll scrollbar text-white">

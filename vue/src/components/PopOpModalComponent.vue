@@ -53,7 +53,7 @@ const closeModal = () => {
   justify-content: center;
   align-items: center;
   z-index: 50; /* Sørg for, den ligger øverst */
-  opacity: 95%;
+
   max-width: 100%;
 }
 
