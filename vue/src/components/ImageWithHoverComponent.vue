@@ -55,7 +55,7 @@ const isAdminRoute = route.path.startsWith("/admin");
       <p class="text-lg text-white font-bold mb-2 text-left" v-if="sizeTag">
         {{ sizeTag }}
       </p>
-      <p class="text-lg text-white mb-2 mt-4 text-left">
+      <p class="text-lg text-white mb-2 mt-4 text-left description">
         {{ artWork.description }}
       </p>
 
@@ -113,4 +113,14 @@ const isAdminRoute = route.path.startsWith("/admin");
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }
+
+.description {
+  display: -webkit-box; /* Use the flexible box layout */
+  -webkit-box-orient: vertical; /* Set vertical orientation */
+  -webkit-line-clamp: 3; /* Limit the text to 3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add '...' at the end of the cut-off text */
+  margin: 0;
+}
+
 </style>

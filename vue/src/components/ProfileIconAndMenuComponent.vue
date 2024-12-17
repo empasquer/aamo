@@ -24,6 +24,10 @@ const logout = async () => {
     console.error("Error logging out: ", error);
   }
 };
+
+const resetPassword = async () => {
+  await router.push({ name: 'reset-password' });
+};
 </script>
 
 <template>
@@ -41,8 +45,9 @@ const logout = async () => {
     </div>
   <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28 h-auto text-white"
   >
-      <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
-      <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Log ud" @click="logout"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Nulstil kodeord" @click="resetPassword"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Log ud" @click="logout"></BodyTextComponent>
 
 
   </div>

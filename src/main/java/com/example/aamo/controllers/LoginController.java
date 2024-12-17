@@ -67,7 +67,7 @@ public class LoginController {
         return ResponseEntity.ok().body(Map.of("message", "Nyt kodeord er sendt til din mail", "status", "success"));
     }
 
-    @PostMapping("/reset-password/admin")
+    @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> request) {
         String currentEmail = request.get("currentEmail");
         String newPassword = request.get("newPassword");
