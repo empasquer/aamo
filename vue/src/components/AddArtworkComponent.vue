@@ -148,9 +148,9 @@ const handleSubmit = async (event:Event) => {
   }
   try {
     // If there is an image, upload it
-   // if (artwork.value.mediaUrl) {
-   //   await handleFileUpload();  // This will upload the image and update mediaUrl
-   // }
+    if (artwork.value.mediaUrl) {
+      await handleFileUpload();  // This will upload the image and update mediaUrl
+   }
 
     // Prepare the data payload
     const payload = {
