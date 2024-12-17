@@ -115,9 +115,6 @@ const isAdminRoute = route.path.startsWith("/admin");
 }
 
 .description {
-  display: -webkit-box; /* Use the flexible box layout */
-  -webkit-box-orient: vertical; /* Set vertical orientation */
-  -webkit-line-clamp: 3; /* Limit the text to 3 lines */
   overflow: hidden;
   text-overflow: ellipsis; /* Add '...' at the end of the cut-off text */
   margin: 0;
