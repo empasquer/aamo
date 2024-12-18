@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import FormComponent from './FormComponent.vue';
+import FormComponent from "./FormComponent.vue";
+import PopOpModalComponent from "./PopOpModalComponent.vue";
 import BasicInputComponent from './BasicInputComponent.vue';
 import FormButtonComponent from './FormButtonComponent.vue';
 import axios from "axios";
@@ -30,7 +31,30 @@ interface ArtWorkTag {
   tagValue: string;
   tagId?: number;
 }
+const emit = defineEmits<{
+  (event: 'close'): void;
+}>();
 
+const tagTranslations = {
+  SIZE: 'Størrelse',
+  COLOR: 'Farve',
+  THEME: 'Tema',
+}
+const handleClose = () => {
+  const container = document.querySelector('.tags-container');
+  if (container) {
+    // Add a closing class for reverse animation
+    container.classList.add('closing');
+
+    // Wait for the animation to complete before emitting the event
+    setTimeout(() => {
+      emit('close'); // Re-emit the event to the parent
+      container.classList.remove('closing'); // Reset class after animation
+    }, 500); // Match the duration of your closing animation
+  }
+  emit('close'); // Re-emit the event to the parent
+
+};
 const loading = ref(false);
 const tagsByType = ref<Record<string, ArtWorkTag[]>>({});
 const showTags = ref(false);
@@ -63,6 +87,16 @@ onMounted(async () => {
     console.error(error);
   }
 });
+
+// Trigger the hidden file input when the user clicks the image preview
+
+const fileInput = ref<HTMLInputElement | null>(null);
+
+const triggerFileInput = () => {
+  if (fileInput.value) {
+    fileInput.value.click(); // Trigger the file input click event
+  }
+};
 // Handle image preview
 const handleImagePreview = (event: Event) => {
   const fileInput = event.target as HTMLInputElement;
@@ -186,129 +220,187 @@ const handleSubmit = async (event:Event) => {
 </script>
 
 <template>
-  <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit"  class="w-screen w-72" >
-    <div class="input wrapper flex flex-row">
-        <div class="left column flex flex-col">
-          <div v-if="artwork.mediaUrl">
-            <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-48 md:w-64 lg:w-82" />
-          </div>
+  <PopOpModalComponent @close="handleClose">
+    <FormComponent formWidth="w-full" title="Tilføj Kunstværk" @submit="handleSubmit" class="w-full overflow-hidden">
+      <div class="grid grid-cols-3 gap-4 pl-20 mt-2">
 
-          <input
-              label="Billede"
-              @change="handleImagePreview"
-              accept="image/*"
-              name="mediaUrl"
-              type="file"
-              required
-          >
+        <!-- Left Column: Image Preview & File Input -->
+        <div class="left-column flex flex-col justify-center items-center mb-44 relative">
+          <!-- Left Column: Image Preview & File Input -->
+          <div class="left-column flex flex-col justify-center items-center mb-44 relative">
 
-        </div>
-      <div class="right coloumn flex flex-col ">
-
-        <!-- tags -->
-        <div class="tags-section relative ">
-          <button
-          type="button"
-          class="toggle-tags-btn flex items-center"
-          @click="toggleTags"
-          >
-            <i :class="['fas', showTags ? 'fa-chevron-up' : ' fa-chevron-down']"></i>
-          <span class="ml-2">Tags</span>
-          </button>
-          <div :class="['tags-container', {'open': showTags}]">
-        <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group flex flex-col text-[#EAEAEA]">
-          <div>
-            <h3>{{ type }}</h3>
-          </div>
-          <div class="flex flex-row">
-            <div v-for="tag in tags" :key="tag.tagValue">
-              <label>
-                <input
-                    type="checkbox"
-                    :value="tag.tagValue"
-                    :checked="artwork.tags.some(t => t.tagValue === tag.tagValue)"
-                    @change="(event) => handleTagChange(tag, event?.target?.checked)"
-
-                />
-                {{ tag.tagValue }}
-              </label>
-            </div>
-        </div>
-
-          <div class="new-tag">
-            <input
-            type="text"
-            v-model="newTags[type]"
-            placeholder="tilføj nyt tag"
+            <!-- Image preview or gray box acting as a button -->
+            <div
+                class=" w-36 h-44 lg:w-56 lg:h-44 flex justify-center items-center bg-transparent cursor-pointer relative"
+                @click="triggerFileInput"
+                :class="{'border-4 border-dashed border-gray-400': !artwork.mediaUrl}"
             >
-            <button type="button" @click="addTag(type)">
-              <i class="fa-solid fa-plus"></i>
+              <!-- If an image is selected, show the preview -->
+              <div v-if="artwork.mediaUrl">
+                <img :src="artwork.mediaUrl" alt="Selected artwork" class="w-full h-full object-contain" />
+              </div>
+              <!-- If no image is selected, show 'Vælg billede' -->
+              <span v-else class="text-gray-500">Vælg billede</span>
+              <!-- Hidden file input -->
+              <input
+                  ref="fileInput"
+                  @change="handleImagePreview"
+                  accept="image/*"
+                  name="mediaUrl"
+                  type="file"
+                  required
+                  class="absolute inset-0 opacity-0 cursor-pointer"
+              />
+            </div>
+          </div>
+          </div>
+
+        <!-- Middle Column: Title, Description, and other form fields -->
+        <div class="middle-column flex flex-col sm:40 lg:w-72">
+          <BasicInputComponent
+              label="Titel"
+              name="title"
+              v-model="artwork.title"
+              type="text"
+              placeholder="Unavngivet"
+              width="w-full"
+          />
+          <BasicInputComponent
+              label="Beskrivelse"
+              name="description"
+              type="textArea"
+              v-model="artwork.description"
+              placeholder="Tilføj beskrivelse ..."
+              width="w-full"
+          />
+          <!-- Submit Button -->
+          <div class="pt-6 justify-center flex">
+          <FormButtonComponent :loading="loading" type="submit" class=" border w-16  flex justify-center ">Gem</FormButtonComponent>
+          </div>
+        </div>
+
+        <!-- Right Column: Price, Sold Checkbox, Tags -->
+        <div class="right-column flex flex-col  text-left">
+          <BasicInputComponent
+              label="Pris"
+              name="price"
+              type="number"
+              v-model="artwork.price"
+              placeholder="Indtast pris ..."
+              width="w-32"
+          />
+          <div class="flex flex-row text-left mb-4">
+            <BasicInputComponent
+                label="Maleri"
+                name="type"
+                v-model="artwork.type"
+                type="checkbox"
+                width="w-8"
+                class="checkbox"
+            />
+            <BasicInputComponent
+                label="Solgt"
+                name="sold"
+                v-model="artwork.isSold"
+                type="checkbox"
+                width="w-8"
+            />
+          </div>
+
+          <!-- Tags Section -->
+          <div class="tags-section relative text-left">
+            <button
+                type="button"
+                class="toggle-tags-btn flex items-center p-0 bg-transparent text-white"
+                @click="toggleTags"
+            >
+
+              <i :class="['fas', showTags ? 'fa-chevron-left' : 'fa-chevron-right']" style="color: white"></i>
+              <span class="ml-2 text-white">Tags</span>
             </button>
-          </div>
+            <div :class="['tags-container', { open: showTags }, 'flex', 'right-[8em]', 'sm:right-[12em]', 'md:right-[16em]', 'lg:right-[24em]']">
+
+              <div v-for="(tags, type) in tagsByType" :key="type" class="tag-group pl-24  flex flex-col text-white">
+
+                <div class="flex">
+                  <h3 class="text-white font-inter underline pb-4">{{  tagTranslations[type] || type  }}</h3>
+                </div>
+
+                <div class="flex flex-col w-auto h-40 justify-between overflow-y-scroll scrollbar text-white">
+                  <div v-for="tag in tags" :key="tag.tagValue" class=" pb-2  text-white">
+                    <label class="text-white">
+                      <input
+                          type="checkbox"
+                          :value="tag.tagValue"
+                          :checked="artwork.tags.some(t => t.tagValue === tag.tagValue)"
+                          @change="(event) => handleTagChange(tag, event?.target?.checked)"
+                      />
+                      {{ tag.tagValue }}
+                    </label>
+                  </div>
+                </div>
+                <div class="new-tag  flex pt-4">
+                  <input
+                      type="text"
+                      v-model="newTags[type]"
+                      placeholder="tilføj nyt tag"
+                      class="w-28 p-0.5 pl-1.5"
+                  />
+                  <button type="button" @click="addTag(type)" class="p-0  ml-2.5 bg-transparent">
+                    <i class="fa-solid fa-plus text-white"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        </div>
-        <BasicInputComponent
-            label="Titel"
-            name="title"
-            v-model="artwork.title"
-            type="text"
-            placeholder="Unanvgivet"
-        ></BasicInputComponent>
-    <BasicInputComponent
-        label="Beskrivelse"
-        name="description"
-        type="textArea"
-        v-model="artwork.description"
-        placeholder="Tilføj beskrivelse ..."
-    ></BasicInputComponent>
-    <BasicInputComponent
-        label="Pris"
-        name="price"
-        type="number"
-        v-model="artwork.price"
-        placeholder="Indtast pris ..."
-    ></BasicInputComponent>
-    <BasicInputComponent
-        label="Solgt?"
-        name="sold"
-        v-model="artwork.isSold"
-        type="checkbox"
-    ></BasicInputComponent>
 
-    <BasicInputComponent
-        label="Er dette et maleri?"
-        name="type"
-        v-model="artwork.type"
-        type="checkbox"
-    ></BasicInputComponent>
+      </div>
 
-    </div>
-    </div>
 
-    <!-- Submit Button -->
-    <FormButtonComponent :loading="loading" type="submit">Gem</FormButtonComponent>
-  </FormComponent>
+    </FormComponent>
+  </PopOpModalComponent>
 </template>
-
 <style scoped>
 .tags-section {
   position: relative;
+
 }
 .tags-container {
-  position:absolute;
-  top: 100%;
-  left: 0;
-  max-height: 0;
+
+  top: -12em;
+
   overflow: hidden;
-  z-index: 10;
-  transition: max-height 0.3s ease;
-  opacity: 0;
-  background-color: #4a4a4a;
+
+
+opacity: 0;
+  background-color: black;
+  width: auto;
+  max-height: 50em;
+  padding: 1em;
+
+
+
 
 }
 .tags-container.open {
-  max-height: fit-content;
-  opacity: 0.8;
+opacity: 1;
+  z-index: 10;
+  position:absolute;
+
+
+}
+
+
+.scrollbar {
+  scrollbar-width:thin;
+
+}
+.checkbox-size {
+  transform: scale(2); /* Adjust size by scaling */
+  transform-origin: center;
+}
+.checkbox {
+  padding-right: 2em;
 }
 </style>
