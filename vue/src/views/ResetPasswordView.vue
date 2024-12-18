@@ -17,7 +17,6 @@ const router = useRouter();
 const isLoggedIn = ref(false);
 
 onMounted(() => {
-  // Check if user is logged in by checking sessionStorage
   const status = sessionStorage.getItem('loggedIn');
   isLoggedIn.value = status === 'true';
 });

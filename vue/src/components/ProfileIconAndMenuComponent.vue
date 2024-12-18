@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
+import FormComponent from "./FormComponent.vue";
+import BodyTextComponent from "./BodyTextComponent.vue";
+import axios from "axios";
+import router from "../router";
 import {Ref, ref} from "vue";
 import AddArtworkComponent from "./AddArtworkComponent.vue";
-import BodyTextComponent from "./BodyTextComponent.vue";
-
 
 const showMenu =ref(false)
 const showAddArtwork= ref(false);
@@ -22,6 +24,20 @@ const exitAddArtwork = ( )   => {
 const openAddArtwork =   () => {
   showAddArtwork.value = true;
 }
+
+const logout = async () => {
+  try {
+    await axios.post(`http://localhost:8080/api/logout`);
+    sessionStorage.removeItem('loggedIn');
+    await router.push({ name: 'homepage' });
+  } catch (error) {
+    console.error("Error logging out: ", error);
+  }
+};
+
+const resetPassword = async () => {
+  await router.push({ name: 'reset-password' });
+};
 </script>
 
 <template>
@@ -41,7 +57,10 @@ const openAddArtwork =   () => {
     </div>
   <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28  text-white"
   >
-      <BodyTextComponent class="t underline cursor-pointer "textContent="Tilføj Kunstværk" @click="openAddArtwork"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Nulstil kodeord" @click="resetPassword"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Log ud" @click="logout"></BodyTextComponent>
+
 
 
   </div>
