@@ -12,7 +12,7 @@ const isActive = (path: string, hash?: string) => {
 };
 </script>
 <template>
-  <nav class="flex flex-col justify-end">
+  <nav class="flex flex-col justify-end z-50">
     <div class="flex flex-grow justify-end space-x-8 md:space-x-24 px-4 md:px-8">
       <!-- Highlight only when on `/om-mig` with `#events` -->
       <router-link

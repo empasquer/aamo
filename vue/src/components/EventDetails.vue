@@ -33,10 +33,11 @@ const fetchEvent = async (eventId: string | number) => {
 };
 
 watch(
-    () => props.eventId,
-    (newId) => {
-      fetchEvent(newId);
-    }
+  () => props.eventId,
+  (newId) => {
+    fetchEvent(newId);
+  }
+
 );
 
 onMounted(() => {
@@ -58,4 +59,7 @@ onMounted(() => {
 
     <BodyTextComponent color="white" :textContent="event.description" class="sm:w-3/4 w-full text-center sm:leading-8" />
   </div>
+
+
 </template>
+

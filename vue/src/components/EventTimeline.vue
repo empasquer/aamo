@@ -51,9 +51,9 @@ onUnmounted(() => {
 
     <!-- Modal for mobile view -->
     <div
-        v-if="isMobile && showModal"
-        @click.self="closeModal"
-        class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-20"
+      v-if="isMobile && showModal"
+      @click.self="closeModal"
+      class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-20"
     >
       <div class="relative bg-black bg-opacity-60 p-4 shadow-lg w-screen max-w-lg">
         <button @click="closeModal" class="absolute top-0 right-1 text-white text-3xl p-4 bg-transparent" aria-label="Close Modal">&times;</button>
@@ -91,4 +91,6 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+
 </template>
+
