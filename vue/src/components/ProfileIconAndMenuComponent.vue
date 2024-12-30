@@ -57,7 +57,7 @@ const resetPassword = async () => {
     </div>
   <div v-if="showMenu" class="profile-menu fixed  left-2 bottom-14 bg-[#4a4a4a] opacity-90  w-28  text-white"
   >
-    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="addArtwork"></BodyTextComponent>
+    <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Tilføj Kunstværk" @click="openAddArtwork"></BodyTextComponent>
     <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Nulstil kodeord" @click="resetPassword"></BodyTextComponent>
     <BodyTextComponent class="t underline cursor-pointer font-bold" textContent="Log ud" @click="logout"></BodyTextComponent>
 
