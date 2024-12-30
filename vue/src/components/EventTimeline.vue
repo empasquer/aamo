@@ -69,7 +69,7 @@ onUnmounted(() => {
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
         <!-- Scrollable Event Buttons positioned above the line -->
-        <div id="single-events" class="overflow-y-auto absolute top-[5rem] left-[1.3rem] sm:left-[2.8rem] w-full max-h-[70vh] flex flex-col items-center z-10">
+        <div id="single-events" class="overflow-y-auto absolute top-[5rem] left-[1.3rem] sm:left-[3.5rem] w-full max-h-[70vh] flex flex-col items-center z-10">
           <ul class="flex flex-col justify-center items-center space-y-12">
             <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
               <EventButton :event="event" @select-event="selectEvent" />

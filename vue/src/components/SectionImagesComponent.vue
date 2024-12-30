@@ -53,8 +53,10 @@ onMounted(async () => {
         v-for="(artWork, index) in chosenArtWorks.slice(0, 3)"
         :key="artWork.artWorkId"
         class="mx-8 md:mx-0 h-[45vh] bg-cover bg-center"
-        :style="{ backgroundImage: `url(${artWork.media.mediaUrl})` }"
-      ></div>
+        :style="{ backgroundImage: `url(${artWork.media.mediaUrl.replace(/\\/g, '/')})` }"
+      >
+
+      </div>
 
       <!-- 4th image is a static button link -->
       <ImageLinkButtonComponent
