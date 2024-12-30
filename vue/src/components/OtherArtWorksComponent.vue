@@ -49,70 +49,52 @@ const activeFilters = ref({
   size: [],
   theme: [],
   color: [],
+  price: ""
 });
 
 // Funktion som filtrerer billederne
 const filterArtWorks = () => {
-  // Hvis ingen filtre er valgt, vis alle malerier
-  if (
-      activeFilters.value.size.length === 0 &&
-      activeFilters.value.color.length === 0 &&
-      activeFilters.value.theme.length === 0
-  ) {
-    filteredArtWorks.value = [...artWorks.value];
+  const { size, theme, color, sortOrder } = activeFilters.value;
+
+  let filtered = [...artWorks.value];
+
+
+  // Sortér efter pris
+  if (sortOrder === "asc") {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (sortOrder === "desc") {
+    filtered.sort((a, b) => b.price - a.price);
   } else {
-    filteredArtWorks.value = artWorks.value.filter((artWork) => {
-      // Tjek for tema
-      const matchesTheme = activeFilters.value.theme.length === 0 || artWork.tags.some(
-          (tag) => tag.tagType === "THEME" && activeFilters.value.theme.includes(tag.tagValue)
-      );
-
-      // Tjek for størrelse
-      const matchesSize = activeFilters.value.size.length === 0 || artWork.tags.some(
-          (tag) => tag.tagType === "SIZE" && activeFilters.value.size.includes(tag.tagValue)
-      );
-
-      // Tjek for farve
-      const matchesColor = activeFilters.value.color.length === 0 || artWork.tags.some(
-          (tag) => tag.tagType === "COLOR" && activeFilters.value.color.includes(tag.tagValue)
-      );
-
-      // Hvis kun tema er valgt, vis billeder der matcher temaet uanset størrelse og farve
-      if (activeFilters.value.size.length === 0 && activeFilters.value.color.length === 0 && activeFilters.value.theme.length > 0) {
-        return matchesTheme;
-      }
-
-      // Hvis kun størrelse er valgt, vis billeder der matcher størrelsen uanset farve og tema
-      if (activeFilters.value.size.length > 0 && activeFilters.value.color.length === 0 && activeFilters.value.theme.length === 0) {
-        return matchesSize;
-      }
-
-      // Hvis kun farve er valgt, vis billeder der matcher farven uanset størrelse og tema
-      if (activeFilters.value.color.length > 0 && activeFilters.value.size.length === 0 && activeFilters.value.theme.length === 0) {
-        return matchesColor;
-      }
-
-      // Hvis tema og størrelse er valgt, vis billeder der matcher begge uanset farve
-      if (activeFilters.value.theme.length > 0 && activeFilters.value.size.length > 0 && activeFilters.value.color.length === 0) {
-        return matchesTheme && matchesSize;
-      }
-
-      // Hvis tema og farve er valgt, vis billeder der matcher begge uanset størrelse
-      if (activeFilters.value.theme.length > 0 && activeFilters.value.color.length > 0 && activeFilters.value.size.length === 0) {
-        return matchesTheme && matchesColor;
-      }
-
-      // Hvis størrelse og farve er valgt, vis billeder der matcher begge uanset tema
-      if (activeFilters.value.size.length > 0 && activeFilters.value.color.length > 0 && activeFilters.value.theme.length === 0) {
-        return matchesSize && matchesColor;
-      }
-
-      // Hvis tema, størrelse og farve er valgt, vis billeder der matcher alle tre
-      return matchesTheme && matchesSize && matchesColor;
-    });
+    // Ingen sortering, behold rækkefølgen som den var
+    filtered = [...artWorks.value];
   }
 
-  nextTick(() => initMasonry()); // Opdater Masonry efter ændring
+  // Filtrer på andre kriterier som størrelse, tema, farve
+  filtered = filtered.filter((artWork) => {
+    const matchesTheme =
+        theme.length === 0 ||
+        artWork.tags.some(
+            (tag) => tag.tagType === "THEME" && theme.includes(tag.tagValue)
+        );
+
+    const matchesSize =
+        size.length === 0 ||
+        artWork.tags.some(
+            (tag) => tag.tagType === "SIZE" && size.includes(tag.tagValue)
+        );
+
+    const matchesColor =
+        color.length === 0 ||
+        artWork.tags.some(
+            (tag) => tag.tagType === "COLOR" && color.includes(tag.tagValue)
+        );
+
+    return matchesTheme && matchesSize && matchesColor;
+  });
+
+  filteredArtWorks.value = filtered;
+
+  nextTick(() => initMasonry());
 };
 
 
@@ -192,6 +174,7 @@ onMounted(async () => {
           activeFilters.size = filters.size;
           activeFilters.theme = filters.theme;
           activeFilters.color = filters.color;
+          activeFilters.sortOrder = filters.sortOrder;
           filterArtWorks();
         }"
     />

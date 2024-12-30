@@ -15,7 +15,7 @@ const isAdminRoute = computed(()=> route.path.startsWith("/admin"));
 <template>
   <ContactFixedButtonComponent mail-address="Eva.aamo.ea@gmail.com" />
   <HeaderComponent></HeaderComponent>
-  <RouterView class="pt-[calc(93px+2rem)]" />
+  <RouterView class="pt-[calc(93px+2rem)]" :key="$route.fullPath" />
   <ProfileIcon v-if="isAdminRoute" />
   <FooterComponent></FooterComponent>
 </template>

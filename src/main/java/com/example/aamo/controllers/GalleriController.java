@@ -4,6 +4,9 @@ import com.example.aamo.models.ArtWork;
 import com.example.aamo.repositories.ArtWorkRepository;
 import com.example.aamo.services.JsonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +27,20 @@ public class GalleriController {
     }
 
     @GetMapping("/api/galleri")
+    public Page<ArtWork> getLatestArtWorkOnlyPaintings(
+            @RequestParam(defaultValue = "0") int page, // Hvilken side der skal hentes
+            @RequestParam(defaultValue = "10") int size // Hvor mange pr. side
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "artWorkId"));
+        return artWorkRepository.findByTypeTrue(pageable);
+    }
+
+   /* @GetMapping("/api/galleri")
     public List<ArtWork> getLatestArtWorkOnlyPaintings(){
        return artWorkRepository.findByTypeTrue();
     }
+
+    */
 
     @GetMapping("/api/other-works")
     public List<ArtWork> getLatestArtWorkOnlyOther(){
@@ -35,8 +49,8 @@ public class GalleriController {
 
     @GetMapping("/api/galleri/chosen-paintings")
     public List<ArtWork> getChosenPaintings() {
-        return artWorkRepository.findAll(Sort.by(Sort.Direction.DESC, "artWorkId")).stream()
-                .limit(4)
+        return artWorkRepository.findByTypeTrue(Sort.by(Sort.Direction.DESC, "artWorkId")).stream()
+                .limit(4) // Tag kun de 4 nyeste
                 .toList();
     }
 
