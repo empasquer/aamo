@@ -46,22 +46,22 @@ export default {
 </script>
 
 <template>
-  <div class="grid grid-cols-[auto_70vw_auto] items-center w-[90vw]" v-touch:swipeleft="next" v-touch:swiperight="prev">
-    <button @click="prev" class="p-0 py-2 text-2xl bg-transparent cursor-pointer justify-self-start z-10">
-      <i class="text-white fa-solid fa-chevron-left"></i>
+  <div class="grid grid-cols-[auto_70vw_auto] sm:flex sm:justify-between  items-center w-[90vw] sm:w-96" v-touch:swipeleft="next" v-touch:swiperight="prev">
+    <button @click="prev" class="p-0 sm:p-4 py-2 text-2xl bg-transparent cursor-pointer justify-self-start z-10">
+      <i class="text-white sm:text-neutral-600 fa-solid fa-chevron-left"></i>
     </button>
 
-    <div class="text-center w-full relative z-0">
+    <div class="text-center w-full sm:w-72 relative z-0">
       <template v-if="isYoutubeLink(currentMediaUrl)">
         <iframe :src="getYoutubeEmbedUrl(currentMediaUrl)" class="w-full h-auto" allowfullscreen frameborder="0"></iframe>
       </template>
       <template v-else>
-        <img :src="currentMediaUrl" alt="Media" class="w-full h-auto" />
+        <img :src="currentMediaUrl" alt="Media" class="w-full sm:w-full h-auto" />
       </template>
     </div>
 
-    <button @click="next" class="p-0 py-2 text-2xl bg-transparent cursor-pointer justify-self-end z-10">
-      <i class="text-white fa-solid fa-chevron-right"></i>
+    <button @click="next" class="p-0 sm:p-4 py-2 text-2xl bg-transparent cursor-pointer justify-self-end z-10">
+      <i class="text-white sm:text-neutral-600 fa-solid fa-chevron-right"></i>
     </button>
   </div>
 </template>

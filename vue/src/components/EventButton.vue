@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <button @click="handleClick" class="grid grid-cols-[25vw_10vw_45vw] gap-4 items-center bg-transparent border-none p-4 w-full w-[95vw]">
+  <button @click="handleClick" class="grid grid-cols-[25vw_12vw_36vw] sm:grid-cols-[7vw_7vw_14vw] gap-4 items-center bg-transparent border-none p-4 w-full w-[95vw]">
     <span class="col-span-1">{{ event.formattedStartDate }}</span>
 
     <i class="col-span-1 fa-solid fa-diamond text-gray-600 text-5xl"></i>

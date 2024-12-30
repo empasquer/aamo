@@ -65,14 +65,12 @@ onUnmounted(() => {
     <div class="timeline flex flex-col w-full sm:flex-row sm:p-4">
       <div class="flex flex-col items-center w-full sm:w-1/2 pt-4 relative">
         <!-- Chevron Icon -->
-        <div class="absolute left-[-2.55rem] w-full text-center mb-2">
+        <div class="absolute  left-[50%] transform -translate-x-1/2 text-center">
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
-
         <!-- Scrollable Event Buttons positioned above the line -->
-        <div id="single-events" class="overflow-y-scroll absolute top-[5rem] w-full max-h-[70vh] flex justify-center items-center z-10 box-border">
+        <div id="single-events" class="overflow-y-auto absolute top-[5rem] left-[1.3rem] sm:left-[2.8rem] w-full max-h-[70vh] flex flex-col items-center z-10">
           <ul class="flex flex-col justify-center items-center space-y-12">
-            <p>1</p>
             <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
               <EventButton :event="event" @select-event="selectEvent" />
             </li>
@@ -83,10 +81,10 @@ onUnmounted(() => {
         </div>
 
         <!-- Vertical Line -->
-        <div id="line" class="absolute left-[10.65rem] top-[2rem] h-[75vh] w-[8px] bg-gray-600 z-0"></div>
+        <div id="line" class="absolute left-[50%] transform -translate-x-1/2 top-[2rem] h-[75vh] w-[8px] bg-gray-600 z-0"></div>
       </div>
 
-      <div v-if="!isMobile" class="sm:w-10/12">
+      <div v-if="!isMobile" class="flex-shrink-0 w-[50vw] " >
         <EventDetails :eventId="selectedEventId" />
       </div>
     </div>
@@ -94,3 +92,19 @@ onUnmounted(() => {
 
 </template>
 
+<style scoped>
+/* Hide scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
+.overflow-y-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.overflow-y-auto {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Ensure the container still scrolls */
+.overflow-y-auto {
+  overflow-y: auto; /* Keep scrolling enabled */
+}
+</style>
