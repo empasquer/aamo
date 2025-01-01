@@ -4,12 +4,11 @@ import { useRoute } from "vue-router";
 import HeaderComponent from "./components/HeaderComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";
 import ContactFixedButtonComponent from "./components/ContactFixedButtonComponent.vue";
-import ProfileIcon from './components/ProfileIconAndMenuComponent.vue'
-import {computed} from "vue";
+import ProfileIcon from "./components/ProfileIconAndMenuComponent.vue";
+import { computed } from "vue";
 
 const route = useRoute();
-const isAdminRoute = computed(()=> route.path.startsWith("/admin"));
-
+const isAdminRoute = computed(() => route.path.startsWith("/admin"));
 </script>
 
 <template>

@@ -1,88 +1,97 @@
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, watch, computed } from "vue";
+import axios from "axios";
 import EventDetails from "./EventDetails.vue";
 import EventButton from "./EventButton.vue";
 import Headings from "./HeadingsComponent.vue";
-import axios from "axios";
 
-export default {
-  name: "EventTimeline",
-  components: {
-    EventDetails,
-    EventButton,
-    Headings,
-  },
-  data() {
-    return {
-      events: [],
-      selectedEventId: null,
-      isMobile: window.innerWidth <= 768,
-    };
-  },
-  methods: {
-    selectEvent(eventId) {
-      this.selectedEventId = eventId;
-    },
-    displayFirstEvent() {
-      if (this.events.length > 0) {
-        this.selectedEventId = this.events[0].eventId;
-      }
-    },
-    handleResize() {
-      this.isMobile = window.innerWidth <= 768;
-    },
-  },
-  mounted() {
-    axios
-      .get("http://localhost:8080/api/events")
-      .then((response) => {
-        this.events = response.data;
-        console.log(response.data);
-        this.displayFirstEvent();
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
+const events = ref([]);
+const selectedEventId = ref<number | string | null>(null);
+const isMobile = ref(window.innerWidth <= 768);
+const showModal = ref(false);
 
-    window.addEventListener("resize", this.handleResize);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.handleResize);
-  },
+const fetchEvents = async () => {
+  try {
+    const response = await axios.get("http://localhost:8080/api/events");
+    events.value = response.data;
+    if (events.value.length > 0) {
+      selectedEventId.value = events.value[0].eventId;
+    }
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  }
 };
+
+const selectEvent = (eventId: number | string) => {
+  selectedEventId.value = eventId;
+  showModal.value = true;
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const handleResize = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  fetchEvents();
+  window.addEventListener("resize", handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
 </script>
 
 <template>
   <div id="events" class="events-container">
-    <Headings text="EVENTS" :level="2" class="flex p-6"></Headings>
+    <Headings text="EVENTS" :level="2" class="flex p-6" />
 
-    <div v-if="isMobile" class="sm:w-10/12 fixed bg-black bg-opacity-70 top-[25vh] z-20 hidden">
-      <EventDetails :eventId="selectedEventId" class="text-white"></EventDetails>
+    <!-- Modal for mobile view -->
+    <div
+      v-if="isMobile && showModal"
+      @click.self="closeModal"
+      class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-20"
+    >
+      <div class="relative bg-black bg-opacity-60 p-4 shadow-lg w-screen max-w-lg">
+        <button @click="closeModal" class="absolute top-0 right-1 text-white text-3xl p-4 bg-transparent" aria-label="Close Modal">&times;</button>
+        <EventDetails :eventId="selectedEventId" color="white" />
+      </div>
     </div>
 
+    <!-- Timeline and Event Buttons Section -->
     <div class="timeline flex flex-col w-full sm:flex-row sm:p-4">
-      <div class="flex flex-col items-center w-full sm:w-1/2 pt-4">
-        <div>
+      <div class="flex flex-col items-center w-full sm:w-1/2 pt-4 relative">
+        <!-- Chevron Icon -->
+        <div class="absolute  left-[50%] transform -translate-x-1/2 text-center">
           <i class="fa-solid fa-chevron-up text-gray-600 text-7xl"></i>
         </div>
-        <div class="w-2 bg-gray-600" style="margin-top: -3em; height: 4em"></div>
-
-        <div class="overflow-y-auto w-full flex justify-center h-4/6">
-          <ul>
-            <li v-for="event in events" :key="event.eventId" class="relative flex items-center">
-              <div class="h-40 w-2 bg-gray-600"></div>
-
-              <EventButton :event="event" class="absolute" style="left: -7.4em" @select-event="selectEvent" />
+        <!-- Scrollable Event Buttons positioned above the line -->
+        <div id="single-events" class="overflow-y-auto absolute top-[5rem] left-[1.3rem] sm:left-[2.8rem] w-full max-h-[70vh] flex flex-col items-center z-10">
+          <ul class="flex flex-col justify-center items-center space-y-12">
+            <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
+              <EventButton :event="event" @select-event="selectEvent" />
+            </li>
+            <li v-for="event in events" :key="event.eventId" class="relative flex items-center justify-center">
+              <EventButton :event="event" @select-event="selectEvent" />
             </li>
           </ul>
         </div>
+
+        <!-- Vertical Line -->
+        <div id="line" class="absolute left-[50%] transform -translate-x-1/2 top-[2rem] h-[75vh] w-[8px] bg-gray-600 z-0"></div>
       </div>
 
-      <div v-if="!isMobile" class="sm:w-10/12">
-        <EventDetails :eventId="selectedEventId"></EventDetails>
+      <div v-if="!isMobile" class="flex-shrink-0 w-[50vw] " >
+        <EventDetails :eventId="selectedEventId" />
       </div>
     </div>
   </div>
+
 </template>
+
 <style scoped>
 /* Hide scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
 .overflow-y-auto::-webkit-scrollbar {

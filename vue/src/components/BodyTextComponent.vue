@@ -1,22 +1,20 @@
 <script setup lang="ts">
+import { computed } from "vue";
 
-// Define props for the component
 const props = defineProps<{
-  size?: string;
   textContent: string;
-  width?: number
-
+  size?: string;
+  width?: number;
+  color?: string;
 }>();
+
+const widthClass = computed(() => (props.width ? `w-${props.width}` : "w-full"));
+const sizeClass = computed(() => (props.size ? `text-${props.size}` : "text-base sm:text-xl"));
+const colorClass = computed(() => `text-${props.color || "[#4A4A4A]"}`);
 </script>
 
 <template>
-  <p :class="[
-      'text-[#4A4A4A]',
-      'font-inter',
-      'p-4',
-      size ? `text-${size}` : 'text-base sm:text-xl',
-      width ? `w-${width}` : 'w-full'
-    ]">
+  <p :class="`${colorClass} font-inter p-4 ${sizeClass} ${widthClass}`">
     {{ textContent }}
   </p>
 </template>

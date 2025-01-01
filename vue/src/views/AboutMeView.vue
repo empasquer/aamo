@@ -9,7 +9,3 @@ import EventTimeline from "../components/EventTimeline.vue";
     <EventTimeline></EventTimeline>
   </div>
 </template>
-
-<style scoped>
-/* Your scoped styles */
-</style>
