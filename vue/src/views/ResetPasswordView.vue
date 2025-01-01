@@ -62,7 +62,7 @@ const handleSubmit = async (event: Event) => {
 <template>
   <div id="app">
     <!-- Form Component with Title -->
-    <FormComponent title="Nulstil kodeord" @submit="handleSubmit">
+    <FormComponent title="Nulstil kodeord" @submit="handleSubmit" formWidth="w-96">
 
       <!-- Email Input -->
       <BasicInputComponent
@@ -72,6 +72,7 @@ const handleSubmit = async (event: Event) => {
           type="email"
           placeholder="mail@mail.com"
           required
+          width="w-80"
       ></BasicInputComponent>
 
       <!-- Password Input -->
@@ -82,6 +83,7 @@ const handleSubmit = async (event: Event) => {
           type="password"
           placeholder="*********"
           required
+          width="w-80"
       ></BasicInputComponent>
 
       <!-- Password Input -->
@@ -92,6 +94,7 @@ const handleSubmit = async (event: Event) => {
           type="password"
           placeholder="*********"
           required
+          width="w-80"
       ></BasicInputComponent>
 
       <!-- Error Message -->
